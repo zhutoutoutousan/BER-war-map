@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(1200px 700px at 30% 10%, rgba(33, 58, 122, 0.35), transparent 60%),
+    radial-gradient(900px 600px at 80% 40%, rgba(18, 180, 165, 0.18), transparent 55%),
+    linear-gradient(180deg, #06080c, #070b12);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* —— War-room scrollbars (军情室) —— */
+:root {
+  --scrollbar-track: rgba(6, 8, 12, 0.92);
+  --scrollbar-thumb: rgba(56, 189, 248, 0.42);
+  --scrollbar-thumb-hover: rgba(125, 211, 252, 0.72);
+  --scrollbar-glow: rgba(56, 189, 248, 0.45);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.war-room-scroll,
+.floating-panel,
+.intelligence-tv,
+.panel {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+html::-webkit-scrollbar,
+.war-room-scroll::-webkit-scrollbar,
+.floating-panel::-webkit-scrollbar,
+.floating-panel *::-webkit-scrollbar,
+.intelligence-tv::-webkit-scrollbar,
+.intelligence-tv *::-webkit-scrollbar,
+.panel::-webkit-scrollbar,
+.panel *::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+html::-webkit-scrollbar-track,
+.war-room-scroll::-webkit-scrollbar-track,
+.floating-panel::-webkit-scrollbar-track,
+.floating-panel *::-webkit-scrollbar-track,
+.intelligence-tv::-webkit-scrollbar-track,
+.intelligence-tv *::-webkit-scrollbar-track,
+.panel::-webkit-scrollbar-track,
+.panel *::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 4px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.65);
+  border-left: 1px solid rgba(56, 189, 248, 0.08);
+}
+
+html::-webkit-scrollbar-thumb,
+.war-room-scroll::-webkit-scrollbar-thumb,
+.floating-panel::-webkit-scrollbar-thumb,
+.floating-panel *::-webkit-scrollbar-thumb,
+.intelligence-tv::-webkit-scrollbar-thumb,
+.intelligence-tv *::-webkit-scrollbar-thumb,
+.panel::-webkit-scrollbar-thumb,
+.panel *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.55) 0%, rgba(14, 165, 233, 0.28) 100%);
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  box-shadow: 0 0 10px var(--scrollbar-glow);
+}
+
+html::-webkit-scrollbar-thumb:hover,
+.war-room-scroll::-webkit-scrollbar-thumb:hover,
+.floating-panel::-webkit-scrollbar-thumb:hover,
+.floating-panel *::-webkit-scrollbar-thumb:hover,
+.intelligence-tv::-webkit-scrollbar-thumb:hover,
+.intelligence-tv *::-webkit-scrollbar-thumb:hover,
+.panel::-webkit-scrollbar-thumb:hover,
+.panel *::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--scrollbar-thumb-hover) 0%, rgba(56, 189, 248, 0.5) 100%);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.65);
+}
+
+html::-webkit-scrollbar-corner,
+.floating-panel *::-webkit-scrollbar-corner,
+.intelligence-tv *::-webkit-scrollbar-corner,
+.panel *::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+.panel {
+  @apply rounded-xl bg-white/5 backdrop-blur-md;
+  box-shadow: theme("boxShadow.panel");
+}
+
+.floating-panel {
+  @apply rounded-xl border border-white/10 bg-ink-900/75 backdrop-blur-xl;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(56, 189, 248, 0.06);
+}
+
+.maplibregl-popup-content {
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.maplibregl-popup-close-button {
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+.maplibregl-map {
+  width: 100%;
+  height: 100%;
+  background: #0b1020;
+}
+
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+  background: rgba(6, 8, 12, 0.75) !important;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.maplibregl-ctrl-attrib a {
+  color: rgba(125, 211, 252, 0.85);
+}
+
+/* Intelligence TV — bottom-right war-room feed */
+.intelligence-tv {
+  filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.65));
+}
+
+.tv-bezel {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 24px rgba(56, 189, 248, 0.08);
+}
+
+.tv-screen {
+  box-shadow: inset 0 0 32px rgba(0, 0, 0, 0.6);
+}
+
+.scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  animation: scanline-scroll 8s linear infinite;
+}
+
+@keyframes scanline-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 120px;
+  }
+}
+
+.live-pulse {
+  animation: live-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+}
+
+.tv-ticker {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cctv-panel-collapsed {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.12);
+}
+
+.cctv-viewer {
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Programme timeline scrubber */
+.timeline-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.4), rgba(56, 189, 248, 0.4), rgba(167, 139, 250, 0.4));
+  outline: none;
+  cursor: pointer;
+}
+
+.timeline-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+  cursor: grab;
+}
+
+.timeline-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e0f2fe;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+  cursor: grab;
+}
+

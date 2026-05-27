@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ber-airport",
+        "name": "BER — Berlin Brandenburg Airport"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [13.468, 52.348],
+            [13.518, 52.345],
+            [13.552, 52.358],
+            [13.558, 52.378],
+            [13.538, 52.392],
+            [13.492, 52.394],
+            [13.462, 52.382],
+            [13.468, 52.348]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ber-airport-label",
+        "name": "BER",
+        "subtitle": "Flughafen Berlin Brandenburg",
+        "kind": "airport",
+        "size": "xl"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.503, 52.37]
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "id": "schoenefeld", "name": "Schönefeld", "kind": "place", "size": "lg" },
+      "geometry": { "type": "Point", "coordinates": [13.58, 52.388] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "wildau", "name": "Wildau", "kind": "place", "size": "md" },
+      "geometry": { "type": "Point", "coordinates": [13.633, 52.325] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "rudow", "name": "Rudow", "kind": "place", "size": "md" },
+      "geometry": { "type": "Point", "coordinates": [13.42, 52.42] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "segro-park", "name": "SEGRO Park", "kind": "place", "size": "md" },
+      "geometry": { "type": "Point", "coordinates": [13.518, 52.372] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "schoenefeld-nord", "name": "Schönefeld Nord", "kind": "place", "size": "sm" },
+      "geometry": { "type": "Point", "coordinates": [13.56, 52.405] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "b96a", "name": "B 96a", "kind": "road", "size": "md" },
+      "geometry": { "type": "Point", "coordinates": [13.51, 52.368] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "a113", "name": "A 113", "kind": "road", "size": "sm" },
+      "geometry": { "type": "Point", "coordinates": [13.48, 52.34] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "a117", "name": "A 117", "kind": "road", "size": "sm" },
+      "geometry": { "type": "Point", "coordinates": [13.54, 52.35] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "wassmannsdorf", "name": "Waßmannsdorf", "kind": "place", "size": "sm" },
+      "geometry": { "type": "Point", "coordinates": [13.45, 52.355] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "id": "ber-corridor-tag", "name": "BER+ Corridor", "kind": "corridor", "size": "lg" },
+      "geometry": { "type": "Point", "coordinates": [13.365, 52.33] }
+    }
+  ]
+}
