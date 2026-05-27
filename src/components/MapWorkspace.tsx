@@ -6,6 +6,7 @@ import { WarRoomMap } from "@/components/WarRoomMap";
 import { MembersPanel } from "@/components/MembersPanel";
 import { MemberDetailPanel } from "@/components/MemberDetailPanel";
 import { BriefingPanel } from "@/components/BriefingPanel";
+import { JunqingchuPanel } from "@/components/JunqingchuPanel";
 import { ProgrammePanel } from "@/components/ProgrammePanel";
 import { FloatingPanel } from "@/components/FloatingPanel";
 import { CorridorHeader } from "@/components/CorridorHeader";
@@ -14,30 +15,34 @@ import { TimelineControl } from "@/components/TimelineControl";
 import { IntelligenceTV } from "@/components/IntelligenceTV";
 import { CctvPanel } from "@/components/CctvPanel";
 import { CctvProvider } from "@/context/CctvContext";
+import { OsmIntelProvider } from "@/context/OsmIntelContext";
 import { ProgrammeProvider } from "@/context/ProgrammeContext";
 import { CATEGORY_COLORS } from "@/data/mitglieder";
 import type { MemberCategory } from "@/data/mitglieder";
 
-type LeftTab = "briefing" | "members" | "programme";
+type LeftTab = "briefing" | "members" | "programme" | "junqingchu";
 
 const LEFT_TAB_TITLES: Record<LeftTab, string> = {
   members: "Mitglieder",
   briefing: "Briefing",
-  programme: "Programme"
+  programme: "Programme",
+  junqingchu: "OSM Intel"
 };
 
 export function MapWorkspace() {
   return (
     <ProgrammeProvider>
       <CctvProvider>
-        <MapWorkspaceInner />
+        <OsmIntelProvider>
+          <MapWorkspaceInner />
+        </OsmIntelProvider>
       </CctvProvider>
     </ProgrammeProvider>
   );
 }
 
 function MapWorkspaceInner() {
-  const [leftTab, setLeftTab] = useState<LeftTab>("members");
+  const [leftTab, setLeftTab] = useState<LeftTab>("junqingchu");
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState<MemberCategory | "all">("all");
 
@@ -77,6 +82,9 @@ function MapWorkspaceInner() {
               <TabButton active={leftTab === "programme"} onClick={() => setLeftTab("programme")}>
                 Programme
               </TabButton>
+              <TabButton active={leftTab === "junqingchu"} onClick={() => setLeftTab("junqingchu")}>
+                OSM Intel
+              </TabButton>
             </div>
             {leftTab === "members" ? (
               <MembersPanel
@@ -87,8 +95,10 @@ function MapWorkspaceInner() {
               />
             ) : leftTab === "briefing" ? (
               <BriefingPanel />
-            ) : (
+            ) : leftTab === "programme" ? (
               <ProgrammePanel />
+            ) : (
+              <JunqingchuPanel />
             )}
           </FloatingPanel>
 
@@ -108,7 +118,7 @@ function MapWorkspaceInner() {
           <div className="absolute bottom-0 left-0 z-20 flex flex-col items-start gap-2">
             <CctvPanel />
             <div className="floating-panel pointer-events-auto flex flex-wrap items-center gap-x-2 gap-y-1 px-3 py-2 text-[11px] text-white/80">
-            <LegendDot color="#38bdf8" label="Corridor" />
+            <LegendDot color="#38bdf8" label="BER+ Corridor" glow />
             <span className="text-white/20">|</span>
             <LegendDot color="#0ea5e9" label="BER" glow />
             <span className="text-white/20">|</span>
@@ -117,6 +127,13 @@ function MapWorkspaceInner() {
             <LegendDot color={CATEGORY_COLORS.developer} label="Mitglieder" />
             <span className="text-white/20">|</span>
             <LegendDot color="#f472b6" label="CCTV" />
+            <span className="text-white/20">|</span>
+            <LegendDot color="#34d399" label="Land" />
+            <LegendDot color="#f59e0b" label="Industry" />
+            <LegendDot color="#a3e635" label="Transport" />
+            <span className="text-white/20">|</span>
+            <LegendDot color="#fbbf24" label="Member zones" />
+            <LegendDot color="#f59e0b" label="Member OSM" />
             </div>
           </div>
 
