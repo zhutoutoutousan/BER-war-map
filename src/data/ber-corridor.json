@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "id": "ber-corridor", "name": "BER+ Corridor (draft)" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [13.085, 52.315],
+          [13.225, 52.305],
+          [13.365, 52.33],
+          [13.51, 52.36],
+          [13.62, 52.38]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "pilot-1",
+        "name": "Pilot-1: SEGRO – North Cargo Micro-Hub",
+        "area_ha": 2.0,
+        "pv_mwp": 2.0,
+        "bess_mwh": 1.5,
+        "ewf": "water + vertical farm + modular treatment"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.503, 52.375]
+      }
+    }
+  ]
+}
