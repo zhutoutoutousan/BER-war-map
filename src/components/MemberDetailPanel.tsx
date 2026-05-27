@@ -1,3 +1,6 @@
+import { useMemo } from "react";
+import { useOsmIntel } from "@/context/OsmIntelContext";
+import { BER_LAND_SITES } from "@/data/ber-land-sites";
 import {
   BER_PLUS_CHAIR,
   CATEGORY_COLORS,
@@ -5,6 +8,8 @@ import {
   getMitgliedById,
   type Mitglied
 } from "@/data/mitglieder";
+import { getMemberOsmFeatures, LAND_SITE_MEMBER_IDS } from "@/lib/member-osm-links";
+import type { OsmIntelFeatureProperties } from "@/lib/osm-schoenefeld";
 
 type Props = {
   selectedId: string | null;
@@ -39,6 +44,19 @@ export function MemberDetailPanel({ selectedId }: Props) {
 
 function MemberCard({ member }: { member: Mitglied }) {
   const color = CATEGORY_COLORS[member.category];
+  const { data, selectFeature, selectedFeatureId } = useOsmIntel();
+
+  const relatedOsm = useMemo(() => {
+    if (!data?.geojson) return [];
+    return getMemberOsmFeatures(data.geojson, member.id).slice(0, 30);
+  }, [data, member.id]);
+
+  const landAnchors = useMemo(
+    () =>
+      BER_LAND_SITES.filter((s) => (LAND_SITE_MEMBER_IDS[s.id] ?? []).includes(member.id)),
+    [member.id]
+  );
+
   return (
     <div className="flex flex-col gap-3">
       <div>
@@ -92,6 +110,52 @@ function MemberCard({ member }: { member: Mitglied }) {
           </a>
         ) : null}
       </div>
+
+      {landAnchors.length > 0 ? (
+        <div className="rounded-lg border border-amber-500/25 bg-amber-500/10 p-2">
+          <div className="text-xs font-semibold text-amber-100">BER+ 锚点用地</div>
+          <ul className="mt-1 space-y-1">
+            {landAnchors.map((s) => (
+              <li key={s.id} className="text-[11px] text-white/75">
+                {s.nameDe} · {s.areaHa} ha
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {relatedOsm.length > 0 ? (
+        <div className="rounded-lg border border-amber-500/20 bg-black/30 p-2">
+          <div className="text-xs font-semibold text-amber-200">
+            OSM 关联 ({data?.summary.memberLinkCounts[member.id] ?? relatedOsm.length})
+          </div>
+          <p className="mt-0.5 text-[10px] text-white/45">Keyword · land anchor · corridor proximity</p>
+          <ul className="war-room-scroll mt-2 max-h-36 space-y-0.5 overflow-y-auto">
+            {relatedOsm.map((f) => {
+              const p = f.properties as OsmIntelFeatureProperties;
+              return (
+                <li key={p.id}>
+                  <button
+                    type="button"
+                    onClick={() => selectFeature(selectedFeatureId === p.id ? null : p.id)}
+                    className={`w-full rounded px-2 py-1 text-left text-[10px] ${
+                      selectedFeatureId === p.id
+                        ? "bg-amber-950/50 text-amber-100 ring-1 ring-amber-500/40"
+                        : "text-white/70 hover:bg-white/5"
+                    }`}
+                  >
+                    {p.name}
+                    <span className="text-white/40">
+                      {" "}
+                      · {p.category}/{p.subcategory}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : null}
 
       <div className="border-t border-white/10 pt-3">
         <PilotSummary compact />

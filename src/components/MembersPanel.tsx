@@ -1,5 +1,6 @@
 "use client";
 
+import { useOsmIntel } from "@/context/OsmIntelContext";
 import {
   CATEGORY_COLORS,
   CATEGORY_LABELS,
@@ -16,6 +17,9 @@ type Props = {
 };
 
 export function MembersPanel({ selectedId, onSelect, filterCategory, onFilterCategory }: Props) {
+  const { data: osmData } = useOsmIntel();
+  const memberCounts = osmData?.summary.memberLinkCounts;
+
   const filtered =
     filterCategory === "all" ? MITGLIEDER : MITGLIEDER.filter((m) => m.category === filterCategory);
 
@@ -26,7 +30,13 @@ export function MembersPanel({ selectedId, onSelect, filterCategory, onFilterCat
       <div>
         <div className="text-sm font-semibold text-white">Mitglieder</div>
         <div className="mt-1 text-xs text-white/60">
-          {MITGLIEDER.length} members on corridor map — click to focus
+          {MITGLIEDER.length} members on corridor map — click to focus OSM links
+          {osmData?.summary.memberLinkedTotal != null ? (
+            <span className="text-amber-200/80">
+              {" "}
+              · {osmData.summary.memberLinkedTotal} OSM features tagged
+            </span>
+          ) : null}
         </div>
       </div>
 
@@ -64,6 +74,7 @@ export function MembersPanel({ selectedId, onSelect, filterCategory, onFilterCat
           <MemberRow
             key={m.id}
             member={m}
+            osmCount={memberCounts?.[m.id]}
             active={selectedId === m.id}
             onClick={() => onSelect(selectedId === m.id ? null : m.id)}
           />
@@ -75,10 +86,12 @@ export function MembersPanel({ selectedId, onSelect, filterCategory, onFilterCat
 
 function MemberRow({
   member,
+  osmCount,
   active,
   onClick
 }: {
   member: Mitglied;
+  osmCount?: number;
   active: boolean;
   onClick: () => void;
 }) {
@@ -112,6 +125,9 @@ function MemberRow({
               </a>
             </div>
             <div className="line-clamp-2 text-xs text-white/55">{member.corridorRole}</div>
+            {osmCount != null && osmCount > 0 ? (
+              <div className="mt-0.5 font-mono text-[10px] text-amber-300/85">{osmCount} OSM linked</div>
+            ) : null}
           </div>
         </div>
       </button>
