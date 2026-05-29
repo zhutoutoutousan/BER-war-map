@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import { WarRoomMap } from "@/components/WarRoomMap";
 import { MembersPanel } from "@/components/MembersPanel";
 import { MemberDetailPanel } from "@/components/MemberDetailPanel";
+import { BerPlusValuePanel, type LeftTab } from "@/components/BerPlusValuePanel";
 import { BriefingPanel } from "@/components/BriefingPanel";
 import { JunqingchuPanel } from "@/components/JunqingchuPanel";
 import { ProgrammePanel } from "@/components/ProgrammePanel";
@@ -12,17 +14,24 @@ import { FloatingPanel } from "@/components/FloatingPanel";
 import { CorridorHeader } from "@/components/CorridorHeader";
 import { ProgrammePhaseBanner } from "@/components/ProgrammePhaseBanner";
 import { TimelineControl } from "@/components/TimelineControl";
-import { IntelligenceTV } from "@/components/IntelligenceTV";
 import { CctvPanel } from "@/components/CctvPanel";
 import { CctvProvider } from "@/context/CctvContext";
 import { OsmIntelProvider } from "@/context/OsmIntelContext";
 import { ProgrammeProvider } from "@/context/ProgrammeContext";
-import { CATEGORY_COLORS } from "@/data/mitglieder";
+import { MemberHomePanel } from "@/components/MemberHomePanel";
+import { SessionPickerModal } from "@/components/SessionPickerModal";
+import { GiantMatchingMap, type WorkspaceViewMode } from "@/components/GiantMatchingMap";
+import { BerPlusChatbot } from "@/components/BerPlusChatbot";
+import { MapActionsProvider, useMapActions } from "@/context/MapActionsContext";
+import { useOsmIntel } from "@/context/OsmIntelContext";
+import { UserSessionProvider, useUserSession } from "@/context/UserSessionContext";
+import { getMitgliedById } from "@/data/mitglieder";
 import type { MemberCategory } from "@/data/mitglieder";
-
-type LeftTab = "briefing" | "members" | "programme" | "junqingchu";
+import { CATEGORY_COLORS } from "@/data/mitglieder";
 
 const LEFT_TAB_TITLES: Record<LeftTab, string> = {
+  value: "BER+ Paths",
+  foryou: "For you",
   members: "Mitglieder",
   briefing: "Briefing",
   programme: "Programme",
@@ -34,59 +43,252 @@ export function MapWorkspace() {
     <ProgrammeProvider>
       <CctvProvider>
         <OsmIntelProvider>
-          <MapWorkspaceInner />
+          <MapWorkspaceWithSession />
         </OsmIntelProvider>
       </CctvProvider>
     </ProgrammeProvider>
   );
 }
 
-function MapWorkspaceInner() {
-  const [leftTab, setLeftTab] = useState<LeftTab>("junqingchu");
-  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
-  const [filterCategory, setFilterCategory] = useState<MemberCategory | "all">("all");
+function MapWorkspaceWithSession() {
+  const searchParams = useSearchParams();
+  const memberParam = searchParams.get("member");
 
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-ink-950">
+    <UserSessionProvider urlMemberId={memberParam}>
+      <SessionPickerModal />
+      <MapWorkspaceInner />
+    </UserSessionProvider>
+  );
+}
+
+function MapWorkspaceInner() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const memberParam = searchParams.get("member");
+  const { session, sessionReady, isMember, memberId: sessionMemberId, switchUser } = useUserSession();
+
+  const initialTab: LeftTab =
+    tabParam === "members" ||
+    tabParam === "briefing" ||
+    tabParam === "programme" ||
+    tabParam === "junqingchu" ||
+    tabParam === "value" ||
+    tabParam === "foryou"
+      ? tabParam
+      : memberParam || sessionMemberId
+        ? "foryou"
+        : "value";
+
+  const [leftTab, setLeftTab] = useState<LeftTab>(initialTab);
+  const [viewMode, setViewMode] = useState<WorkspaceViewMode>("geo");
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(memberParam);
+  const [filterCategory, setFilterCategory] = useState<MemberCategory | "all">("all");
+  const selectedMember = selectedMemberId ? getMitgliedById(selectedMemberId) : null;
+
+  const loggedInMemberId = isMember ? sessionMemberId : null;
+
+  useEffect(() => {
+    if (
+      tabParam === "members" ||
+      tabParam === "briefing" ||
+      tabParam === "programme" ||
+      tabParam === "junqingchu" ||
+      tabParam === "value" ||
+      tabParam === "foryou"
+    ) {
+      setLeftTab(tabParam);
+    }
+  }, [tabParam]);
+
+  useEffect(() => {
+    if (memberParam) setSelectedMemberId(memberParam);
+  }, [memberParam]);
+
+  useEffect(() => {
+    if (!sessionReady || !session) return;
+    if (session.role === "member") {
+      setSelectedMemberId(session.memberId);
+      if (!tabParam) setLeftTab("foryou");
+    }
+  }, [session, sessionReady, tabParam]);
+
+  return (
+    <MapActionsProvider>
+      <MapWorkspaceContent
+        leftTab={leftTab}
+        setLeftTab={setLeftTab}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        selectedMemberId={selectedMemberId}
+        setSelectedMemberId={setSelectedMemberId}
+        filterCategory={filterCategory}
+        setFilterCategory={setFilterCategory}
+        selectedMember={selectedMember}
+        loggedInMemberId={loggedInMemberId}
+        session={session}
+        switchUser={switchUser}
+      />
+    </MapActionsProvider>
+  );
+}
+
+function MapWorkspaceContent({
+  leftTab,
+  setLeftTab,
+  viewMode,
+  setViewMode,
+  selectedMemberId,
+  setSelectedMemberId,
+  filterCategory,
+  setFilterCategory,
+  selectedMember,
+  loggedInMemberId,
+  session,
+  switchUser
+}: {
+  leftTab: LeftTab;
+  setLeftTab: (t: LeftTab) => void;
+  viewMode: WorkspaceViewMode;
+  setViewMode: (m: WorkspaceViewMode) => void;
+  selectedMemberId: string | null;
+  setSelectedMemberId: (id: string | null) => void;
+  filterCategory: MemberCategory | "all";
+  setFilterCategory: (c: MemberCategory | "all") => void;
+  selectedMember: ReturnType<typeof getMitgliedById> | null;
+  loggedInMemberId: string | null;
+  session: ReturnType<typeof useUserSession>["session"];
+  switchUser: () => void;
+}) {
+  const { selectFeature } = useOsmIntel();
+  const { focusLandSite, focusMember } = useMapActions();
+
+  const handleMatchingNode = useCallback(
+    (nodeId: string) => {
+      if (nodeId.startsWith("member-") || nodeId.startsWith("zone-")) return;
+
+      setViewMode("geo");
+
+      if (nodeId.startsWith("land-")) {
+        const siteId = nodeId.replace("land-", "");
+        focusLandSite(siteId);
+        selectFeature(`curated/${siteId}`);
+        setLeftTab("junqingchu");
+        return;
+      }
+      if (nodeId.startsWith("osm-")) {
+        selectFeature(nodeId.replace("osm-", ""));
+        setLeftTab("junqingchu");
+        return;
+      }
+      if (nodeId === "hub-ber") {
+        focusMember("segro");
+        setLeftTab("junqingchu");
+      }
+    },
+    [focusLandSite, focusMember, selectFeature, setLeftTab, setSelectedMemberId, setViewMode]
+  );
+
+  const geoHidden = viewMode === "matching";
+
+  useEffect(() => {
+    if (viewMode === "matching" && document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  }, [viewMode]);
+
+  return (
+    <div
+      className="relative h-[100dvh] w-full overflow-hidden bg-ink-950"
+      data-scene={`${viewMode}:${leftTab}${selectedMemberId ? `:${selectedMemberId}` : ""}`}
+    >
       <WarRoomMap
         selectedMemberId={selectedMemberId}
         onSelectMember={setSelectedMemberId}
         filterCategory={filterCategory}
+        className={geoHidden ? "invisible pointer-events-none" : undefined}
       />
 
-      <ProgrammePhaseBanner />
+      {viewMode === "matching" ? (
+        <GiantMatchingMap
+          defaultMemberId={loggedInMemberId ?? selectedMemberId}
+          onSelectNode={handleMatchingNode}
+          onSwitchToGeo={() => setViewMode("geo")}
+        />
+      ) : null}
 
-      {/* Vignette for war-room depth */}
+      {!geoHidden ? <ProgrammePhaseBanner /> : null}
+
+      {!geoHidden ? (
       <div
+        data-testid="capture-vignette"
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
           background:
             "radial-gradient(ellipse 80% 60% at 50% 45%, transparent 40%, rgba(6,8,12,0.55) 100%)"
         }}
       />
+      ) : null}
 
-      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 p-2 sm:p-3">
-        <div className="pointer-events-auto shrink-0">
-          <CorridorHeader compact />
+      <div
+        className={`pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 p-2 sm:p-3 ${
+          geoHidden ? "invisible pointer-events-none" : ""
+        }`}
+      >
+        <div className="pointer-events-auto shrink-0" data-testid="showcase-header">
+          <CorridorHeader
+            compact
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
+            sessionLabel={
+              loggedInMemberId
+                ? getMitgliedById(loggedInMemberId)?.shortName ?? null
+                : session?.role === "guest"
+                  ? "Guest"
+                  : null
+            }
+            onSwitchUser={switchUser}
+          />
         </div>
 
         <div className="flex min-h-0 flex-1 items-stretch justify-between gap-2">
-          <FloatingPanel title={LEFT_TAB_TITLES[leftTab]} side="left">
+          <FloatingPanel testId="showcase-panel-left" title={LEFT_TAB_TITLES[leftTab]} side="left">
             <div className="mb-3 flex flex-wrap gap-1 rounded-lg bg-white/5 p-1">
-              <TabButton active={leftTab === "members"} onClick={() => setLeftTab("members")}>
+              {loggedInMemberId ? (
+                <TabButton testId="map-tab-foryou" active={leftTab === "foryou"} onClick={() => setLeftTab("foryou")}>
+                  For you
+                </TabButton>
+              ) : null}
+              <TabButton testId="map-tab-value" active={leftTab === "value"} onClick={() => setLeftTab("value")}>
+                BER+ Paths
+              </TabButton>
+              <TabButton testId="map-tab-members" active={leftTab === "members"} onClick={() => setLeftTab("members")}>
                 Mitglieder
               </TabButton>
-              <TabButton active={leftTab === "briefing"} onClick={() => setLeftTab("briefing")}>
-                Briefing
-              </TabButton>
-              <TabButton active={leftTab === "programme"} onClick={() => setLeftTab("programme")}>
-                Programme
-              </TabButton>
-              <TabButton active={leftTab === "junqingchu"} onClick={() => setLeftTab("junqingchu")}>
+              <TabButton testId="map-tab-junqingchu" active={leftTab === "junqingchu"} onClick={() => setLeftTab("junqingchu")}>
                 OSM Intel
               </TabButton>
+              <TabButton testId="map-tab-programme" active={leftTab === "programme"} onClick={() => setLeftTab("programme")}>
+                Programme
+              </TabButton>
+              <TabButton testId="map-tab-briefing" active={leftTab === "briefing"} onClick={() => setLeftTab("briefing")}>
+                Briefing
+              </TabButton>
             </div>
-            {leftTab === "members" ? (
+            {leftTab === "foryou" && loggedInMemberId ? (
+              <MemberHomePanel
+                memberId={loggedInMemberId}
+                onGoToTab={setLeftTab}
+                onSelectMember={setSelectedMemberId}
+                onOpenGiantMap={() => setViewMode("matching")}
+              />
+            ) : leftTab === "value" ? (
+              <BerPlusValuePanel
+                onGoToTab={setLeftTab}
+                selectedMemberCategory={selectedMember?.category ?? null}
+                selectedMemberId={loggedInMemberId ?? selectedMemberId}
+              />
+            ) : leftTab === "members" ? (
               <MembersPanel
                 selectedId={selectedMemberId}
                 onSelect={setSelectedMemberId}
@@ -94,7 +296,7 @@ function MapWorkspaceInner() {
                 onFilterCategory={setFilterCategory}
               />
             ) : leftTab === "briefing" ? (
-              <BriefingPanel />
+              <BriefingPanel onGoToTab={setLeftTab} />
             ) : leftTab === "programme" ? (
               <ProgrammePanel />
             ) : (
@@ -102,12 +304,16 @@ function MapWorkspaceInner() {
             )}
           </FloatingPanel>
 
-          <FloatingPanel title="Profile" side="right" defaultCollapsed={false}>
-            <MemberDetailPanel selectedId={selectedMemberId} />
+          <FloatingPanel testId="showcase-panel-right" title="Member path" side="right" defaultCollapsed={false}>
+            <MemberDetailPanel
+              selectedId={selectedMemberId}
+              onGoToTab={setLeftTab}
+              viewerMemberId={loggedInMemberId}
+            />
           </FloatingPanel>
         </div>
 
-        <div className="pointer-events-none relative flex shrink-0 flex-col gap-2">
+        <div data-testid="capture-chrome" className="pointer-events-none relative flex shrink-0 flex-col gap-2">
           <div className="pointer-events-auto mx-auto w-full max-w-xl px-1">
             <div className="floating-panel px-3 py-2">
               <TimelineControl compact />
@@ -138,19 +344,16 @@ function MapWorkspaceInner() {
           </div>
 
           <div className="absolute bottom-0 right-0 z-20 flex flex-col items-end gap-2">
-            <IntelligenceTV />
             <div className="floating-panel pointer-events-auto flex flex-wrap gap-1.5 p-1.5">
               <NavLink href="/briefing">Briefing</NavLink>
               <NavLink href="/mitglieder">Mitglieder</NavLink>
               <NavLink href="/programme">Programme</NavLink>
-              <NavLink href="/news" accent>
-                Intel
-              </NavLink>
             </div>
           </div>
           </div>
         </div>
       </div>
+      <BerPlusChatbot memberId={loggedInMemberId} />
     </div>
   );
 }
@@ -196,15 +399,18 @@ function NavLink({
 function TabButton({
   active,
   onClick,
-  children
+  children,
+  testId
 }: {
   active: boolean;
   onClick: () => void;
   children: React.ReactNode;
+  testId: string;
 }) {
   return (
     <button
       type="button"
+      data-testid={testId}
       onClick={onClick}
       className={`flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition ${
         active ? "bg-white/12 text-white" : "text-white/60 hover:text-white/80"

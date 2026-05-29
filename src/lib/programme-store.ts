@@ -20,10 +20,14 @@ export type ProgrammeState = {
 
 const DEFAULT_FOCUS = "2026-09-01";
 
+const DEFAULT_STATE: ProgrammeState = {
+  contracts: DEFAULT_CONTRACTS,
+  milestones: DEFAULT_MILESTONES,
+  focusDate: DEFAULT_FOCUS
+};
+
 function loadState(): ProgrammeState {
-  if (typeof window === "undefined") {
-    return { contracts: DEFAULT_CONTRACTS, milestones: DEFAULT_MILESTONES, focusDate: DEFAULT_FOCUS };
-  }
+  if (typeof window === "undefined") return DEFAULT_STATE;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) throw new Error("empty");
@@ -34,7 +38,7 @@ function loadState(): ProgrammeState {
       focusDate: parsed.focusDate ?? DEFAULT_FOCUS
     };
   } catch {
-    return { contracts: DEFAULT_CONTRACTS, milestones: DEFAULT_MILESTONES, focusDate: DEFAULT_FOCUS };
+    return DEFAULT_STATE;
   }
 }
 
@@ -44,11 +48,18 @@ function saveState(state: ProgrammeState) {
 }
 
 export function useProgrammeStore() {
-  const [state, setState] = useState<ProgrammeState>(() => loadState());
+  const [state, setState] = useState<ProgrammeState>(DEFAULT_STATE);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    setState(loadState());
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
     saveState(state);
-  }, [state]);
+  }, [state, hydrated]);
 
   const setFocusDate = useCallback((focusDate: string) => {
     setState((s) => ({ ...s, focusDate }));
@@ -80,6 +91,7 @@ export function useProgrammeStore() {
 
   return {
     ...state,
+    hydrated,
     setFocusDate,
     updateContractStatus,
     updateMilestoneStatus,

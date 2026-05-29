@@ -4,10 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "clean": "node --input-type=module -e \"import fs from 'fs'; fs.rmSync('.next',{recursive:true,force:true}); console.log('Removed .next');\"",
+    "dev": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev -p 3001",
+    "build": "node --max-old-space-size=4096 node_modules/next/dist/bin/next build",
+    "start": "next start -p 3001",
+    "lint": "next lint",
+    "presentation:screenshots": "node scripts/capture-presentation-screenshots.mjs"
   },
   "dependencies": {
     "maplibre-gl": "^5.8.0",
@@ -24,6 +26,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9.29.0",
     "eslint-config-next": "^15.5.0",
+    "playwright": "^1.60.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.8.3"

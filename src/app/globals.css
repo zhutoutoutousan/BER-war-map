@@ -146,6 +146,49 @@ html::-webkit-scrollbar-corner,
   color: rgba(125, 211, 252, 0.85);
 }
 
+/* Presentation screenshot layouts (set via documentElement.dataset.captureLayout) */
+html[data-capture-layout="left-focus"] [data-testid="showcase-panel-right"],
+html[data-capture-layout="left-focus"] [data-testid="capture-chrome"] {
+  display: none !important;
+}
+
+html[data-capture-layout="left-focus"] [data-testid="showcase-panel-left"] {
+  width: min(580px, 52vw) !important;
+  max-width: 52vw !important;
+  max-height: min(88vh, calc(100dvh - 4.5rem)) !important;
+}
+
+html[data-capture-layout="left-focus"] [data-testid="capture-vignette"] {
+  opacity: 0.2;
+}
+
+html[data-capture-layout="map-focus"] [data-testid="showcase-panel-left"],
+html[data-capture-layout="map-focus"] [data-testid="showcase-panel-right"],
+html[data-capture-layout="map-focus"] [data-testid="capture-chrome"],
+html[data-capture-layout="map-focus"] [data-testid="programme-phase-banner"],
+html[data-capture-layout="map-focus"] [data-testid="capture-vignette"] {
+  display: none !important;
+}
+
+html[data-capture-layout="map-focus"] [data-testid="showcase-header"] {
+  opacity: 0.92;
+}
+
+html[data-capture-layout="right-focus"] [data-testid="showcase-panel-left"],
+html[data-capture-layout="right-focus"] [data-testid="capture-chrome"] {
+  display: none !important;
+}
+
+html[data-capture-layout="right-focus"] [data-testid="showcase-panel-right"] {
+  width: min(480px, 44vw) !important;
+  max-width: 44vw !important;
+  max-height: min(88vh, calc(100dvh - 4.5rem)) !important;
+}
+
+html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
+  opacity: 0.15;
+}
+
 /* Intelligence TV — bottom-right war-room feed */
 .intelligence-tv {
   filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.65));

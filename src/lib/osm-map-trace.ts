@@ -6,14 +6,26 @@ const PREFIX = "[ber-osm]";
 const LS_KEY = "ber-osm-trace";
 
 function tracingEnabled(): boolean {
-  if (typeof window === "undefined") return true;
+  if (typeof window === "undefined") return false;
   try {
     const forced = window.localStorage.getItem(LS_KEY);
     if (forced === "0") return false;
+    if (forced === "1") return true;
   } catch {
     /* ignore */
   }
-  return true;
+  // Dev: on by default so freezes are visible without localStorage setup
+  return process.env.NODE_ENV === "development";
+}
+
+/** Expensive — only when trace=1 and ber-osm-trace-query=1 */
+function deepQueryEnabled(): boolean {
+  if (!tracingEnabled()) return false;
+  try {
+    return window.localStorage.getItem(`${LS_KEY}-query`) === "1";
+  } catch {
+    return false;
+  }
 }
 
 function stamp() {
@@ -21,6 +33,10 @@ function stamp() {
 }
 
 /** Filter DevTools console with: ber-osm */
+export function isOsmMapTraceEnabled(): boolean {
+  return tracingEnabled();
+}
+
 export function osmTrace(scope: string, message: string, data?: Record<string, unknown>) {
   if (!tracingEnabled()) return;
   if (data) console.log(`${PREFIX} ${stamp()} [${scope}] ${message}`, data);
@@ -49,9 +65,15 @@ const OSM_LAYER_PROBE = [
 export function osmTraceMapSnapshot(
   map: MapLibreMap,
   label: string,
-  extra?: Record<string, unknown>
+  extra?: Record<string, unknown> & {
+    /** Pass from GeoJSON to avoid querySourceFeatures (blocks UI on 10k+ features). */
+    featureCount?: number;
+    iconCount?: number;
+  }
 ) {
   if (!tracingEnabled()) return;
+
+  const { featureCount: passedFeatures, iconCount: passedIcons, ...restExtra } = extra ?? {};
 
   const layers: Record<string, { exists: boolean; visibility?: string; filter?: unknown }> = {};
   for (const id of OSM_LAYER_PROBE) {
@@ -67,19 +89,22 @@ export function osmTraceMapSnapshot(
     };
   }
 
-  let sourceFeatureCount: number | null = null;
-  let iconSourceCount: number | null = null;
-  try {
-    if (map.getSource("ber-osm-intel")) {
-      sourceFeatureCount = map.querySourceFeatures("ber-osm-intel").length;
+  let sourceFeatureCount: number | null = passedFeatures ?? null;
+  let iconSourceCount: number | null = passedIcons ?? null;
+
+  if (deepQueryEnabled()) {
+    try {
+      if (sourceFeatureCount == null && map.getSource("ber-osm-intel")) {
+        sourceFeatureCount = map.querySourceFeatures("ber-osm-intel").length;
+      }
+      if (iconSourceCount == null && map.getSource("ber-osm-intel-icons")) {
+        iconSourceCount = map.querySourceFeatures("ber-osm-intel-icons").length;
+      }
+    } catch (e) {
+      osmTraceWarn("snapshot", "querySourceFeatures failed", {
+        error: e instanceof Error ? e.message : String(e)
+      });
     }
-    if (map.getSource("ber-osm-intel-icons")) {
-      iconSourceCount = map.querySourceFeatures("ber-osm-intel-icons").length;
-    }
-  } catch (e) {
-    osmTraceWarn("snapshot", "querySourceFeatures failed", {
-      error: e instanceof Error ? e.message : String(e)
-    });
   }
 
   let renderedAtCenter = 0;
@@ -106,7 +131,7 @@ export function osmTraceMapSnapshot(
     iconSourceCount,
     renderedAtCenter,
     layers,
-    ...extra
+    ...restExtra
   });
 }
 

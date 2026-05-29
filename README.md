@@ -9,7 +9,16 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open `http://localhost:3001` (port **3001** — 3000 is often used by other projects).
+
+**Stuck on “Offline” page?** A cached service worker from an old build can cause this on localhost. Click **Clear cached app & reload** on that page, or open DevTools → Application → Service Workers → Unregister, then hard-refresh. The app disables SW automatically on localhost in dev.
+
+## June 12 presentation (IDI S26)
+
+- **Strategic framing:** left tab **BER+ Paths** — coordination problems, why now, 12–24 month steps
+- **Member paths:** select a Mitglied → right **Member path** panel (problem → see → do)
+- **LaTeX slides:** `docs/presentation/june12-final.tex`
+- **Screenshots:** `http://localhost:3000/capture` or `npm run presentation:screenshots` → `docs/presentation/figures/`
 
 ## Intelligence TV (map overlay)
 

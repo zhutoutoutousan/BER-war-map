@@ -56,7 +56,7 @@ export function JunqingchuPanel() {
     : "—";
 
   return (
-    <div className="junqingchu-panel flex flex-col gap-3">
+    <div className="junqingchu-panel flex flex-col gap-3" data-testid="panel-osm-intel">
       <header className="junqingchu-header relative overflow-hidden rounded-lg border border-red-900/50 px-3 py-2.5">
         <div className="junqingchu-stamp absolute -right-1 top-1 rotate-[-12deg] text-[10px] font-bold tracking-widest text-red-500/70">
           OSM INTEL
@@ -93,7 +93,7 @@ export function JunqingchuPanel() {
             <TabBtn active={tab === "land"} onClick={() => setTab("land")}>
               Land
             </TabBtn>
-            <TabBtn active={tab === "infra"} onClick={() => setTab("infra")}>
+            <TabBtn active={tab === "infra"} onClick={() => setTab("infra")} testId="osm-tab-infra">
               Infrastructure
             </TabBtn>
           </div>
@@ -331,15 +331,18 @@ function InfraListRow({
 function TabBtn({
   active,
   onClick,
-  children
+  children,
+  testId
 }: {
   active: boolean;
   onClick: () => void;
   children: React.ReactNode;
+  testId?: string;
 }) {
   return (
     <button
       type="button"
+      data-testid={testId}
       onClick={onClick}
       className={`flex-1 rounded-md py-1.5 text-xs font-medium ${
         active ? "bg-white/12 text-white" : "text-white/55"

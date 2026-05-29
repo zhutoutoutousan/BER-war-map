@@ -7,6 +7,7 @@ type Props = {
   side?: "left" | "right";
   defaultCollapsed?: boolean;
   className?: string;
+  testId?: string;
   children: ReactNode;
 };
 
@@ -15,12 +16,14 @@ export function FloatingPanel({
   side = "left",
   defaultCollapsed = false,
   className = "",
+  testId,
   children
 }: Props) {
   const [collapsed, setCollapsed] = useState(defaultCollapsed);
 
   return (
     <div
+      data-testid={testId}
       className={`pointer-events-auto flex max-h-[min(72vh,calc(100dvh-11rem))] w-[min(360px,calc(100vw-1.5rem))] flex-col ${
         side === "left" ? "self-start" : "self-start ml-auto"
       } ${className}`}
