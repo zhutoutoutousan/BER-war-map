@@ -46,7 +46,23 @@ function computeFitViewport(
   return graphFullViewport(graph, 40);
 }
 
-export function MatchingGraphCanvas({
+export function MatchingGraphCanvas(props: Props) {
+  if (props.enableZoom) {
+    return (
+      <MatchingGraphRaster
+        graph={props.graph}
+        highlightMemberId={props.highlightMemberId}
+        onSelectNode={props.onSelectNode}
+        className={props.className}
+        fitMode={props.fitMode}
+        fitRevision={props.fitRevision}
+      />
+    );
+  }
+  return <MatchingGraphSvgCanvas {...props} />;
+}
+
+function MatchingGraphSvgCanvas({
   graph,
   highlightMemberId,
   highlight,
@@ -58,19 +74,6 @@ export function MatchingGraphCanvas({
   fitMode = "all",
   fitRevision = ""
 }: Props) {
-  if (enableZoom) {
-    return (
-      <MatchingGraphRaster
-        graph={graph}
-        highlightMemberId={highlightMemberId}
-        onSelectNode={onSelectNode}
-        className={className}
-        fitMode={fitMode}
-        fitRevision={fitRevision}
-      />
-    );
-  }
-
   const skyId = `${gradientIdPrefix}-sky`;
   const spineId = `${gradientIdPrefix}-spine`;
   const containerRef = useRef<HTMLDivElement>(null);

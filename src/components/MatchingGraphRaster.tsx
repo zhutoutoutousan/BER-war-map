@@ -462,12 +462,12 @@ export function MatchingGraphRaster({
 
   return (
     <div className={`relative h-full min-h-0 ${className}`}>
-      <div className="pointer-events-auto absolute right-3 top-3 z-10 flex flex-col gap-1">
+      <div className="pointer-events-auto absolute right-1 top-1 z-10 flex flex-col gap-1 sm:right-3 sm:top-3">
         <div className="flex gap-1">
           <ToolBtn active={canvasMode === "select"} onClick={() => setCanvasMode("select")} label="↖" title="Select" />
           <ToolBtn active={canvasMode === "pan"} onClick={() => setCanvasMode("pan")} label="✥" title="Pan" />
         </div>
-        <div className="flex flex-col gap-0.5 rounded-md bg-black/75 p-0.5">
+        <div className="hidden flex-col gap-0.5 rounded-md bg-black/75 p-0.5 md:flex">
           {(["key", "matching", "all"] as EdgeDisplayMode[]).map((mode) => (
             <button
               key={mode}
@@ -484,6 +484,18 @@ export function MatchingGraphRaster({
             </button>
           ))}
         </div>
+        <select
+          aria-label="Edge filter"
+          value={edgeMode}
+          onChange={(e) => setEdgeMode(e.target.value as EdgeDisplayMode)}
+          className="rounded-md border border-white/15 bg-black/75 px-2 py-1.5 text-[11px] text-white/85 md:hidden"
+        >
+          {(["key", "matching", "all"] as EdgeDisplayMode[]).map((mode) => (
+            <option key={mode} value={mode}>
+              {EDGE_MODE_LABELS[mode]}
+            </option>
+          ))}
+        </select>
         <ToolBtn label="+" onClick={() => zoomBy(0.85)} title="Zoom in" />
         <span className="rounded-md bg-black/70 px-2 py-0.5 text-center text-[10px] text-white/70">{zoomPct}%</span>
         <span
@@ -558,7 +570,7 @@ function ToolBtn({
       type="button"
       title={title}
       onClick={onClick}
-      className={`flex h-8 w-8 items-center justify-center rounded-md border text-sm ${
+      className={`flex h-10 w-10 items-center justify-center rounded-md border text-sm touch-manipulation sm:h-8 sm:w-8 ${
         active
           ? "border-amber-400/50 bg-amber-500/25 text-amber-100"
           : "border-white/15 bg-black/75 text-white/85 hover:bg-white/15"

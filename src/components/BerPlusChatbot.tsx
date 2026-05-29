@@ -14,7 +14,13 @@ const STARTERS = [
   "What should I do first in Phase I?"
 ];
 
-export function BerPlusChatbot({ memberId }: { memberId: string | null }) {
+export function BerPlusChatbot({
+  memberId,
+  mobileNavOffset = false
+}: {
+  memberId: string | null;
+  mobileNavOffset?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -85,13 +91,19 @@ export function BerPlusChatbot({ memberId }: { memberId: string | null }) {
   if (!memberId) return null;
 
   return (
-    <div className="pointer-events-none fixed bottom-20 right-3 z-[60] sm:bottom-24 sm:right-4">
+    <div
+      className={`pointer-events-none fixed z-[60] ${
+        mobileNavOffset
+          ? "bottom-[calc(3.75rem+env(safe-area-inset-bottom))] right-2"
+          : "bottom-20 right-3 sm:bottom-24 sm:right-4"
+      }`}
+    >
       {open ? (
         <div
-          className="pointer-events-auto mb-2 flex w-[min(100vw-1.5rem,380px)] flex-col overflow-hidden rounded-xl border border-violet-500/30 bg-ink-900/95 shadow-2xl backdrop-blur-md"
+          className="pointer-events-auto mb-2 flex max-h-[min(70dvh,520px)] w-[min(100vw-1rem,380px)] flex-col overflow-hidden rounded-xl border border-violet-500/30 bg-ink-900/95 shadow-2xl backdrop-blur-md"
           data-testid="ber-chatbot-panel"
         >
-          <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
+          <div className="flex items-center justify-between border-b border-white/10 px-3 py-2.5">
             <div>
               <div className="text-xs font-semibold text-violet-200">BER+ Assistant</div>
               <div className="text-[10px] text-white/45">
@@ -101,13 +113,13 @@ export function BerPlusChatbot({ memberId }: { memberId: string | null }) {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="rounded px-2 py-0.5 text-xs text-white/60 hover:bg-white/10"
+              className="min-h-[44px] min-w-[44px] rounded px-3 text-xs text-white/60 touch-manipulation hover:bg-white/10"
             >
               Close
             </button>
           </div>
 
-          <div ref={scrollRef} className="war-room-scroll max-h-64 space-y-2 overflow-y-auto px-3 py-2">
+          <div ref={scrollRef} className="war-room-scroll min-h-0 flex-1 space-y-2 overflow-y-auto px-3 py-2">
             {messages.length === 0 ? (
               <div className="space-y-2 text-[11px] text-white/55">
                 <p>
@@ -156,12 +168,12 @@ export function BerPlusChatbot({ memberId }: { memberId: string | null }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about your matches…"
-              className="min-w-0 flex-1 rounded-lg border border-white/10 bg-black/40 px-2 py-1.5 text-xs text-white placeholder:text-white/35"
+              className="min-h-[44px] min-w-0 flex-1 rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-sm text-white placeholder:text-white/35"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="shrink-0 rounded-lg bg-violet-600/80 px-3 py-1.5 text-xs font-medium text-white hover:bg-violet-500 disabled:opacity-40"
+              className="min-h-[44px] shrink-0 rounded-lg bg-violet-600/80 px-4 py-2 text-sm font-medium text-white touch-manipulation hover:bg-violet-500 disabled:opacity-40"
             >
               Send
             </button>
@@ -172,7 +184,7 @@ export function BerPlusChatbot({ memberId }: { memberId: string | null }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="pointer-events-auto flex items-center gap-2 rounded-full border border-violet-500/40 bg-violet-950/90 px-4 py-2.5 text-sm font-medium text-violet-100 shadow-lg hover:bg-violet-900/90"
+        className="pointer-events-auto flex min-h-[48px] items-center gap-2 rounded-full border border-violet-500/40 bg-violet-950/90 px-4 py-2.5 text-sm font-medium text-violet-100 shadow-lg touch-manipulation hover:bg-violet-900/90"
         data-testid="ber-chatbot-toggle"
       >
         <span className="text-base">✦</span>

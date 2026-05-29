@@ -28,6 +28,9 @@ import { UserSessionProvider, useUserSession } from "@/context/UserSessionContex
 import { getMitgliedById } from "@/data/mitglieder";
 import type { MemberCategory } from "@/data/mitglieder";
 import { CATEGORY_COLORS } from "@/data/mitglieder";
+import { useIsMobile } from "@/lib/use-media";
+
+type MobileSheet = null | "explore" | "member";
 
 const LEFT_TAB_TITLES: Record<LeftTab, string> = {
   value: "BER+ Paths",
@@ -162,6 +165,8 @@ function MapWorkspaceContent({
 }) {
   const { selectFeature } = useOsmIntel();
   const { focusLandSite, focusMember } = useMapActions();
+  const isMobile = useIsMobile();
+  const [mobileSheet, setMobileSheet] = useState<MobileSheet>(null);
 
   const handleMatchingNode = useCallback(
     (nodeId: string) => {
@@ -195,7 +200,62 @@ function MapWorkspaceContent({
     if (viewMode === "matching" && document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
+    if (viewMode === "matching") setMobileSheet(null);
   }, [viewMode]);
+
+  const leftPanelTabs = (
+    <div className="mb-3 flex flex-wrap gap-1 rounded-lg bg-white/5 p-1">
+      {loggedInMemberId ? (
+        <TabButton testId="map-tab-foryou" active={leftTab === "foryou"} onClick={() => setLeftTab("foryou")}>
+          For you
+        </TabButton>
+      ) : null}
+      <TabButton testId="map-tab-value" active={leftTab === "value"} onClick={() => setLeftTab("value")}>
+        BER+ Paths
+      </TabButton>
+      <TabButton testId="map-tab-members" active={leftTab === "members"} onClick={() => setLeftTab("members")}>
+        Mitglieder
+      </TabButton>
+      <TabButton testId="map-tab-junqingchu" active={leftTab === "junqingchu"} onClick={() => setLeftTab("junqingchu")}>
+        OSM Intel
+      </TabButton>
+      <TabButton testId="map-tab-programme" active={leftTab === "programme"} onClick={() => setLeftTab("programme")}>
+        Programme
+      </TabButton>
+      <TabButton testId="map-tab-briefing" active={leftTab === "briefing"} onClick={() => setLeftTab("briefing")}>
+        Briefing
+      </TabButton>
+    </div>
+  );
+
+  const leftPanelBody =
+    leftTab === "foryou" && loggedInMemberId ? (
+      <MemberHomePanel
+        memberId={loggedInMemberId}
+        onGoToTab={setLeftTab}
+        onSelectMember={setSelectedMemberId}
+        onOpenGiantMap={() => setViewMode("matching")}
+      />
+    ) : leftTab === "value" ? (
+      <BerPlusValuePanel
+        onGoToTab={setLeftTab}
+        selectedMemberCategory={selectedMember?.category ?? null}
+        selectedMemberId={loggedInMemberId ?? selectedMemberId}
+      />
+    ) : leftTab === "members" ? (
+      <MembersPanel
+        selectedId={selectedMemberId}
+        onSelect={setSelectedMemberId}
+        filterCategory={filterCategory}
+        onFilterCategory={setFilterCategory}
+      />
+    ) : leftTab === "briefing" ? (
+      <BriefingPanel onGoToTab={setLeftTab} />
+    ) : leftTab === "programme" ? (
+      <ProgrammePanel />
+    ) : (
+      <JunqingchuPanel />
+    );
 
   return (
     <div
@@ -233,9 +293,9 @@ function MapWorkspaceContent({
       <div
         className={`pointer-events-none absolute inset-0 z-10 flex flex-col gap-2 p-2 sm:p-3 ${
           geoHidden ? "invisible pointer-events-none" : ""
-        }`}
+        } ${isMobile ? "pb-[calc(3.75rem+env(safe-area-inset-bottom))]" : ""}`}
       >
-        <div className="pointer-events-auto shrink-0" data-testid="showcase-header">
+        <div className="pointer-events-auto shrink-0 safe-top" data-testid="showcase-header">
           <CorridorHeader
             compact
             viewMode={viewMode}
@@ -252,59 +312,27 @@ function MapWorkspaceContent({
         </div>
 
         <div className="flex min-h-0 flex-1 items-stretch justify-between gap-2">
-          <FloatingPanel testId="showcase-panel-left" title={LEFT_TAB_TITLES[leftTab]} side="left">
-            <div className="mb-3 flex flex-wrap gap-1 rounded-lg bg-white/5 p-1">
-              {loggedInMemberId ? (
-                <TabButton testId="map-tab-foryou" active={leftTab === "foryou"} onClick={() => setLeftTab("foryou")}>
-                  For you
-                </TabButton>
-              ) : null}
-              <TabButton testId="map-tab-value" active={leftTab === "value"} onClick={() => setLeftTab("value")}>
-                BER+ Paths
-              </TabButton>
-              <TabButton testId="map-tab-members" active={leftTab === "members"} onClick={() => setLeftTab("members")}>
-                Mitglieder
-              </TabButton>
-              <TabButton testId="map-tab-junqingchu" active={leftTab === "junqingchu"} onClick={() => setLeftTab("junqingchu")}>
-                OSM Intel
-              </TabButton>
-              <TabButton testId="map-tab-programme" active={leftTab === "programme"} onClick={() => setLeftTab("programme")}>
-                Programme
-              </TabButton>
-              <TabButton testId="map-tab-briefing" active={leftTab === "briefing"} onClick={() => setLeftTab("briefing")}>
-                Briefing
-              </TabButton>
-            </div>
-            {leftTab === "foryou" && loggedInMemberId ? (
-              <MemberHomePanel
-                memberId={loggedInMemberId}
-                onGoToTab={setLeftTab}
-                onSelectMember={setSelectedMemberId}
-                onOpenGiantMap={() => setViewMode("matching")}
-              />
-            ) : leftTab === "value" ? (
-              <BerPlusValuePanel
-                onGoToTab={setLeftTab}
-                selectedMemberCategory={selectedMember?.category ?? null}
-                selectedMemberId={loggedInMemberId ?? selectedMemberId}
-              />
-            ) : leftTab === "members" ? (
-              <MembersPanel
-                selectedId={selectedMemberId}
-                onSelect={setSelectedMemberId}
-                filterCategory={filterCategory}
-                onFilterCategory={setFilterCategory}
-              />
-            ) : leftTab === "briefing" ? (
-              <BriefingPanel onGoToTab={setLeftTab} />
-            ) : leftTab === "programme" ? (
-              <ProgrammePanel />
-            ) : (
-              <JunqingchuPanel />
-            )}
+          <FloatingPanel
+            testId="showcase-panel-left"
+            title={LEFT_TAB_TITLES[leftTab]}
+            side="left"
+            mobileSheet={isMobile}
+            mobileOpen={mobileSheet === "explore"}
+            onMobileClose={() => setMobileSheet(null)}
+          >
+            {leftPanelTabs}
+            {leftPanelBody}
           </FloatingPanel>
 
-          <FloatingPanel testId="showcase-panel-right" title="Member path" side="right" defaultCollapsed={false}>
+          <FloatingPanel
+            testId="showcase-panel-right"
+            title="Member path"
+            side="right"
+            defaultCollapsed={false}
+            mobileSheet={isMobile}
+            mobileOpen={mobileSheet === "member"}
+            onMobileClose={() => setMobileSheet(null)}
+          >
             <MemberDetailPanel
               selectedId={selectedMemberId}
               onGoToTab={setLeftTab}
@@ -315,12 +343,12 @@ function MapWorkspaceContent({
 
         <div data-testid="capture-chrome" className="pointer-events-none relative flex shrink-0 flex-col gap-2">
           <div className="pointer-events-auto mx-auto w-full max-w-xl px-1">
-            <div className="floating-panel px-3 py-2">
+            <div className="floating-panel px-3 py-2.5">
               <TimelineControl compact />
             </div>
           </div>
 
-          <div className="relative flex flex-wrap items-end justify-between gap-2">
+          <div className="relative hidden flex-wrap items-end justify-between gap-2 md:flex">
           <div className="absolute bottom-0 left-0 z-20 flex flex-col items-start gap-2">
             <CctvPanel />
             <div className="floating-panel pointer-events-auto flex flex-wrap items-center gap-x-2 gap-y-1 px-3 py-2 text-[11px] text-white/80">
@@ -353,7 +381,49 @@ function MapWorkspaceContent({
           </div>
         </div>
       </div>
-      <BerPlusChatbot memberId={loggedInMemberId} />
+
+      {isMobile ? (
+        <nav className="mobile-nav-bar md:hidden" aria-label="War room navigation">
+          <MobileNavButton
+            active={viewMode === "geo" && mobileSheet === null}
+            onClick={() => {
+              setViewMode("geo");
+              setMobileSheet(null);
+            }}
+            label="Map"
+            testId="mobile-nav-map"
+          />
+          <MobileNavButton
+            active={mobileSheet === "explore"}
+            onClick={() => {
+              setViewMode("geo");
+              setMobileSheet("explore");
+            }}
+            label="Explore"
+            testId="mobile-nav-explore"
+          />
+          <MobileNavButton
+            active={mobileSheet === "member"}
+            onClick={() => {
+              setViewMode("geo");
+              setMobileSheet("member");
+            }}
+            label="Member"
+            testId="mobile-nav-member"
+          />
+          <MobileNavButton
+            active={viewMode === "matching"}
+            onClick={() => {
+              setViewMode("matching");
+              setMobileSheet(null);
+            }}
+            label="Match"
+            testId="mobile-nav-match"
+          />
+        </nav>
+      ) : null}
+
+      <BerPlusChatbot memberId={loggedInMemberId} mobileNavOffset={isMobile} />
     </div>
   );
 }
@@ -412,11 +482,37 @@ function TabButton({
       type="button"
       data-testid={testId}
       onClick={onClick}
-      className={`flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition ${
+      className={`min-h-[44px] flex-1 rounded-md px-2 py-2 text-xs font-medium transition touch-manipulation ${
         active ? "bg-white/12 text-white" : "text-white/60 hover:text-white/80"
       }`}
     >
       {children}
+    </button>
+  );
+}
+
+function MobileNavButton({
+  active,
+  onClick,
+  label,
+  testId
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  testId: string;
+}) {
+  return (
+    <button
+      type="button"
+      data-testid={testId}
+      onClick={onClick}
+      className={`flex min-h-[52px] flex-1 flex-col items-center justify-center gap-0.5 px-1 text-[11px] font-medium touch-manipulation ${
+        active ? "text-sky-200" : "text-white/50"
+      }`}
+    >
+      <span className={`h-1 w-6 rounded-full ${active ? "bg-sky-400" : "bg-transparent"}`} aria-hidden />
+      {label}
     </button>
   );
 }

@@ -14,13 +14,13 @@ export function SessionPickerModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-ink-950/92 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-[100] flex items-end justify-center bg-ink-950/92 p-0 backdrop-blur-md sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="session-picker-title"
       data-testid="session-picker-modal"
     >
-      <div className="war-room-scroll max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-white/10 bg-ink-900/95 p-5 shadow-2xl shadow-black/50 sm:p-6">
+      <div className="war-room-scroll max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-t-2xl border border-white/10 bg-ink-900/95 p-5 shadow-2xl shadow-black/50 sm:max-h-[92vh] sm:rounded-2xl sm:p-6 safe-bottom">
         <header className="text-center">
           <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300/80">
             BER+ Coordination Map
@@ -38,7 +38,7 @@ export function SessionPickerModal() {
           type="button"
           onClick={loginAsGuest}
           data-testid="session-guest"
-          className="mt-6 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-left transition hover:border-sky-400/40 hover:bg-sky-950/30"
+          className="mt-6 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-4 text-left transition touch-manipulation hover:border-sky-400/40 hover:bg-sky-950/30"
         >
           <div className="text-sm font-semibold text-white">Continue as guest</div>
           <div className="mt-1 text-xs text-white/55">
@@ -93,7 +93,7 @@ function MemberLoginButton({ member, onSelect }: { member: Mitglied; onSelect: (
       type="button"
       data-testid={`session-member-${member.id}`}
       onClick={onSelect}
-      className="flex items-start gap-2.5 rounded-lg border border-white/10 bg-black/30 px-3 py-2.5 text-left transition hover:border-white/25 hover:bg-white/5"
+      className="flex min-h-[52px] w-full items-start gap-2.5 rounded-lg border border-white/10 bg-black/30 px-3 py-3 text-left transition touch-manipulation hover:border-white/25 hover:bg-white/5"
     >
       <span
         className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full"

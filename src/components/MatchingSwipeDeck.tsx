@@ -141,7 +141,7 @@ export function MatchingSwipeDeck({ memberId, onClose, onSavedChange, onSelectMa
         <button
           type="button"
           onClick={onClose}
-          className="rounded-lg bg-white/10 px-2.5 py-1 text-xs text-white/80 hover:bg-white/15"
+          className="min-h-[44px] rounded-lg bg-white/10 px-3 py-2 text-xs text-white/80 touch-manipulation hover:bg-white/15"
         >
           ← Map
         </button>
@@ -176,7 +176,7 @@ export function MatchingSwipeDeck({ memberId, onClose, onSavedChange, onSelectMa
               onClick={handleClick}
             >
               <div
-                className="relative flex max-h-[min(58vh,560px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-b from-ink-900 to-black shadow-2xl transition-transform duration-200"
+                className="relative flex max-h-[min(52dvh,560px)] flex-col overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-b from-ink-900 to-black shadow-2xl transition-transform duration-200 sm:max-h-[min(58vh,560px)]"
                 style={{
                   transform: `translate(${tx}px, ${ty}px) rotate(${rotate}deg)`,
                   opacity,
@@ -283,9 +283,9 @@ export function MatchingSwipeDeck({ memberId, onClose, onSavedChange, onSelectMa
               </div>
             </div>
 
-            <div className="mt-4 flex w-full max-w-lg shrink-0 items-center justify-between gap-3 px-1">
-              <SwipeBtn label="Pass" sub="← swipe · left click" tone="pass" onClick={() => flyOut("left")} />
-              <SwipeBtn label="Save" sub="→ swipe · right click" tone="save" onClick={() => flyOut("right")} />
+            <div className="mt-3 flex w-full max-w-lg shrink-0 items-center justify-between gap-3 px-1 sm:mt-4">
+              <SwipeBtn label="Pass" sub="← swipe" tone="pass" onClick={() => flyOut("left")} />
+              <SwipeBtn label="Save" sub="→ swipe" tone="save" onClick={() => flyOut("right")} />
             </div>
             {onSelectMatch ? (
               <button
@@ -356,9 +356,13 @@ function SwipeBtn({
       ? "border-emerald-500/40 bg-emerald-500/15 text-emerald-100 hover:bg-emerald-500/25"
       : "border-red-500/35 bg-red-500/10 text-red-100 hover:bg-red-500/20";
   return (
-    <button type="button" onClick={onClick} className={`flex-1 rounded-xl border px-3 py-2.5 ${cls}`}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`min-h-[52px] flex-1 rounded-xl border px-3 py-3 touch-manipulation ${cls}`}
+    >
       <div className="text-sm font-semibold">{label}</div>
-      <div className="text-[10px] opacity-70">{sub}</div>
+      <div className="text-[10px] opacity-70 max-sm:hidden">{sub}</div>
     </button>
   );
 }

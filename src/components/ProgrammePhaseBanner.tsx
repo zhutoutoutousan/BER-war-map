@@ -19,7 +19,7 @@ export function ProgrammePhaseBanner() {
 
   return (
     <div
-      className="pointer-events-none absolute left-1/2 top-[4.5rem] z-[5] max-w-md -translate-x-1/2 px-2 sm:top-[5rem]"
+      className="pointer-events-none absolute left-1/2 top-[3.25rem] z-[5] max-w-[min(100vw-2rem,28rem)] -translate-x-1/2 px-2 sm:top-[5rem]"
       data-testid="programme-phase-banner"
       aria-live="polite"
     >

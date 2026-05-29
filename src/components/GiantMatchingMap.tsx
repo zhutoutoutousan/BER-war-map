@@ -23,6 +23,7 @@ import { MatchingSwipeDeck } from "@/components/MatchingSwipeDeck";
 import { mgTrace, mgTraceBegin } from "@/lib/matching-graph-trace";
 import type { LiveMatch } from "@/lib/local-member-matching";
 import { savedCount as loadSavedCount } from "@/lib/matching-swipe-store";
+import { useIsMobile } from "@/lib/use-media";
 
 export type WorkspaceViewMode = "geo" | "matching";
 export type MatchingScope = "all" | "focus";
@@ -37,6 +38,7 @@ type Props = {
 
 export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo }: Props) {
   const { data, loading } = useOsmIntel();
+  const isMobile = useIsMobile();
   const [scope, setScope] = useState<MatchingScope>("focus");
   const [focusMemberId, setFocusMemberId] = useState<string | null>(
     defaultMemberId ?? MITGLIEDER[0]?.id ?? null
@@ -48,6 +50,17 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
   const [osmOverview, setOsmOverview] = useState(false);
   const [panel, setPanel] = useState<MatchingPanel>("map");
   const [savedMatches, setSavedMatches] = useState(0);
+  const [toolsOpen, setToolsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isMobile) setToolsOpen(false);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (isMobile && defaultMemberId && scope === "focus") {
+      setPanel("swipe");
+    }
+  }, [isMobile, defaultMemberId, scope]);
 
   const highlightMemberId = scope === "focus" ? focusMemberId : null;
 
@@ -241,51 +254,56 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
 
   return (
     <div
-      className="absolute inset-0 z-[2] flex flex-col bg-ink-950"
+      className="absolute inset-0 z-[2] flex flex-col bg-ink-950 pb-[calc(3.75rem+env(safe-area-inset-bottom))] md:pb-0"
       data-testid="giant-matching-map"
       data-scene={`matching:${scope}${focusMemberId ? `:${focusMemberId}` : ""}`}
     >
-      <div className="shrink-0 border-b border-white/10 bg-ink-900/90 px-3 py-2.5 backdrop-blur-md sm:px-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
+      <div className="shrink-0 border-b border-white/10 bg-ink-900/90 px-3 py-2 backdrop-blur-md safe-top sm:px-4 sm:py-2.5">
+        <div className="flex flex-wrap items-start justify-between gap-2 sm:items-center sm:gap-3">
+          <div className="min-w-0 flex-1">
             <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-200/90">
-              Giant matching map
+              Matching map
             </div>
-            <h2 className="text-sm font-semibold text-white sm:text-base">
+            <h2 className="truncate text-sm font-semibold text-white sm:text-base">
               {scope === "focus" && focusMember
-                ? `${focusMember.shortName} · your corridor network`
-                : "Corridor overview · pick a Mitglied for detail"}
+                ? `${focusMember.shortName} · corridor network`
+                : "Corridor overview"}
             </h2>
-            <p className="mt-0.5 text-[11px] text-white/50">
+            <p className="mt-0.5 line-clamp-2 text-[11px] text-white/50 sm:line-clamp-none">
               {scope === "focus" && focusMember
-                ? `${stats.osm} OSM matches (top links) · ${stats.land} land · ${stats.edges} links`
-                : `${stats.members} members · ${stats.land} land · corridor structure`}
-              {stats.osmTotal > stats.osm
-                ? ` · ${stats.osmTotal.toLocaleString()} OSM assets on geo map`
-                : null}
+                ? `${stats.osm} OSM · ${stats.land} land · ${stats.edges} links`
+                : `${stats.members} members · ${stats.land} land`}
               {loading ? " · loading OSM…" : ""}
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex shrink-0 flex-wrap items-center gap-1.5 sm:gap-2">
             <ScopeToggle scope={scope} onAll={showAll} onFocus={() => focusMemberId && setScope("focus")} />
             {scope === "focus" && focusMemberId ? (
               <button
                 type="button"
                 onClick={() => setPanel((p) => (p === "map" ? "swipe" : "map"))}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium ${
+                className={`min-h-[44px] rounded-lg px-3 py-2 text-xs font-medium touch-manipulation ${
                   panel === "swipe"
                     ? "bg-emerald-500/30 text-emerald-100 ring-1 ring-emerald-400/40"
                     : "bg-emerald-500/15 text-emerald-100 hover:bg-emerald-500/25"
                 }`}
                 data-testid="matching-swipe-toggle"
               >
-                {panel === "swipe" ? "Map view" : `Review matches${savedMatches ? ` (${savedMatches})` : ""}`}
+                {panel === "swipe" ? "Map" : `Review${savedMatches ? ` (${savedMatches})` : ""}`}
               </button>
             ) : null}
             <button
               type="button"
+              onClick={() => setToolsOpen((o) => !o)}
+              className="min-h-[44px] rounded-lg bg-white/8 px-3 py-2 text-xs font-medium text-white/70 touch-manipulation md:hidden"
+              aria-expanded={toolsOpen}
+            >
+              {toolsOpen ? "Less" : "Filters"}
+            </button>
+            <button
+              type="button"
               onClick={onSwitchToGeo}
-              className="rounded-lg bg-sky-500/20 px-3 py-1.5 text-xs font-medium text-sky-100 hover:bg-sky-500/35"
+              className="min-h-[44px] rounded-lg bg-sky-500/20 px-3 py-2 text-xs font-medium text-sky-100 touch-manipulation hover:bg-sky-500/35 max-md:hidden"
               data-testid="switch-to-geo-map"
             >
               ← Geo map
@@ -293,9 +311,10 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
           </div>
         </div>
 
-        <div className="mt-2 flex flex-wrap items-center gap-2">
+        <div className={`mt-2 space-y-2 ${isMobile && !toolsOpen ? "hidden" : ""} md:block`}>
+        <div className="flex flex-wrap items-center gap-2">
           <MatchingGraphLegend giant />
-          <span className="text-white/20">|</span>
+          <span className="hidden text-white/20 sm:inline">|</span>
           <LayerToggle label="Land" on={layerLand} onChange={setLayerLand} />
           <LayerToggle label="OSM" on={layerOsm} onChange={setLayerOsm} />
           <LayerToggle label="Infra" on={layerInfra} onChange={setLayerInfra} />
@@ -308,7 +327,7 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
           ) : null}
         </div>
 
-        <div className="mt-2 flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1">
           <FilterChip
             active={categoryFilter === "all"}
             onClick={() => setCategoryFilter("all")}
@@ -325,14 +344,14 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
           ))}
         </div>
 
-        <div className="mt-2 flex flex-wrap gap-1">
-          <FilterChip active={scope === "all"} onClick={showAll} label="Corridor overview" />
+        <div className="war-room-scroll flex max-w-full gap-1 overflow-x-auto pb-1">
+          <FilterChip active={scope === "all"} onClick={showAll} label="Overview" />
           {MITGLIEDER.map((m) => (
             <button
               key={m.id}
               type="button"
               onClick={() => focusOnMember(m.id)}
-              className={`rounded-full px-2 py-0.5 text-[10px] ${
+              className={`shrink-0 rounded-full px-3 py-1.5 text-[11px] touch-manipulation ${
                 scope === "focus" && focusMemberId === m.id
                   ? "bg-amber-500/25 text-amber-100 ring-1 ring-amber-400/40"
                   : "bg-white/8 text-white/55 hover:bg-white/12"
@@ -342,9 +361,10 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
             </button>
           ))}
         </div>
+        </div>
       </div>
 
-      <div className="relative min-h-0 flex-1 p-2 sm:p-3">
+      <div className="relative min-h-0 flex-1 touch-pan-x touch-pan-y p-1 sm:p-3">
         {panel === "swipe" && focusMemberId ? (
           <MatchingSwipeDeck
             memberId={focusMemberId}
@@ -371,16 +391,16 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
           />
         )}
         {panel === "map" ? (
-        <p className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-[10px] text-white/45">
+        <p className="pointer-events-none absolute bottom-2 left-1/2 hidden max-w-[90%] -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-center text-[10px] text-white/45 sm:block">
           {scope === "focus"
-            ? "Focus layout · no overlap · Review matches for swipe queue"
-            : "Overview · members & land · pick a Mitglied chip · OSM detail optional"}
+            ? "Focus layout · Review for swipe queue"
+            : "Overview · pick a Mitglied chip"}
         </p>
         ) : null}
       </div>
 
       {scope === "focus" && focusMember && panel === "map" ? (
-        <div className="shrink-0 border-t border-white/10 bg-ink-900/80 px-4 py-2 text-[11px] text-white/60">
+        <div className="shrink-0 border-t border-white/10 bg-ink-900/80 px-3 py-2 text-[11px] text-white/60 sm:px-4">
           <span className="font-medium text-white/85">{focusMember.shortName}</span>
           {" · "}
           {CATEGORY_LABELS[focusMember.category]}
@@ -414,7 +434,7 @@ function ScopeToggle({
       <button
         type="button"
         onClick={onAll}
-        className={`rounded-md px-2.5 py-1 text-[11px] font-medium ${
+        className={`min-h-[36px] rounded-md px-3 py-1.5 text-[11px] font-medium touch-manipulation ${
           scope === "all" ? "bg-amber-500/30 text-amber-100" : "text-white/55 hover:text-white/75"
         }`}
       >
@@ -423,7 +443,7 @@ function ScopeToggle({
       <button
         type="button"
         onClick={onFocus}
-        className={`rounded-md px-2.5 py-1 text-[11px] font-medium ${
+        className={`min-h-[36px] rounded-md px-3 py-1.5 text-[11px] font-medium touch-manipulation ${
           scope === "focus" ? "bg-emerald-500/30 text-emerald-100" : "text-white/55 hover:text-white/75"
         }`}
       >
@@ -446,7 +466,7 @@ function LayerToggle({
     <button
       type="button"
       onClick={() => onChange(!on)}
-      className={`rounded-full px-2 py-0.5 text-[10px] ${
+      className={`min-h-[36px] rounded-full px-3 py-1.5 text-[11px] touch-manipulation ${
         on ? "bg-white/12 text-white/80" : "bg-white/5 text-white/35 line-through"
       }`}
     >
@@ -470,7 +490,7 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-2 py-0.5 text-[10px] ${
+      className={`min-h-[36px] rounded-full px-3 py-1.5 text-[11px] touch-manipulation ${
         active ? "ring-1 ring-white/25 bg-white/12 text-white" : "bg-white/8 text-white/55 hover:bg-white/12"
       }`}
     >
