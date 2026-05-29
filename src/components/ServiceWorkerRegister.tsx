@@ -8,14 +8,16 @@ function isLocalHost() {
   return h === "localhost" || h === "127.0.0.1" || h === "[::1]" || h.endsWith(".local");
 }
 
-/** Remove SW + ber-hub caches (fixes stale offline.html on localhost). */
+/** Remove SW + caches (fixes stale bundles / offline.html on localhost). */
 export async function clearBerHubServiceWorker() {
-  if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
-  const regs = await navigator.serviceWorker.getRegistrations();
-  await Promise.all(regs.map((r) => r.unregister()));
+  if (typeof window === "undefined") return;
+  if ("serviceWorker" in navigator) {
+    const regs = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(regs.map((r) => r.unregister()));
+  }
   if ("caches" in window) {
     const keys = await caches.keys();
-    await Promise.all(keys.filter((k) => k.startsWith("ber-hub")).map((k) => caches.delete(k)));
+    await Promise.all(keys.map((k) => caches.delete(k)));
   }
 }
 
@@ -29,7 +31,11 @@ export function ServiceWorkerRegister() {
 
     if (disableSw) {
       void clearBerHubServiceWorker();
-      return;
+      const onFocus = () => {
+        void clearBerHubServiceWorker();
+      };
+      window.addEventListener("focus", onFocus);
+      return () => window.removeEventListener("focus", onFocus);
     }
 
     const onLoad = () => {

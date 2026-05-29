@@ -19,6 +19,7 @@ import {
   type CorridorGraph
 } from "@/lib/member-asset-graph";
 import { MatchingGraphCanvas, MatchingGraphLegend } from "@/components/MatchingGraphCanvas";
+import { MatchingNodeMapPopup } from "@/components/MatchingNodeMapPopup";
 import { MatchingSwipeDeck } from "@/components/MatchingSwipeDeck";
 import { mgTrace, mgTraceBegin } from "@/lib/matching-graph-trace";
 import type { LiveMatch } from "@/lib/local-member-matching";
@@ -32,11 +33,12 @@ export type MatchingPanel = "map" | "swipe";
 type Props = {
   /** Suggested focus when opening (e.g. logged-in member) */
   defaultMemberId?: string | null;
-  onSelectNode: (nodeId: string) => void;
+  /** Optional — jump to full geo war-room map (popup offers this) */
+  onOpenInWarRoom?: (nodeId: string) => void;
   onSwitchToGeo: () => void;
 };
 
-export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo }: Props) {
+export function GiantMatchingMap({ defaultMemberId, onOpenInWarRoom, onSwitchToGeo }: Props) {
   const { data, loading } = useOsmIntel();
   const isMobile = useIsMobile();
   const [scope, setScope] = useState<MatchingScope>("focus");
@@ -51,6 +53,7 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
   const [panel, setPanel] = useState<MatchingPanel>("map");
   const [savedMatches, setSavedMatches] = useState(0);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const [previewNodeId, setPreviewNodeId] = useState<string | null>(null);
 
   useEffect(() => {
     if (isMobile) setToolsOpen(false);
@@ -226,23 +229,24 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
     (nodeId: string) => {
       mgTrace("click", "node", { nodeId, scope, focusMemberId });
       if (nodeId.startsWith("member-")) {
-        focusOnMember(nodeId.replace("member-", ""));
+        const id = nodeId.replace("member-", "");
+        if (scope === "focus" && focusMemberId && id !== focusMemberId) {
+          setPreviewNodeId(nodeId);
+          return;
+        }
+        focusOnMember(id);
         return;
       }
-      onSelectNode(nodeId);
+      setPreviewNodeId(nodeId);
     },
-    [focusOnMember, onSelectNode, scope, focusMemberId]
+    [focusOnMember, scope, focusMemberId]
   );
 
-  const handleSwipeMatchOpen = useCallback(
-    (match: LiveMatch) => {
-      if (match.osmFeatureId) onSelectNode(`osm-${match.osmFeatureId}`);
-      else if (match.landSiteId) onSelectNode(`land-${match.landSiteId}`);
-      else if (match.peerMemberId) onSelectNode(`member-${match.peerMemberId}`);
-      onSwitchToGeo();
-    },
-    [onSelectNode, onSwitchToGeo]
-  );
+  const handleSwipeMatchOpen = useCallback((match: LiveMatch) => {
+    if (match.osmFeatureId) setPreviewNodeId(`osm-${match.osmFeatureId}`);
+    else if (match.landSiteId) setPreviewNodeId(`land-${match.landSiteId}`);
+    else if (match.peerMemberId) setPreviewNodeId(`member-${match.peerMemberId}`);
+  }, []);
 
   const fitMode: MatchingScope = scope;
 
@@ -415,6 +419,24 @@ export function GiantMatchingMap({ defaultMemberId, onSelectNode, onSwitchToGeo 
             Corridor overview
           </button>
         </div>
+      ) : null}
+
+      {previewNodeId && baseGraph ? (
+        <MatchingNodeMapPopup
+          nodeId={previewNodeId}
+          graph={graph}
+          focusMemberId={scope === "focus" ? focusMemberId : null}
+          onClose={() => setPreviewNodeId(null)}
+          onSavedChange={setSavedMatches}
+          onOpenFullMap={
+            onOpenInWarRoom
+              ? (id) => {
+                  setPreviewNodeId(null);
+                  onOpenInWarRoom(id);
+                }
+              : undefined
+          }
+        />
       ) : null}
     </div>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { WarRoomMap } from "@/components/WarRoomMap";
 import { MembersPanel } from "@/components/MembersPanel";
 import { MemberDetailPanel } from "@/components/MemberDetailPanel";
@@ -12,6 +12,7 @@ import { JunqingchuPanel } from "@/components/JunqingchuPanel";
 import { ProgrammePanel } from "@/components/ProgrammePanel";
 import { FloatingPanel } from "@/components/FloatingPanel";
 import { MobileBottomSheet } from "@/components/MobileBottomSheet";
+import { MapRevealHint } from "@/components/MapRevealHint";
 import { CorridorHeader } from "@/components/CorridorHeader";
 import { ProgrammePhaseBanner } from "@/components/ProgrammePhaseBanner";
 import { TimelineControl } from "@/components/TimelineControl";
@@ -30,6 +31,7 @@ import { getMitgliedById } from "@/data/mitglieder";
 import type { MemberCategory } from "@/data/mitglieder";
 import { CATEGORY_COLORS } from "@/data/mitglieder";
 import { useIsMobile } from "@/lib/use-media";
+import { labelForSelectedFeature } from "@/lib/map-reveal-label";
 
 type MobileSheet = null | "explore" | "member";
 
@@ -164,16 +166,59 @@ function MapWorkspaceContent({
   session: ReturnType<typeof useUserSession>["session"];
   switchUser: () => void;
 }) {
-  const { selectFeature } = useOsmIntel();
+  const { selectFeature, selectedFeatureId, data: osmData } = useOsmIntel();
   const { focusLandSite, focusMember } = useMapActions();
   const isMobile = useIsMobile();
   const [mobileSheet, setMobileSheet] = useState<MobileSheet>(null);
+  const [mapRevealHint, setMapRevealHint] = useState<string | null>(null);
+  const hintTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const prevFeatureRef = useRef<string | null>(null);
+
+  const showMapRevealHint = useCallback((message: string) => {
+    setMapRevealHint(message);
+    if (hintTimerRef.current) clearTimeout(hintTimerRef.current);
+    hintTimerRef.current = setTimeout(() => setMapRevealHint(null), 4500);
+  }, []);
+
+  const revealMapOnMobile = useCallback(() => {
+    if (isMobile) setMobileSheet(null);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!isMobile || !selectedFeatureId || !mobileSheet) {
+      prevFeatureRef.current = selectedFeatureId;
+      return;
+    }
+    if (prevFeatureRef.current === selectedFeatureId) return;
+    prevFeatureRef.current = selectedFeatureId;
+    revealMapOnMobile();
+    showMapRevealHint(`On map · ${labelForSelectedFeature(selectedFeatureId, osmData)}`);
+  }, [selectedFeatureId, isMobile, osmData, mobileSheet, revealMapOnMobile, showMapRevealHint]);
+
+  const handleSelectMember = useCallback(
+    (id: string | null) => {
+      setSelectedMemberId(id);
+      if (!isMobile || !id || !mobileSheet) return;
+      revealMapOnMobile();
+      const m = getMitgliedById(id);
+      showMapRevealHint(m ? `On map · ${m.shortName}` : "On map");
+    },
+    [isMobile, mobileSheet, revealMapOnMobile, showMapRevealHint, setSelectedMemberId]
+  );
 
   const handleMatchingNode = useCallback(
     (nodeId: string) => {
-      if (nodeId.startsWith("member-") || nodeId.startsWith("zone-")) return;
-
       setViewMode("geo");
+
+      if (nodeId.startsWith("member-")) {
+        const id = nodeId.replace("member-", "");
+        setSelectedMemberId(id);
+        focusMember(id);
+        setLeftTab(loggedInMemberId === id ? "foryou" : "members");
+        return;
+      }
+
+      if (nodeId.startsWith("zone-")) return;
 
       if (nodeId.startsWith("land-")) {
         const siteId = nodeId.replace("land-", "");
@@ -192,7 +237,7 @@ function MapWorkspaceContent({
         setLeftTab("junqingchu");
       }
     },
-    [focusLandSite, focusMember, selectFeature, setLeftTab, setSelectedMemberId, setViewMode]
+    [focusLandSite, focusMember, selectFeature, setLeftTab, setViewMode, loggedInMemberId, setSelectedMemberId]
   );
 
   const geoHidden = viewMode === "matching";
@@ -234,7 +279,7 @@ function MapWorkspaceContent({
       <MemberHomePanel
         memberId={loggedInMemberId}
         onGoToTab={setLeftTab}
-        onSelectMember={setSelectedMemberId}
+        onSelectMember={handleSelectMember}
         onOpenGiantMap={() => setViewMode("matching")}
       />
     ) : leftTab === "value" ? (
@@ -246,7 +291,7 @@ function MapWorkspaceContent({
     ) : leftTab === "members" ? (
       <MembersPanel
         selectedId={selectedMemberId}
-        onSelect={setSelectedMemberId}
+        onSelect={handleSelectMember}
         filterCategory={filterCategory}
         onFilterCategory={setFilterCategory}
       />
@@ -265,7 +310,7 @@ function MapWorkspaceContent({
     >
       <WarRoomMap
         selectedMemberId={selectedMemberId}
-        onSelectMember={setSelectedMemberId}
+        onSelectMember={handleSelectMember}
         filterCategory={filterCategory}
         interactionLocked={mobileSheet !== null}
         className={
@@ -280,7 +325,7 @@ function MapWorkspaceContent({
       {viewMode === "matching" ? (
         <GiantMatchingMap
           defaultMemberId={loggedInMemberId ?? selectedMemberId}
-          onSelectNode={handleMatchingNode}
+          onOpenInWarRoom={handleMatchingNode}
           onSwitchToGeo={() => setViewMode("geo")}
         />
       ) : null}
@@ -402,6 +447,13 @@ function MapWorkspaceContent({
             />
           </MobileBottomSheet>
         </>
+      ) : null}
+
+      {isMobile && mapRevealHint && mobileSheet === null ? (
+        <MapRevealHint
+          message={mapRevealHint}
+          onReopenPanel={() => setMobileSheet("explore")}
+        />
       ) : null}
 
       {isMobile ? (
