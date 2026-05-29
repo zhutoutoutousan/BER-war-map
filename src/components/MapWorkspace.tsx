@@ -11,6 +11,7 @@ import { BriefingPanel } from "@/components/BriefingPanel";
 import { JunqingchuPanel } from "@/components/JunqingchuPanel";
 import { ProgrammePanel } from "@/components/ProgrammePanel";
 import { FloatingPanel } from "@/components/FloatingPanel";
+import { MobileBottomSheet } from "@/components/MobileBottomSheet";
 import { CorridorHeader } from "@/components/CorridorHeader";
 import { ProgrammePhaseBanner } from "@/components/ProgrammePhaseBanner";
 import { TimelineControl } from "@/components/TimelineControl";
@@ -318,28 +319,13 @@ function MapWorkspaceContent({
           />
         </div>
 
-        <div className="flex min-h-0 flex-1 items-stretch justify-between gap-2">
-          <FloatingPanel
-            testId="showcase-panel-left"
-            title={LEFT_TAB_TITLES[leftTab]}
-            side="left"
-            mobileSheet={isMobile}
-            mobileOpen={mobileSheet === "explore"}
-            onMobileClose={() => setMobileSheet(null)}
-          >
+        <div className="hidden min-h-0 flex-1 items-stretch justify-between gap-2 md:flex">
+          <FloatingPanel testId="showcase-panel-left" title={LEFT_TAB_TITLES[leftTab]} side="left">
             {leftPanelTabs}
             {leftPanelBody}
           </FloatingPanel>
 
-          <FloatingPanel
-            testId="showcase-panel-right"
-            title="Member path"
-            side="right"
-            defaultCollapsed={false}
-            mobileSheet={isMobile}
-            mobileOpen={mobileSheet === "member"}
-            onMobileClose={() => setMobileSheet(null)}
-          >
+          <FloatingPanel testId="showcase-panel-right" title="Member path" side="right" defaultCollapsed={false}>
             <MemberDetailPanel
               selectedId={selectedMemberId}
               onGoToTab={setLeftTab}
@@ -388,6 +374,35 @@ function MapWorkspaceContent({
           </div>
         </div>
       </div>
+
+      {isMobile ? (
+        <>
+          <MobileBottomSheet
+            open={mobileSheet === "explore"}
+            title={LEFT_TAB_TITLES[leftTab]}
+            testId="showcase-panel-left-mobile"
+            onClose={() => setMobileSheet(null)}
+          >
+            {leftPanelTabs}
+            {leftPanelBody}
+          </MobileBottomSheet>
+          <MobileBottomSheet
+            open={mobileSheet === "member"}
+            title="Member path"
+            testId="showcase-panel-right-mobile"
+            onClose={() => setMobileSheet(null)}
+          >
+            <MemberDetailPanel
+              selectedId={selectedMemberId}
+              onGoToTab={(tab) => {
+                setLeftTab(tab);
+                setMobileSheet("explore");
+              }}
+              viewerMemberId={loggedInMemberId}
+            />
+          </MobileBottomSheet>
+        </>
+      ) : null}
 
       {isMobile ? (
         <nav className="mobile-nav-bar md:hidden" aria-label="War room navigation">
