@@ -3,6 +3,7 @@ import { getMitgliedById } from "@/data/mitglieder";
 import type { CorridorGraph, GraphNode } from "@/lib/member-asset-graph";
 import { CORRIDOR_BBOX } from "@/lib/graph-layout";
 import { findOsmIntelFeatureForPopup } from "@/lib/osm-intel-lookup";
+import { displayNameForOsmFeature } from "@/lib/osm-display-name";
 import type { OsmIntelPayload } from "@/lib/osm-schoenefeld";
 
 export type MatchingNodePreview = {
@@ -74,7 +75,7 @@ export function resolveMatchingNodePreview(
     if (picked) {
       return {
         nodeId,
-        title: picked.props.name,
+        title: displayNameForOsmFeature(picked.props),
         subtitle: `${picked.props.category} / ${picked.props.subcategory}`,
         detail: picked.props.tagsSummary,
         center: picked.coordinates,

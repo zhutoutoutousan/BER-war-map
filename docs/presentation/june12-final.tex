@@ -1,6 +1,6 @@
-% BER+ Coordination Map — IDI S26 Final Presentation (June 12)
-% Compile: pdflatex june12-final.tex  (twice for TOC)
-% Figures: place PNGs in docs/presentation/figures/
+% BER+ Coordination Map — June 12 leadership briefing
+% Compile: pdflatex june12-final.tex  (twice if needed)
+% Live demo: https://ber-war-map.vercel.app/
 
 \documentclass[aspectratio=169,11pt]{beamer}
 \usetheme{Madrid}
@@ -11,13 +11,16 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=teal}
+\newcommand{\demourl}{\url{https://ber-war-map.vercel.app/}}
+
 \graphicspath{{figures/}}
 
 \title{BER+ Coordination Map}
-\subtitle{Strategic options for matching, visibility \& corridor intelligence}
-\author{IDI 1 --- Disruptive Technologies \& Innovation Management (S26)}
-\institute{BER+ Flughafenregion · Schönefeld corridor probe}
-\date{Final presentation · 12 June 2026}
+\subtitle{Matching · visibility · corridor intelligence — one war-room screen}
+\author{BER+ Flughafenregion}
+\institute{Schönefeld corridor · Flughafenregion Berlin Brandenburg}
+\date{12 June 2026}
 
 \begin{document}
 
@@ -25,199 +28,244 @@
 \begin{frame}
   \titlepage
   \vfill
-  \small\textit{Not a finished product --- a strategic probe BER+ could continue (12--24 months).}
+  \centering\demourl
 \end{frame}
 
-% --- Purpose ---
-\begin{frame}{Purpose of June 12}
-  \textbf{Not:} defend a perfect startup pitch or 2045 vision.\\
-  \textbf{Yes:} explore options BER+ and members could \emph{realistically} continue after the course.
-  \begin{itemize}
-    \item Strategic options + evidence + next steps
-    \item Discussion matters more than being right
-    \item Real audience: BER+ leadership \& selected member companies
-  \end{itemize}
+% --- Agenda ---
+\begin{frame}{Agenda}
+  \begin{enumerate}
+    \item Corridor context --- why coordination matters now
+    \item Live platform walkthrough (war room, Mitglieder, OSM, matching)
+    \item Member paths \& match review on the graph
+    \item Resilience programme anchor (Pilot-1)
+    \item Next steps for BER+ \& members
+  \end{enumerate}
+  \vfill
+  \small\demourl
 \end{frame}
 
 % --- Why BER+ ---
-\begin{frame}{Why should BER+ care?}
-  BER+ faces \textbf{coordination problems}, not only technology gaps:
+\begin{frame}{Four coordination priorities}
   \begin{enumerate}
-    \item Matching companies and opportunities
-    \item Visibility of assets and spaces
-    \item More value for members
-    \item Accelerating regional development \& stakeholder alignment
+    \item \textbf{Matching} --- connect members to land, peers, and corridor assets
+    \item \textbf{Visibility} --- shared view of gewerbe land, industry, power, transport
+    \item \textbf{Member value} --- personalized paths and evidence on the map
+    \item \textbf{Alignment} --- one briefing surface for leadership and stakeholders
   \end{enumerate}
-  \vspace{0.5em}
-  Our probe: a \textbf{war-room map} that makes corridor context shareable --- one screen for leadership briefings.
+  \vspace{0.8em}
+  The \textbf{BER+ coordination war room} puts Flughafenregion context on a single interactive map.
 \end{frame}
 
 % --- Why now ---
-\begin{frame}{Why now? (12--24 months)}
+\begin{frame}{Why the corridor, why now}
   \begin{itemize}
-    \item Grid congestion \& Netzanschluss delays stall gewerbe expansion \emph{today}
-    \item FBB / FEW energy \& resilience targets are active compliance drivers
-    \item SEGRO \textbf{Pilot-1} (2\,ha) anchors Phase I --- financeable proof unit, not ``a new city''
-    \item Members asked for asset visibility \& matching (BER+ workshop, April 2026)
+    \item Grid congestion and \textbf{Netzanschluss} shape where gewerbe can grow
+    \item FBB / FEW energy and resilience targets drive near-term investment choices
+    \item \textbf{SEGRO Pilot-1} (2\,ha) anchors Phase I development on the map
+    \item Members need asset visibility and qualified introductions across the network
   \end{itemize}
   \vspace{0.5em}
-  \textbf{Horizon:} validate indicative OSM + member links quarterly --- not replace cadastral GIS.
+  OSM-based layers refresh with the corridor; cadastral detail remains with planning authorities.
 \end{frame}
 
 % --- Platform figure ---
-\begin{frame}{Platform: BER+ coordination war room}
+\begin{frame}{War room overview}
   \begin{columns}[T]
     \column{0.62\textwidth}
     \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{fig01-war-room-overview.png}
     \column{0.36\textwidth}
     \small
-    \textbf{Layers}
+    \textbf{On one map}
     \begin{itemize}
       \item BER+ corridor ribbon \& Pilot-1
-      \item Mitglieder + influence zones
-      \item OSM land / industry / power / transport
-      \item Member-linked OSM highlights
-      \item Intelligence feed (RSS)
+      \item Mitglieder and influence zones
+      \item OSM land, industry, power, transport
+      \item Member-linked asset highlights
+      \item Corridor intelligence (RSS)
     \end{itemize}
+    \vspace{0.5em}
+    \demourl
   \end{columns}
 \end{frame}
 
 % --- Coordination framing ---
-\begin{frame}{Strategic framing (BER+ Paths tab)}
+\begin{frame}{BER+ Paths --- strategic framing}
   \begin{columns}[T]
     \column{0.55\textwidth}
     \includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]{fig02-coordination-paths.png}
     \column{0.43\textwidth}
     \small
-    Answers Bastian's checklist:
+    \textbf{Hosted by BER+}
     \begin{itemize}
-      \item Why BER+? --- neutral host for the map
-      \item Why region? --- defined Flughafenregion bbox
-      \item What value? --- visibility, matching, intel
-      \item What BER+ could do? --- pilot, platform, matching, intelligence
+      \item Neutral regional host for the Flughafenregion
+      \item Defined corridor geography and programme timeline
+      \item Matching, visibility, and intelligence in one place
+      \item Action paths: pilot, platform, matching, advocacy
     \end{itemize}
   \end{columns}
 \end{frame}
 
 % --- Four themes table ---
-\begin{frame}{Four coordination themes $\rightarrow$ platform}
+\begin{frame}{Platform capabilities by theme}
   \small
   \begin{table}
-    \begin{tabular}{@{}p{0.22\linewidth}p{0.36\linewidth}p{0.34\linewidth}@{}}
+    \begin{tabular}{@{}p{0.20\linewidth}p{0.38\linewidth}p{0.36\linewidth}@{}}
       \toprule
-      \textbf{Theme} & \textbf{Member pain} & \textbf{First step (12--24 mo)} \\
+      \textbf{Theme} & \textbf{What members gain} & \textbf{On the platform} \\
       \midrule
-      Matching & Who is near which asset? & Pilot links for 3--5 anchor members \\
-      Visibility & Land \& infra invisible & Quarterly OSM corridor snapshot \\
-      Member value & Generic membership & 10 members with verified OSM links \\
-      Coordination & Siloed stakeholders & Quarterly war-room board briefing \\
+      Matching & Qualified links to assets \& peers & Giant graph + match review \\
+      Visibility & Corridor land \& infra context & OSM Intel layers + land anchors \\
+      Member value & Role-specific guidance & Member path + sign-in home \\
+      Coordination & Shared briefing picture & War room + programme timeline \\
       \bottomrule
     \end{tabular}
   \end{table}
 \end{frame}
 
 % --- Mitglieder ---
-\begin{frame}{Mitglieder: clear paths to solve their problems}
+\begin{frame}{Mitglieder on the map}
   \begin{columns}[T]
     \column{0.48\textwidth}
     \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{fig03-mitglieder-matching.png}
     \column{0.50\textwidth}
     \small
-    Per \textbf{category} (developer, investor, infra, consulting, public):
+    \textbf{14 members} across developer, investor, infrastructure, consulting, public.
     \begin{itemize}
-      \item Problem they state
-      \item What they \emph{see} on the map
-      \item What they \emph{do} next (click-through)
+      \item Filter by category; select any Mitglied
+      \item OSM link counts per member
+      \item Tailored paths: e.g.\ BUWOG (Schönefeld Nord), SEGRO (Pilot-1), WFG (portfolio)
     \end{itemize}
-    \vspace{0.4em}
-    Example overrides: BUWOG (Schönefeld Nord), SEGRO (Pilot-1), WFG (regional portfolio).
   \end{columns}
 \end{frame}
 
 % --- OSM Intel ---
-\begin{frame}{OSM Intel: visibility of assets \& spaces}
+\begin{frame}{OSM Intel --- assets \& infrastructure}
   \begin{columns}[T]
     \column{0.62\textwidth}
     \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{fig04-osm-intel.png}
     \column{0.36\textwidth}
     \small
-    \textbf{Indicative only} --- not B-Plan / cadastre.
+    \textbf{Corridor intelligence layers}
     \begin{itemize}
-      \item Land parcels (ha, suitability)
-      \item Industry \& logistics zones
-      \item Power \& transport corridors
+      \item Land parcels (area, suitability signals)
+      \item Industry and logistics zones
+      \item Power and transport corridors
       \item BER+ curated land anchors
     \end{itemize}
   \end{columns}
 \end{frame}
 
 % --- Member path panel ---
-\begin{frame}{Member path panel (right rail)}
+\begin{frame}{Member path --- evidence on the map}
   \centering
   \includegraphics[width=0.45\linewidth,height=0.78\textheight,keepaspectratio]{fig05-member-path.png}
   \vspace{0.5em}
-  \small Linked OSM features $\rightarrow$ click to fly map popup --- evidence for diligence \& advocacy.
+  \small Step-by-step path per Mitglied; linked OSM features fly the map for diligence and advocacy.
 \end{frame}
 
-% --- Module 1.0 ---
-\begin{frame}{Technology probe: Resilience Module 1.0}
-  \textbf{Strongest ideas = relevant today + connected to assets}
-  \begin{itemize}
-    \item Pilot-1: PV + BESS + EWF on SEGRO site (map anchor)
-    \item Programme Phase I--III on shared timeline
-    \item Briefing tab: grid / resilience dilemma (FBB, BNetzA sources)
-  \end{itemize}
-  \vspace{0.5em}
-  Platform \emph{supports} Module 1.0 story --- does not replace engineering design.
-\end{frame}
-
-% --- What BER+ could do ---
-\begin{frame}{What could BER+ actually do?}
+% --- Giant matching map ---
+\begin{frame}{Matching map --- corridor network}
   \begin{columns}[T]
-    \column{0.5\textwidth}
-    \begin{itemize}
-      \item \textbf{Pilot} --- SEGRO Pilot-1 validate
-      \item \textbf{Platform} --- host war-room map
-      \item \textbf{Matching} --- member$\leftrightarrow$OSM rules
-      \item \textbf{Intelligence} --- corridor RSS dossier
-      \item \textbf{Advocacy} --- export map evidence packs
-    \end{itemize}
-    \column{0.5\textwidth}
-    \textbf{OK to abandon} parts after June 12:\\
+    \column{0.64\textwidth}
+    \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{fig07-giant-matching-map.png}
+    \column{0.34\textwidth}
     \small
-    CCTV overlay, full 11k OSM features, ``军情处'' styling --- keep only what leadership values.
+    \textbf{Mitglieder $\leftrightarrow$ land $\leftrightarrow$ OSM}
+    \begin{itemize}
+      \item Overview or member \textbf{focus} layout
+      \item Category and layer filters
+      \item Thousands of scored links in one view
+    \end{itemize}
+    \vspace{0.4em}
+    \demourl
   \end{columns}
 \end{frame}
 
+% --- Match review popup ---
+\begin{frame}{Match review --- map + decision}
+  \begin{columns}[T]
+    \column{0.58\textwidth}
+    \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{fig06-matching-review-popup.png}
+    \column{0.40\textwidth}
+    \small
+    \textbf{In member focus}, tap any OSM asset:
+    \begin{itemize}
+      \item Embedded site preview
+      \item Match score and rationale
+      \item Pass / Save for the review queue
+      \item Open full war-room map when needed
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+% --- Mobile war room ---
+\begin{frame}{Mobile --- field and site briefings}
+  \begin{columns}[T]
+    \column{0.52\textwidth}
+    \IfFileExists{fig08-mobile-war-room.png}{%
+      \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{fig08-mobile-war-room.png}%
+    }{%
+      \includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{fig01-war-room-overview.png}%
+    }
+    \column{0.46\textwidth}
+    \small
+    \textbf{Map · Explore · Member · Match}
+    \begin{itemize}
+      \item Bottom navigation and slide-up panels
+      \item Map stays readable while exploring data
+      \item Same corridor data on phone and desktop
+    \end{itemize}
+    \vspace{0.3em}
+    \demourl
+  \end{columns}
+\end{frame}
+
+% --- Module 1.0 ---
+\begin{frame}{Resilience programme on the timeline}
+  \begin{itemize}
+    \item \textbf{Pilot-1:} PV + BESS + EWF anchored on the SEGRO site
+    \item Programme Phases I--III on the shared corridor timeline
+    \item Briefing tab: grid and resilience context (FBB, BNetzA sources)
+  \end{itemize}
+  \vspace{0.5em}
+  Engineering design stays with project partners; the map carries the regional story.
+\end{frame}
+
+% --- What BER+ could do ---
+\begin{frame}{How BER+ can use the platform}
+  \begin{itemize}
+    \item \textbf{Pilot} --- validate Pilot-1 and corridor narrative with SEGRO
+    \item \textbf{Host} --- war-room map for board and member sessions
+    \item \textbf{Match} --- maintain member--asset rules and review queue
+    \item \textbf{Intelligence} --- corridor RSS and briefing packs
+    \item \textbf{Advocate} --- export map evidence for stakeholders
+  \end{itemize}
+\end{frame}
+
 % --- Discussion ---
-\begin{frame}{Discussion prompts for BER+ \& members}
+\begin{frame}{Questions for the room}
   \begin{enumerate}
-    \item Which coordination theme should BER+ prioritize in 2026--27?
-    \item Is indicative OSM ``good enough'' for member workshops?
-    \item Who owns data refresh (BER+ secretariat vs.\ Arcadis vs.\ WFG)?
-    \item Should member paths be co-designed with 3 pilot members post-June?
-    \item What is the \textbf{first contractible step} after Pilot-1 (platform MOU)?
+    \item Which theme should lead the next 12 months --- matching, visibility, or coordination?
+    \item Which 3--5 Mitglieder should pilot verified OSM links first?
+    \item Who owns quarterly data refresh --- BER+, Arcadis, WFG?
+    \item What is the first joint step after Pilot-1 (platform hosting, MOU)?
   \end{enumerate}
 \end{frame}
 
 % --- Close ---
 \begin{frame}{Summary}
   \begin{itemize}
-    \item \textbf{Probe:} coordination map --- match, visibility, intelligence
-    \item \textbf{Evidence:} OSM + Mitglieder links + programme + Pilot-1
-    \item \textbf{Next:} 12--24 month steps in platform ``BER+ Paths'' tab
+    \item \textbf{One map} for the Flughafenregion --- match, visibility, programme, intelligence
+    \item \textbf{Live today:} \demourl
+    \item \textbf{Next:} pilot members, refresh OSM links, embed in BER+ briefings
   \end{itemize}
-  \vfill
-  \small
-  Demo: \url{http://localhost:3001} · Screenshots: \texttt{docs/presentation/figures/}\\
-  Capture guide: \texttt{/capture} on running dev server
 \end{frame}
 
 \begin{frame}[plain]
   \centering
-  \Large Thank you\\
-  \vspace{1em}
-  \normalsize Questions \& which parts deserve further exploration?
+  \Large Thank you\\[1.2em]
+  \normalsize\demourl\\[0.6em]
+  \small Questions and live demo
 \end{frame}
 
 \end{document}
