@@ -214,7 +214,7 @@ function MemberCard({
           <p className="mt-0.5 text-[10px] text-white/45">
             Visibility & matching — click to locate on map
           </p>
-          <ul className="war-room-scroll mt-2 max-h-36 space-y-0.5 overflow-y-auto">
+          <ul className="war-room-scroll mt-2 max-h-none space-y-0.5 md:max-h-36 md:overflow-y-auto md:overscroll-y-contain">
             {relatedOsm.map((f) => {
               const p = f.properties as OsmIntelFeatureProperties;
               return (

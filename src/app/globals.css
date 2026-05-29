@@ -331,11 +331,10 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
 }
 
 .mobile-sheet {
-  @apply pointer-events-auto fixed inset-x-0 bottom-0 z-[45] flex w-full min-h-0 flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-ink-900/95 shadow-2xl backdrop-blur-lg;
+  @apply pointer-events-auto fixed inset-x-0 bottom-0 flex w-full min-h-0 flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-ink-900/95 shadow-2xl backdrop-blur-lg;
   max-height: min(88dvh, calc(100dvh - env(safe-area-inset-top)));
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: calc(3.75rem + env(safe-area-inset-bottom));
   overscroll-behavior: contain;
-  touch-action: none;
 }
 
 .mobile-sheet-scroll {
