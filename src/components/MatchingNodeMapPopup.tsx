@@ -8,6 +8,8 @@ import { getMitgliedById } from "@/data/mitglieder";
 import type { CorridorGraph } from "@/lib/member-asset-graph";
 import { buildMatchBrief } from "@/lib/matching-match-brief";
 import { findLiveMatchForGraphNode } from "@/lib/matching-node-match";
+import { isLowValueOsmAsset } from "@/lib/osm-match-quality";
+import type { OsmIntelFeatureProperties } from "@/lib/osm-schoenefeld";
 import { resolveMatchingNodePreview } from "@/lib/matching-node-geo";
 import { recordSwipeDecision, savedCount } from "@/lib/matching-swipe-store";
 import { CARTO_DARK_STYLE } from "@/lib/war-room-map-style";
@@ -56,6 +58,19 @@ export function MatchingNodeMapPopup({
 
   const viewer = focusMemberId ? getMitgliedById(focusMemberId) : null;
   const showReview = Boolean(focusMemberId && liveMatch && brief);
+
+  const osmProps = useMemo(() => {
+    if (!nodeId.startsWith("osm-") || !osmData?.geojson) return null;
+    const fid = nodeId.replace("osm-", "");
+    const f = osmData.geojson.features.find(
+      (x) => (x.properties as OsmIntelFeatureProperties).id === fid
+    );
+    return f?.properties as OsmIntelFeatureProperties | undefined;
+  }, [nodeId, osmData?.geojson]);
+
+  const contextOnly =
+    Boolean(osmProps && isLowValueOsmAsset(osmProps.category, osmProps.subcategory)) ||
+    (liveMatch?.kind === "osm" && (liveMatch.score ?? 0) < 8);
 
   const handleDecision = useCallback(
     (decision: "saved" | "passed") => {
@@ -199,13 +214,18 @@ export function MatchingNodeMapPopup({
         <div className="flex shrink-0 items-start justify-between gap-2 border-b border-white/10 px-3 py-2.5">
           <div className="min-w-0">
             <div className="text-[10px] font-bold uppercase tracking-wide text-amber-200/90">
-              {showReview ? "Match review · geo" : "Geo preview"}
+              {showReview
+                ? contextOnly
+                  ? "Corridor context · geo"
+                  : "Match review · geo"
+                : "Geo preview"}
             </div>
             <h3 className="truncate text-sm font-semibold text-white">{preview.title}</h3>
             {viewer ? (
               <p className="mt-0.5 text-[11px] text-white/55">
                 For {viewer.shortName}
-                {showReview ? " · swipe or tap Pass / Save" : ""}
+                {showReview && !contextOnly ? " · swipe or tap Pass / Save" : ""}
+                {showReview && contextOnly ? " · map context for your anchors" : ""}
               </p>
             ) : preview.subtitle ? (
               <p className="mt-0.5 text-[11px] text-white/55">{preview.subtitle}</p>
@@ -292,9 +312,11 @@ export function MatchingNodeMapPopup({
                   <MatchReviewCard match={liveMatch} brief={brief} memberId={focusMemberId!} compact />
                 </div>
               </div>
-              <div className="shrink-0 border-t border-white/10 p-2 sm:p-3">
-                <SwipeActionButtons onPass={() => flyOut("left")} onSave={() => flyOut("right")} />
-              </div>
+              {!contextOnly ? (
+                <div className="shrink-0 border-t border-white/10 p-2 sm:p-3">
+                  <SwipeActionButtons onPass={() => flyOut("left")} onSave={() => flyOut("right")} />
+                </div>
+              ) : null}
             </div>
           ) : preview.detail ? (
             <p className="border-t border-white/10 p-3 text-[11px] leading-relaxed text-white/60 md:border-t-0 md:border-l">

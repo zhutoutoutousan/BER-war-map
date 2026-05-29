@@ -11,6 +11,7 @@ import {
   zoomViewport
 } from "@/lib/member-asset-graph";
 import { cullGraphView, type GraphDetailLevel } from "@/lib/graph-view-cull";
+import { isRawOsmRef } from "@/lib/osm-display-name";
 import { MatchingGraphRaster } from "@/components/MatchingGraphRaster";
 
 type Props = {
@@ -547,7 +548,7 @@ function GraphNodeShape({
 }) {
   const scale = giant ? 1.35 : 1;
   const isOsm = node.id.startsWith("osm-") || node.kind === "osm";
-  const simplified = detail === "overview" || (detail === "medium" && isOsm);
+  const simplified = detail === "overview" || (detail === "medium" && isOsm && !giant);
   const r = simplified
     ? isOsm
       ? 5
@@ -558,8 +559,22 @@ function GraphNodeShape({
           : 7
     : (node.kind === "airport" ? 24 : node.kind === "land" ? 18 : isOsm ? 14 : 11) * scale;
   const opacity = dimmed ? 0.22 : active ? 1 : 0.58;
-  const showLabel = detail === "full" || (detail === "medium" && !isOsm);
-  const showSublabel = detail === "full" && !simplified && isOsm && !/^((node|way|relation)\/)/i.test(node.label);
+  const showLabel =
+    detail === "full" ||
+    (detail === "medium" && !isOsm) ||
+    (giant && isOsm && detail !== "overview") ||
+    (giant && isOsm && active);
+  const showSublabel =
+    (detail === "full" || (giant && isOsm && detail === "medium")) &&
+    !simplified &&
+    isOsm &&
+    Boolean(node.sublabel) &&
+    !isRawOsmRef(node.label);
+
+  const labelText =
+    isRawOsmRef(node.label) && node.sublabel
+      ? node.sublabel.replace("/", " · ").replace(/_/g, " ")
+      : node.label;
 
   return (
     <g
@@ -602,7 +617,7 @@ function GraphNodeShape({
           fontWeight={active ? 700 : 500}
           pointerEvents="none"
         >
-          {node.label.length > (giant ? 28 : 22) ? `${node.label.slice(0, giant ? 26 : 20)}…` : node.label}
+          {labelText.length > (giant ? 28 : 22) ? `${labelText.slice(0, giant ? 26 : 20)}…` : labelText}
         </text>
       ) : null}
       {showSublabel && node.sublabel && giant ? (

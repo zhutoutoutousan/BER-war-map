@@ -7,6 +7,7 @@ import { getMitgliedById } from "@/data/mitglieder";
 import { getMemberOsmFeatures, LAND_SITE_MEMBER_IDS } from "@/lib/member-osm-links";
 import { centroidOf } from "@/lib/osm-intel-lookup";
 import type { OsmIntelFeatureProperties } from "@/lib/osm-schoenefeld";
+import { displayNameForOsmFeature } from "@/lib/osm-display-name";
 import type { LeftTab } from "@/components/BerPlusValuePanel";
 
 export type LiveMatch = {
@@ -29,7 +30,7 @@ function featureCenter(f: GeoJSON.Feature): [number, number] | undefined {
   return centroidOf(f.geometry) ?? undefined;
 }
 
-function scoreFeature(f: GeoJSON.Feature, memberId: string): number {
+export function scoreOsmFeatureForMember(f: GeoJSON.Feature, memberId: string): number {
   const p = f.properties as OsmIntelFeatureProperties;
   let score = 0;
   const kinds = p.memberMatchKinds ?? "";
@@ -37,8 +38,41 @@ function scoreFeature(f: GeoJSON.Feature, memberId: string): number {
   if (kinds.includes("keyword")) score += 12;
   if (kinds.includes("land-anchor")) score += 15;
   if (kinds.includes("proximity")) score += 8;
+  if (kinds.includes("topic")) score += 6;
   if (p.category === "land" || p.category === "industry") score += 4;
+  if (p.category === "power" || p.category === "transport") score += 2;
   return score;
+}
+
+/** Build a review-card match for any OSM feature linked to this Mitglied. */
+export function liveMatchFromOsmFeature(
+  f: GeoJSON.Feature,
+  memberId: string
+): LiveMatch | null {
+  const p = f.properties as OsmIntelFeatureProperties;
+  const ids = (p.memberIds ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+  if (!ids.includes(memberId)) return null;
+
+  const center = featureCenter(f);
+  if (!center) return null;
+
+  const score = scoreOsmFeatureForMember(f, memberId);
+
+  return {
+    id: `osm-${p.id}`,
+    kind: "osm",
+    priority: score >= 20 ? "high" : score >= 10 ? "medium" : "low",
+    title: displayNameForOsmFeature(p),
+    detail: `${p.category} · ${p.subcategory}${p.areaHa ? ` · ~${p.areaHa} ha` : ""}${
+      p.memberMatchKinds ? ` · ${p.memberMatchKinds.split(";")[0]}` : ""
+    }`,
+    cta: "Highlight on map",
+    tab: "junqingchu",
+    score,
+    osmFeatureId: p.id,
+    center,
+    matchKinds: p.memberMatchKinds
+  };
 }
 
 export function buildLiveMatches(
@@ -91,7 +125,7 @@ export function buildLiveMatches(
     const ranked = features
       .map((f) => ({
         f,
-        score: scoreFeature(f, memberId),
+        score: scoreOsmFeatureForMember(f, memberId),
         center: featureCenter(f)
       }))
       .filter((x) => x.center)
@@ -104,7 +138,7 @@ export function buildLiveMatches(
         id: `osm-${p.id}`,
         kind: "osm",
         priority: score >= 20 ? "high" : "medium",
-        title: p.name || `${p.category}/${p.subcategory}`,
+        title: displayNameForOsmFeature(p),
         detail: `${p.category} · ${p.subcategory}${p.areaHa ? ` · ~${p.areaHa} ha` : ""}${
           p.memberMatchKinds ? ` · ${p.memberMatchKinds.split(";")[0]}` : ""
         }`,

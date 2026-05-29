@@ -8,6 +8,7 @@ import {
   rankLandParcels,
   type LandOpportunity
 } from "@/lib/osm-land-analysis";
+import { humanizeOsmTags } from "@/lib/osm-display-name";
 import {
   buildInfraIconGeoJSON,
   infraIconGlyph,
@@ -164,8 +165,15 @@ function categorize(tags: Record<string, string>): { category: OsmIntelCategory;
   return { category: "industry", subcategory: "unknown" };
 }
 
-function featureName(tags: Record<string, string>, fallback: string) {
-  return tags.name ?? tags["name:de"] ?? tags.ref ?? tags.operator ?? fallback;
+function featureName(
+  tags: Record<string, string>,
+  fallback: string,
+  category: string,
+  subcategory: string
+) {
+  const raw = tags.name ?? tags["name:de"] ?? tags.ref ?? tags.operator;
+  if (raw?.trim()) return raw.trim();
+  return humanizeOsmTags(tags, category, subcategory) ?? fallback;
 }
 
 function tagsSummary(tags: Record<string, string>) {
@@ -225,7 +233,7 @@ export function osmElementsToIntel(elements: OsmElement[]): OsmIntelPayload {
   for (const el of elements) {
     const tags = el.tags ?? {};
     const { category, subcategory } = categorize(tags);
-    const name = featureName(tags, `${el.type}/${el.id}`);
+    const name = featureName(tags, `${el.type}/${el.id}`, category, subcategory);
     const textForScore = `${name} ${tagsSummary(tags)} ${Object.values(tags).join(" ")}`;
     const berScore = scoreBerRelevance(textForScore);
     const berRelevant = berScore >= 2;

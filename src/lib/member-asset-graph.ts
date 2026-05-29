@@ -7,6 +7,8 @@ import { BER_LAND_SITES } from "@/data/ber-land-sites";
 import { CATEGORY_COLORS, MITGLIEDER, type Mitglied } from "@/data/mitglieder";
 import { LAND_SITE_MEMBER_IDS } from "@/lib/member-osm-links";
 import { centroidOf } from "@/lib/osm-intel-lookup";
+import { adjustOsmLinkScore, includeOsmInMemberGraph } from "@/lib/osm-match-quality";
+import { displayNameForOsmFeature } from "@/lib/osm-display-name";
 import {
   clampToCanvas,
   corridorLatToY,
@@ -428,8 +430,9 @@ function scoreOsmLink(memberIds: string[], props: Record<string, unknown>): numb
   if (kinds.includes("keyword")) score += 6;
   if (kinds.includes("proximity")) score += 4;
   const cat = String(props.category ?? "");
+  const sub = String(props.subcategory ?? "");
   if (cat === "land" || cat === "industry" || cat === "power") score += 3;
-  return score;
+  return adjustOsmLinkScore(score, cat, sub);
 }
 
 /**
@@ -491,7 +494,15 @@ export function buildOsmLinksFromGeojson(
       .filter(Boolean);
     if (!ids.length) continue;
 
-    const title = p.name || p.id;
+    const title = displayNameForOsmFeature({
+      name: p.name,
+      id: p.id,
+      category: p.category,
+      subcategory: p.subcategory,
+      tagsSummary: (p as { tagsSummary?: string }).tagsSummary,
+      osmType: (p as { osmType?: string }).osmType,
+      osmId: (p as { osmId?: string }).osmId
+    });
     const sublabel = `${p.category ?? "osm"}/${p.subcategory ?? "feature"}`;
     const score = scoreOsmLink(ids, p);
     const existing = byFeature.get(p.id);
@@ -742,6 +753,11 @@ export function buildGiantMatchingGraph(osmLinks: OsmGraphLink[] = []): Corridor
   };
 
   for (const link of osmMemberLinks) {
+    const subcategory = link.sublabel?.includes("/")
+      ? link.sublabel.split("/").slice(1).join("/")
+      : link.sublabel;
+    if (!includeOsmInMemberGraph(link.score, link.category, subcategory)) continue;
+
     const id = `osm-${link.featureId}`;
     let x = corridorLngToX(link.lng, GIANT_W, G_PAD);
     let y = corridorLatToY(link.lat, GIANT_H, G_PAD, 6);

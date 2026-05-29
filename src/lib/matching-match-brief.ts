@@ -8,6 +8,7 @@ import { CATEGORY_MEMBER_PATHS, MEMBER_PATH_OVERRIDES } from "@/data/ber-plus-co
 import { haversineKm } from "@/lib/geo";
 import type { LiveMatch } from "@/lib/local-member-matching";
 import { LAND_SITE_MEMBER_IDS, MEMBER_OSM_PROFILES } from "@/lib/member-osm-links";
+import { isLowValueOsmAsset } from "@/lib/osm-match-quality";
 import type { OsmIntelFeatureProperties } from "@/lib/osm-schoenefeld";
 
 export type MatchFact = { label: string; value: string };
@@ -145,6 +146,12 @@ export function buildMatchBrief(
       }
       if (p.landNotes) berPlusNote = p.landNotes;
       facts.push({ label: "OSM ref", value: `${p.osmType}/${p.osmId}` });
+    }
+
+    if (p && isLowValueOsmAsset(p.category, p.subcategory)) {
+      whyMatch.push(
+        "Airport infrastructure point — shown for corridor context near your land anchors, not a development parcel"
+      );
     }
 
     if (!whyMatch.length) {

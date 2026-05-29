@@ -17,7 +17,22 @@ const SHOTS = [
   { id: "2", title: "BER+ coordination framing", desc: "Left panel — strategic probe" },
   { id: "3", title: "Mitglieder & matching", desc: "Member list + OSM link counts" },
   { id: "4", title: "OSM Intel / visibility", desc: "Land & infrastructure layers" },
-  { id: "5", title: "Member path panel", desc: "Right panel — per-member steps" }
+  { id: "5", title: "Member path panel", desc: "Right panel — per-member steps" },
+  {
+    id: "6",
+    title: "Match review popup",
+    desc: "Matching map → member focus → click OSM node → fig06-matching-review-popup.png"
+  },
+  {
+    id: "7",
+    title: "Giant matching map",
+    desc: "Header Matching map → member chip (e.g. Taurecon) → fig07-giant-matching-map.png"
+  },
+  {
+    id: "8",
+    title: "Mobile war room",
+    desc: "390×844 — bottom nav + Explore sheet → fig08-mobile-war-room.png"
+  }
 ] as const;
 
 function CaptureContent() {
@@ -129,6 +144,49 @@ function CaptureContent() {
             ))}
           </ul>
         </div>
+      </div>
+    );
+  }
+
+  if (shot === "6" || shot === "7" || shot === "8") {
+    const fig =
+      shot === "6"
+        ? "fig06-matching-review-popup.png"
+        : shot === "7"
+          ? "fig07-giant-matching-map.png"
+          : "fig08-mobile-war-room.png";
+    const steps =
+      shot === "6"
+        ? [
+            "Open war room → switch to Matching map (header).",
+            "Pick a Mitglied chip (e.g. GSG) and wait for the graph.",
+            "Click a yellow OSM node → capture the Match review · geo modal."
+          ]
+        : shot === "7"
+          ? [
+            "Matching map → Overview or member focus.",
+            "Select a member (e.g. Taurecon) for the fan layout.",
+            "Capture at 1920×1080 → save as fig07."
+          ]
+          : [
+              "DevTools device mode ~390×844 or run npm run presentation:screenshots.",
+              "Open Explore bottom tab so the sheet is visible over the map.",
+              "Save as fig08-mobile-war-room.png."
+            ];
+    return (
+      <div className="min-h-screen bg-ink-950 p-8 text-white">
+        <h1 className="text-lg font-semibold">Shot {shot} → {fig}</h1>
+        <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-white/80">
+          {steps.map((s) => (
+            <li key={s}>{s}</li>
+          ))}
+        </ol>
+        <Link href="/" className="mt-8 inline-block rounded-lg bg-sky-500/25 px-4 py-2 text-sm text-sky-100 hover:bg-sky-500/40">
+          Open war room
+        </Link>
+        <Link href="/capture" className="ml-4 mt-8 inline-block text-sm text-white/60 hover:text-white">
+          ← All shots
+        </Link>
       </div>
     );
   }
