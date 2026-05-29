@@ -1,5 +1,5 @@
 /* PWA service worker — disabled on localhost. Do NOT cache /_next/. */
-const CACHE_NAME = "ber-hub-v4";
+const CACHE_NAME = "ber-hub-v5";
 
 function isLocalDev() {
   const h = self.location.hostname;
@@ -45,6 +45,7 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith("/_next/") || url.pathname.startsWith("/api/")) return;
+  if (req.headers.get("RSC") === "1" || req.headers.get("Next-Router-Prefetch")) return;
 
   if (req.mode === "navigate") {
     event.respondWith(

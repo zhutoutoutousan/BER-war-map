@@ -11,7 +11,14 @@ npm run dev
 
 Open `http://localhost:3001` (port **3001** — 3000 is often used by other projects).
 
-**Stuck on “Offline” page?** A cached service worker from an old build can cause this on localhost. Click **Clear cached app & reload** on that page, or open DevTools → Application → Service Workers → Unregister, then hard-refresh. The app disables SW automatically on localhost in dev.
+**Stuck on “Offline” page?** A cached service worker from an old build can cause this on localhost. Open [http://localhost:3001/clear-sw.html](http://localhost:3001/clear-sw.html) or DevTools → Application → Service Workers → Unregister, then hard-refresh. The app disables SW automatically on localhost in dev.
+
+**“Failed to read a RSC payload… development version on the server / production version on the client”?** The browser is using **old production JavaScript** while the dev server sends **dev** React. That happens if you switched between `npm run build && npm run start` and `npm run dev` on the same port, or the browser cached `/_next/static` chunks.
+
+1. Stop every process on port 3001 (close other terminals / `next start` instances).
+2. Run a clean dev server: `npm run dev:fresh`
+3. Open [http://localhost:3001/clear-sw.html](http://localhost:3001/clear-sw.html) once, then hard-refresh the map (`Ctrl+Shift+R`).
+4. Use **only** `npm run dev` while developing — use `npm run build` + `npm run start` only to test production locally.
 
 ## June 12 presentation (IDI S26)
 

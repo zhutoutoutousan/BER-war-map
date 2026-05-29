@@ -6,8 +6,9 @@
   "scripts": {
     "clean": "node --input-type=module -e \"import fs from 'fs'; fs.rmSync('.next',{recursive:true,force:true}); console.log('Removed .next');\"",
     "dev": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev -p 3001",
+    "dev:fresh": "npm run clean && npm run dev",
     "build": "node --max-old-space-size=4096 node_modules/next/dist/bin/next build",
-    "start": "next start -p 3001",
+    "start": "node --max-old-space-size=4096 node_modules/next/dist/bin/next start -p 3001",
     "lint": "next lint",
     "presentation:screenshots": "node scripts/capture-presentation-screenshots.mjs"
   },
