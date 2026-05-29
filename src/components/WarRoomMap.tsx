@@ -30,6 +30,7 @@ type Props = {
   onSelectMember: (id: string | null) => void;
   filterCategory: MemberCategory | "all";
   className?: string;
+  interactionLocked?: boolean;
 };
 
 function escapeHtml(s: string) {
@@ -40,7 +41,13 @@ function escapeHtml(s: string) {
     .replace(/"/g, "&quot;");
 }
 
-export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory, className }: Props) {
+export function WarRoomMap({
+  selectedMemberId,
+  onSelectMember,
+  filterCategory,
+  className,
+  interactionLocked = false
+}: Props) {
   const { data: cctvData, selectedCameraId, selectCamera } = useCctv();
   const { registerFly } = useMapActions();
   const {
@@ -602,6 +609,17 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory, c
       cancelled = true;
     };
   }, [selectedFeatureId, selectedOsmAnchor, osmGeo, osmIconGeo]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const controls = [map.dragPan, map.scrollZoom, map.touchZoomRotate, map.doubleClickZoom, map.boxZoom];
+    if (interactionLocked) {
+      for (const c of controls) c.disable();
+    } else {
+      for (const c of controls) c.enable();
+    }
+  }, [interactionLocked]);
 
   return (
     <div

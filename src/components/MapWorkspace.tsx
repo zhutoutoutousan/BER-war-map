@@ -266,7 +266,14 @@ function MapWorkspaceContent({
         selectedMemberId={selectedMemberId}
         onSelectMember={setSelectedMemberId}
         filterCategory={filterCategory}
-        className={geoHidden ? "invisible pointer-events-none" : undefined}
+        interactionLocked={mobileSheet !== null}
+        className={
+          geoHidden
+            ? "invisible pointer-events-none"
+            : mobileSheet !== null
+              ? "pointer-events-none"
+              : undefined
+        }
       />
 
       {viewMode === "matching" ? (
