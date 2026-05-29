@@ -12,6 +12,7 @@ import { buildInfraIconGeoJSON } from "@/lib/osm-infra-icons";
 import {
   osmTrace,
   osmTraceClick,
+  isOsmMapTraceEnabled,
   osmTraceMapSnapshot,
   osmTraceSkip,
   osmTraceVisibility,
@@ -47,6 +48,7 @@ export function setupWarRoomOverlays(
   corridorGeo: GeoJSON.FeatureCollection,
   membersGeo: GeoJSON.FeatureCollection
 ) {
+  visibilityCache.delete(map);
   if (warRoomOverlaysReady(map)) {
     osmTraceSkip("setupWarRoomOverlays", "already ready");
     return;
@@ -641,13 +643,12 @@ function addOsmIntelLayerStack(
     filter: [
       "all",
       ["==", ["get", "category"], "land"],
-      ["==", ["get", "geomType"], "polygon"],
-      ["==", ["feature-state", "selected"], true]
+      ["==", ["get", "geomType"], "polygon"]
     ],
     paint: {
       "line-color": "#6ee7b7",
-      "line-width": 3,
-      "line-opacity": 1
+      "line-width": ["case", ["boolean", ["feature-state", "selected"], false], 3, 0],
+      "line-opacity": ["case", ["boolean", ["feature-state", "selected"], false], 1, 0]
     }
   });
 
@@ -929,6 +930,7 @@ export function syncOsmIntelOnMap(
   iconGeo?: GeoJSON.FeatureCollection<GeoJSON.Point>,
   focusMemberId?: string | null
 ) {
+  const t0 = isOsmMapTraceEnabled() ? performance.now() : 0;
   osmTrace("syncOsmIntelOnMap", "start", {
     features: geo.features.length,
     icons: iconGeo?.features.length ?? null,
@@ -939,7 +941,15 @@ export function syncOsmIntelOnMap(
   updateOsmIntelGeo(map, geo, iconGeo);
   if (!map.getSource("ber-land-anchors")) setupLandAnchorLayers(map);
   applyOsmIntelVisibility(map, visible, berTargetsOnly, focusMemberId);
-  osmTraceMapSnapshot(map, "sync complete");
+  osmTraceMapSnapshot(map, "sync complete", {
+    featureCount: geo.features.length,
+    iconCount: iconGeo?.features.length
+  });
+  if (t0) {
+    const ms = performance.now() - t0;
+    if (ms > 48) osmTraceWarn("syncOsmIntelOnMap", "slow sync", { ms: Math.round(ms) });
+    else osmTrace("syncOsmIntelOnMap", "done", { ms: Math.round(ms) });
+  }
 }
 
 const OSM_INTEL_LAYER_IDS = OSM_INTEL_CATEGORIES.flatMap((c) => [
@@ -967,12 +977,29 @@ function osmIconLayerFilter(
   return ["all", ...parts] as import("maplibre-gl").FilterSpecification;
 }
 
+const visibilityCache = new WeakMap<MapLibreMap, string>();
+
+function visibilityCacheKey(
+  visible: Record<OsmIntelCategory, boolean>,
+  berTargetsOnly: boolean,
+  focusMemberId?: string | null
+): string {
+  return JSON.stringify({ visible, berTargetsOnly, focusMemberId: focusMemberId ?? null });
+}
+
 export function applyOsmIntelVisibility(
   map: MapLibreMap,
   visible: Record<OsmIntelCategory, boolean>,
   berTargetsOnly: boolean,
   focusMemberId?: string | null
 ) {
+  const key = visibilityCacheKey(visible, berTargetsOnly, focusMemberId);
+  if (visibilityCache.get(map) === key && warRoomOverlaysReady(map)) {
+    osmTraceSkip("visibility", "unchanged");
+    return;
+  }
+  visibilityCache.set(map, key);
+
   osmTraceVisibility(visible, berTargetsOnly, focusMemberId);
   for (const cat of OSM_INTEL_CATEGORIES) {
     const show = visible[cat.id] ? "visible" : "none";

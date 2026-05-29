@@ -26,11 +26,11 @@ export function MembersPanel({ selectedId, onSelect, filterCategory, onFilterCat
   const categories = Object.keys(CATEGORY_LABELS) as MemberCategory[];
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3" data-testid="panel-members">
       <div>
         <div className="text-sm font-semibold text-white">Mitglieder</div>
         <div className="mt-1 text-xs text-white/60">
-          {MITGLIEDER.length} members on corridor map — click to focus OSM links
+          {MITGLIEDER.length} members — select for your path, linked assets & matching on the map
           {osmData?.summary.memberLinkedTotal != null ? (
             <span className="text-amber-200/80">
               {" "}
@@ -100,6 +100,7 @@ function MemberRow({
     <li>
       <button
         type="button"
+        data-member-id={member.id}
         onClick={onClick}
         className={`w-full rounded-lg px-3 py-2 text-left transition ${
           active ? "bg-white/12 ring-1 ring-white/20" : "bg-white/5 hover:bg-white/8"

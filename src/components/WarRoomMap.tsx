@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import type { Map as MapLibreMap, Popup } from "maplibre-gl";
 import corridor from "@/data/ber-corridor.json";
 import { useCctv } from "@/context/CctvContext";
+import { useMapActions } from "@/context/MapActionsContext";
 import { useOsmIntel } from "@/context/OsmIntelContext";
 import { getMitgliedById, mitgliederToGeoJSON, type MemberCategory } from "@/data/mitglieder";
 import type { CctvMapProperties } from "@/lib/cctv-geojson";
@@ -28,6 +29,7 @@ type Props = {
   selectedMemberId: string | null;
   onSelectMember: (id: string | null) => void;
   filterCategory: MemberCategory | "all";
+  className?: string;
 };
 
 function escapeHtml(s: string) {
@@ -38,8 +40,9 @@ function escapeHtml(s: string) {
     .replace(/"/g, "&quot;");
 }
 
-export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }: Props) {
+export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory, className }: Props) {
   const { data: cctvData, selectedCameraId, selectCamera } = useCctv();
+  const { registerFly } = useMapActions();
   const {
     data: osmData,
     visibleCategories,
@@ -53,6 +56,7 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
   const popupRef = useRef<Popup | null>(null);
   const cctvPopupRef = useRef<Popup | null>(null);
   const osmPopupRef = useRef<Popup | null>(null);
+  const lastOsmFeatureStateIdRef = useRef<string | number | null>(null);
   const onSelectRef = useRef(onSelectMember);
   const onSelectCctvRef = useRef(selectCamera);
   const onSelectOsmRef = useRef(selectFeature);
@@ -90,6 +94,8 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
   const membersGeoRef = useRef(membersGeo);
   corridorGeoRef.current = corridorGeo;
   membersGeoRef.current = membersGeo;
+  const syncIdleRef = useRef<number | null>(null);
+  const syncReasonRef = useRef("");
 
   const ensureOverlays = (map: MapLibreMap) => {
     if (warRoomOverlaysReady(map)) return;
@@ -102,7 +108,7 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
     });
   };
 
-  const syncOsmToMap = (reason: string) => {
+  const runOsmSync = (reason: string) => {
     const map = mapRef.current;
     const sync = osmSyncRef.current;
     if (!map) {
@@ -135,6 +141,26 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
       sync.berTargetsOnly,
       sync.osmIconGeo ?? undefined
     );
+  };
+
+  const syncOsmToMap = (reason: string) => {
+    syncReasonRef.current = reason;
+    if (syncIdleRef.current != null) {
+      if (typeof cancelIdleCallback !== "undefined") {
+        cancelIdleCallback(syncIdleRef.current);
+      } else {
+        clearTimeout(syncIdleRef.current);
+      }
+    }
+    const run = () => {
+      syncIdleRef.current = null;
+      runOsmSync(syncReasonRef.current);
+    };
+    if (typeof requestIdleCallback !== "undefined") {
+      syncIdleRef.current = requestIdleCallback(run, { timeout: 350 });
+    } else {
+      syncIdleRef.current = window.setTimeout(run, 16);
+    }
   };
 
   useEffect(() => {
@@ -192,6 +218,17 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
       map.once("load", () => {
         osmTrace("WarRoomMap", "map load");
         map.resize();
+        (window as Window & { __berMap?: MapLibreMap }).__berMap = map;
+        registerFly((center, zoom = 12.5) => {
+          map.flyTo({
+            center,
+            zoom,
+            pitch: 48,
+            bearing: -15,
+            duration: 1400,
+            essential: true
+          });
+        });
         whenStyleReady(map, "map.load");
       });
 
@@ -206,6 +243,14 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
 
     return () => {
       cancelled = true;
+      if (syncIdleRef.current != null) {
+        if (typeof cancelIdleCallback !== "undefined") {
+          cancelIdleCallback(syncIdleRef.current);
+        } else {
+          clearTimeout(syncIdleRef.current);
+        }
+        syncIdleRef.current = null;
+      }
       if (onResize) window.removeEventListener("resize", onResize);
       popupRef.current?.remove();
       cctvPopupRef.current?.remove();
@@ -401,20 +446,23 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
 
       const maplibre = await import("maplibre-gl");
 
-      if (map.getSource("ber-osm-intel")) {
-        const features = map.querySourceFeatures("ber-osm-intel");
-        for (const f of features) {
-          const fid = f.properties?.id ?? f.id;
-          if (fid != null) {
-            map.setFeatureState({ source: "ber-osm-intel", id: fid }, { selected: false });
+      const clearOsmSelection = () => {
+        const prev = lastOsmFeatureStateIdRef.current;
+        if (prev != null && map.getSource("ber-osm-intel")) {
+          try {
+            map.setFeatureState({ source: "ber-osm-intel", id: prev }, { selected: false });
+          } catch {
+            /* feature may have been removed from source */
           }
         }
-      }
+        lastOsmFeatureStateIdRef.current = null;
+      };
 
       osmPopupRef.current?.remove();
       osmPopupRef.current = null;
 
       if (!selectedFeatureId || !osmGeo) {
+        clearOsmSelection();
         setLandAnchorSelected(map, null);
         return;
       }
@@ -423,6 +471,8 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
         osmTraceSkip("WarRoomMap.popup", "ber-osm-intel source missing", { selectedFeatureId });
         return;
       }
+
+      clearOsmSelection();
 
       if (selectedFeatureId.startsWith("curated/")) {
         const siteId = selectedFeatureId.slice("curated/".length);
@@ -487,6 +537,7 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
 
       const stateId = picked.feature.id ?? selectedFeatureId;
       map.setFeatureState({ source: "ber-osm-intel", id: stateId }, { selected: true });
+      lastOsmFeatureStateIdRef.current = stateId;
 
       map.flyTo({
         center: coords,
@@ -552,5 +603,11 @@ export function WarRoomMap({ selectedMemberId, onSelectMember, filterCategory }:
     };
   }, [selectedFeatureId, selectedOsmAnchor, osmGeo, osmIconGeo]);
 
-  return <div ref={containerRef} className="absolute inset-0 h-full w-full" />;
+  return (
+    <div
+      ref={containerRef}
+      data-testid="showcase-map"
+      className={`absolute inset-0 h-full w-full ${className ?? ""}`}
+    />
+  );
 }

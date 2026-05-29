@@ -71,17 +71,17 @@ export function TimelineControl({ compact }: Props) {
           max={1000}
           value={Math.round(progress * 1000)}
           onChange={(e) => setFocusDate(progressToDate(Number(e.target.value) / 1000))}
-          className="timeline-slider w-full"
+          className="timeline-slider h-8 w-full touch-manipulation"
           aria-label="Programme timeline"
         />
 
-        <div className="mt-2 flex flex-wrap gap-1">
+        <div className="mt-2 flex flex-wrap gap-1.5">
           {PHASES.map((p) => (
             <button
               key={p.id}
               type="button"
               onClick={() => setFocusDate(p.startDate)}
-              className={`rounded px-2 py-0.5 text-[10px] ${
+              className={`min-h-[36px] rounded px-3 py-1.5 text-[11px] touch-manipulation ${
                 phase === p.id ? "bg-white/15 text-white" : "bg-white/5 text-white/50 hover:text-white/70"
               }`}
             >
@@ -91,7 +91,7 @@ export function TimelineControl({ compact }: Props) {
           <button
             type="button"
             onClick={() => setFocusDate(new Date().toISOString().slice(0, 10))}
-            className="rounded bg-white/5 px-2 py-0.5 text-[10px] text-white/50 hover:text-white/70"
+            className="min-h-[36px] rounded bg-white/5 px-3 py-1.5 text-[11px] text-white/50 touch-manipulation hover:text-white/70"
           >
             Today
           </button>
@@ -119,7 +119,7 @@ function MilestoneTick({ milestone, onPick }: { milestone: Milestone; onPick: ()
       type="button"
       title={`${milestone.title} (${milestone.targetDate})`}
       onClick={onPick}
-      className="absolute top-0 h-3 w-1 -translate-x-1/2 rounded-sm transition hover:scale-125"
+      className="absolute top-0 h-4 w-3 -translate-x-1/2 rounded-sm touch-manipulation transition hover:scale-125 sm:h-3 sm:w-1"
       style={{ left: `${left}%`, backgroundColor: color, boxShadow: `0 0 6px ${color}` }}
     />
   );

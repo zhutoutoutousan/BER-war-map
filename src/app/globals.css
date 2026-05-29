@@ -7,9 +7,13 @@
 html,
 body {
   height: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  touch-action: manipulation;
   background: radial-gradient(1200px 700px at 30% 10%, rgba(33, 58, 122, 0.35), transparent 60%),
     radial-gradient(900px 600px at 80% 40%, rgba(18, 180, 165, 0.18), transparent 55%),
     linear-gradient(180deg, #06080c, #070b12);
@@ -146,6 +150,49 @@ html::-webkit-scrollbar-corner,
   color: rgba(125, 211, 252, 0.85);
 }
 
+/* Presentation screenshot layouts (set via documentElement.dataset.captureLayout) */
+html[data-capture-layout="left-focus"] [data-testid="showcase-panel-right"],
+html[data-capture-layout="left-focus"] [data-testid="capture-chrome"] {
+  display: none !important;
+}
+
+html[data-capture-layout="left-focus"] [data-testid="showcase-panel-left"] {
+  width: min(580px, 52vw) !important;
+  max-width: 52vw !important;
+  max-height: min(88vh, calc(100dvh - 4.5rem)) !important;
+}
+
+html[data-capture-layout="left-focus"] [data-testid="capture-vignette"] {
+  opacity: 0.2;
+}
+
+html[data-capture-layout="map-focus"] [data-testid="showcase-panel-left"],
+html[data-capture-layout="map-focus"] [data-testid="showcase-panel-right"],
+html[data-capture-layout="map-focus"] [data-testid="capture-chrome"],
+html[data-capture-layout="map-focus"] [data-testid="programme-phase-banner"],
+html[data-capture-layout="map-focus"] [data-testid="capture-vignette"] {
+  display: none !important;
+}
+
+html[data-capture-layout="map-focus"] [data-testid="showcase-header"] {
+  opacity: 0.92;
+}
+
+html[data-capture-layout="right-focus"] [data-testid="showcase-panel-left"],
+html[data-capture-layout="right-focus"] [data-testid="capture-chrome"] {
+  display: none !important;
+}
+
+html[data-capture-layout="right-focus"] [data-testid="showcase-panel-right"] {
+  width: min(480px, 44vw) !important;
+  max-width: 44vw !important;
+  max-height: min(88vh, calc(100dvh - 4.5rem)) !important;
+}
+
+html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
+  opacity: 0.15;
+}
+
 /* Intelligence TV — bottom-right war-room feed */
 .intelligence-tv {
   filter: drop-shadow(0 12px 40px rgba(0, 0, 0, 0.65));
@@ -258,12 +305,39 @@ html::-webkit-scrollbar-corner,
 }
 
 .timeline-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: #e0f2fe;
   border: 2px solid #38bdf8;
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
   cursor: grab;
+}
+
+@media (max-width: 767px) {
+  .timeline-slider::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Mobile safe areas & touch */
+.safe-top {
+  padding-top: max(0.5rem, env(safe-area-inset-top));
+}
+
+.safe-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+.mobile-sheet {
+  @apply fixed inset-x-0 bottom-0 z-[45] flex w-full flex-col rounded-t-2xl border border-white/10 bg-ink-900/95 shadow-2xl backdrop-blur-lg;
+  max-height: min(88dvh, calc(100dvh - env(safe-area-inset-top)));
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-nav-bar {
+  @apply fixed inset-x-0 bottom-0 z-[50] flex items-stretch justify-around border-t border-white/10 bg-ink-950/95 backdrop-blur-md;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
