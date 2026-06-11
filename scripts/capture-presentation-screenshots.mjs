@@ -57,9 +57,9 @@ async function flyMap(page, center, zoom, pitch = 48, bearing = -20) {
 
 /** @param {import('playwright').Page} page */
 async function dismissSessionPicker(page) {
-  const guest = page.getByTestId("session-guest");
-  if (await guest.isVisible({ timeout: 3000 }).catch(() => false)) {
-    await guest.click();
+  const explore = page.getByTestId("session-persona-explore");
+  if (await explore.isVisible({ timeout: 3000 }).catch(() => false)) {
+    await explore.click();
     await page.waitForTimeout(400);
   }
 }

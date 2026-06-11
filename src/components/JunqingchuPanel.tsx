@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { OsmQuickLegend } from "@/components/OsmQuickLegend";
+import { AssetInventorySummary } from "@/components/AssetInventorySummary";
+import { MemberAssetInventorySection } from "@/components/MemberAssetInventorySection";
 import { useOsmIntel } from "@/context/OsmIntelContext";
 import { LAND_OPPORTUNITY_LABELS, OSM_INTEL_CATEGORIES } from "@/lib/osm-intel-categories";
 import { INFRA_ICON_DEFS, INFRA_POINT_ICON_DEFS, LINE_ONLY_ICON_KEYS } from "@/lib/osm-infra-icons";
@@ -12,7 +14,7 @@ import type { OsmIntelDossierItem } from "@/lib/osm-schoenefeld";
 
 const REF_ID = "BER+-SXF-LAND-2026";
 
-export function JunqingchuPanel() {
+export function JunqingchuPanel({ onGoToCollabDemo }: { onGoToCollabDemo?: () => void }) {
   const {
     loading,
     error,
@@ -23,10 +25,11 @@ export function JunqingchuPanel() {
     toggleCategory,
     setBerTargetsOnly,
     selectFeature,
-    reload
+    reloadBerCorridor
   } = useOsmIntel();
   const [tab, setTab] = useState<"land" | "infra">("land");
   const [search, setSearch] = useState("");
+  const [showInventoryRoadmap, setShowInventoryRoadmap] = useState(false);
 
   const landParcels = useMemo(() => {
     const list = data?.summary.landParcels ?? [];
@@ -75,12 +78,25 @@ export function JunqingchuPanel() {
       ) : error ? (
         <div className="rounded-lg border border-red-500/30 bg-red-950/40 px-3 py-2 text-xs text-red-200">
           {error}
-          <button type="button" onClick={() => reload()} className="mt-2 block text-[10px] underline">
+          <button type="button" onClick={() => reloadBerCorridor()} className="mt-2 block text-[10px] underline">
             Retry
           </button>
         </div>
       ) : data ? (
-        <>
+        <div data-testid="osm-intel-ready">
+          <AssetInventorySummary
+            data={data}
+            landParcelCount={landParcels.length}
+            onLearnMore={() => setShowInventoryRoadmap((v) => !v)}
+          />
+
+          {showInventoryRoadmap ? (
+            <MemberAssetInventorySection
+              compact
+              onGoToCollabDemo={onGoToCollabDemo}
+            />
+          ) : null}
+
           <OsmQuickLegend compact />
 
           <p className="text-[11px] leading-relaxed text-white/60">{data.summary.infrastructureNote}</p>
@@ -278,7 +294,7 @@ export function JunqingchuPanel() {
           />
 
           <p className="font-mono text-[9px] text-white/35">{data.attribution}</p>
-        </>
+        </div>
       ) : null}
     </div>
   );

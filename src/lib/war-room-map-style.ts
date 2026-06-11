@@ -34,24 +34,24 @@ export const CARTO_DARK_STYLE: StyleSpecification = {
   ]
 };
 
-/** Fallback if CARTO is blocked */
-export const OSM_STANDARD_STYLE: StyleSpecification = {
+/** Fallback — stay dark (War Room). Non-@2x tiles if @2x errors. */
+export const CARTO_DARK_FALLBACK_STYLE: StyleSpecification = {
   version: 8,
   sources: {
     basemap: {
       type: "raster",
-      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+      tiles: [
+        "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+        "https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+        "https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+        "https://d.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+      ],
       tileSize: 256,
-      attribution: OSM_ATTR
+      attribution: `${OSM_ATTR} &copy; <a href="https://carto.com/attributions">CARTO</a>`
     }
   },
-  layers: [
-    {
-      id: "basemap",
-      type: "raster",
-      source: "basemap",
-      minzoom: 0,
-      maxzoom: 19
-    }
-  ]
+  layers: [{ id: "basemap", type: "raster", source: "basemap", minzoom: 0, maxzoom: 22 }]
 };
+
+/** @deprecated use CARTO_DARK_FALLBACK_STYLE — light OSM breaks War Room look */
+export const OSM_STANDARD_STYLE = CARTO_DARK_FALLBACK_STYLE;

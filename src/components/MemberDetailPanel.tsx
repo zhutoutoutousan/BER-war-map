@@ -15,6 +15,7 @@ import {
 } from "@/data/mitglieder";
 import { getMemberRecommendations } from "@/lib/member-recommendations";
 import { getMemberOsmFeatures, LAND_SITE_MEMBER_IDS } from "@/lib/member-osm-links";
+import { MEMBER_ASSET_INVENTORY } from "@/data/ber-plus-coordination";
 import type { OsmIntelFeatureProperties } from "@/lib/osm-schoenefeld";
 import type { LeftTab } from "@/components/BerPlusValuePanel";
 
@@ -196,6 +197,18 @@ function MemberCard({
       {landAnchors.length > 0 ? (
         <div className="rounded-lg border border-amber-500/25 bg-amber-500/10 p-2">
           <div className="text-xs font-semibold text-amber-100">BER+ land anchors</div>
+          <p className="mt-1 text-[10px] text-amber-100/70">
+            Curated for the probe — {MEMBER_ASSET_INVENTORY.notYet.toLowerCase()}
+          </p>
+          {onGoToTab ? (
+            <button
+              type="button"
+              onClick={() => onGoToTab("inventory")}
+              className="mt-2 text-[10px] font-medium text-emerald-300 hover:text-emerald-200"
+            >
+              Co-inventory demo · propose or verify rows →
+            </button>
+          ) : null}
           <ul className="mt-1 space-y-1">
             {landAnchors.map((s) => (
               <li key={s.id} className="text-[11px] text-white/75">

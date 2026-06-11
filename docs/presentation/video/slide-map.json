@@ -1,0 +1,21 @@
+[
+  { "page": 1, "id": "title" },
+  { "page": 2, "id": "agenda" },
+  { "page": 3, "id": "problem" },
+  { "page": 4, "id": "strategic-choice" },
+  { "page": 5, "id": "benchmarks" },
+  { "page": 6, "id": "value-prop" },
+  { "page": 7, "id": "why-now" },
+  { "page": 8, "id": "problem-solution" },
+  { "page": 9, "id": "coordination-hub" },
+  { "page": 10, "id": "demo-company" },
+  { "page": 11, "id": "demo-investor" },
+  { "page": 12, "id": "demo-partners" },
+  { "page": 13, "id": "match-review" },
+  { "page": 14, "id": "asset-inventory" },
+  { "page": 15, "id": "berplus-pilot" },
+  { "page": 16, "id": "berplus-future" },
+  { "page": 17, "id": "questions" },
+  { "page": 18, "id": "summary" },
+  { "page": 19, "id": "thanks" }
+]

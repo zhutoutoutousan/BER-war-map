@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "title": "BER+ Board Room",
+    "subtitle": "Matching · visibility · corridor intelligence — ecosystem coordination",
+    "author": "BER+ Flughafenregion",
+    "institute": "Schönefeld corridor · Flughafenregion Berlin Brandenburg",
+    "date": "12 June 2026",
+    "url": "https://ber-war-map.vercel.app/"
+  },
+  "slides": [
+    { "id": "title", "layout": "title" },
+    {
+      "id": "agenda",
+      "layout": "numbered",
+      "title": "Agenda",
+      "items": [
+        "The problem — fragmented visibility in the Flughafenregion",
+        "Why now — strategic choice & benchmarks",
+        "Live demo — company · investor · municipality on the map",
+        "What BER+ does — pilot phase, asset inventory, next steps"
+      ],
+      "showUrl": true
+    },
+    {
+      "id": "problem",
+      "layout": "bullets",
+      "title": "The problem — information is fragmented",
+      "items": [
+        "Available land and assets are hard to discover across the corridor",
+        "Members see only part of the ecosystem — opportunities stay invisible",
+        "Incoming requests are hard to match efficiently to the right peers",
+        "Investors, companies, municipalities and partners navigate in silos"
+      ],
+      "closing": "First reaction we want: “Yes, this is a real problem.”"
+    },
+    {
+      "id": "strategic-choice",
+      "layout": "bullets",
+      "title": "Why this idea — visibility before matching",
+      "items": [
+        "Why visibility matters — gewerbe land, industry, power, transport in one picture",
+        "Why members struggle — no shared inventory of who holds what",
+        "Why opportunities fragment — partial lists, PDFs, personal networks",
+        "Then — a neutral map hosted by BER+ can respond without replacing planning roles"
+      ],
+      "closing": "Only then: “Interesting — this could help.”"
+    },
+    {
+      "id": "benchmarks",
+      "layout": "table",
+      "title": "Benchmarks — airport regions create value",
+      "headers": ["Example", "What they do", "Lesson for BER+"],
+      "rows": [
+        ["Amsterdam Airport City", "59 business parks · 700+ firms at Schiphol", "Neutral regional invest map"],
+        ["Schiphol AAA (ISOCARP)", "Non-profit location matching in airport zone", "BER+ hosts association matching"],
+        ["VLAIO + Geopunt (BE)", "GIS industrial sites · airport logistics maps", "Visible ha + multimodal layers"],
+        ["AVIAS SITES / Esri", "Airport parcel GIS · capital dashboards", "OSM + anchors = step one today"],
+        ["BER+ Board Room", "Live OSM · Mitglieder · Pilot-1", "12–24 mo practical probe"]
+      ]
+    },
+    {
+      "id": "value-prop",
+      "layout": "columns",
+      "title": "Value proposition — for whom?",
+      "image": "fig02-coordination-paths.png",
+      "imageWidth": 0.42,
+      "sidebarTitle": "Beneficiaries: investors, companies, municipalities, Mitglieder, innovation partners.",
+      "bullets": [
+        "Faster matching of inquiries",
+        "Higher visibility of corridor assets",
+        "More qualified introductions",
+        "Stronger regional collaboration",
+        "Shared Flughafenregion identity on one map"
+      ]
+    },
+    {
+      "id": "why-now",
+      "layout": "bullets",
+      "title": "Why the corridor, why now",
+      "items": [
+        "Grid congestion and Netzanschluss shape where gewerbe can grow",
+        "FBB / FEW resilience targets drive near-term investment choices",
+        "SEGRO Pilot-1 (2 ha) anchors Phase I on the map",
+        "Members need a shared response to fragmentation — not another slide deck"
+      ]
+    },
+    {
+      "id": "problem-solution",
+      "layout": "table",
+      "title": "Problem → solution",
+      "headers": ["Problem", "Platform response"],
+      "rows": [
+        ["Information fragmented", "Board Room", "One briefing surface"],
+        ["Land hard to discover", "OSM Intel + anchors", "Curated land on map"],
+        ["Members see partial picture", "Mitglieder graph", "Member focus mode"],
+        ["Requests poorly matched", "Scored links", "Match review queue"],
+        ["Opportunities invisible", "Matching map", "Pass / Save workflow"]
+      ]
+    },
+    {
+      "id": "coordination-hub",
+      "layout": "columns",
+      "title": "BER+ Board Room — live overview",
+      "image": "fig01-war-room-overview.png",
+      "imageWidth": 0.62,
+      "sidebarTitle": "Ecosystem coordination — visualize, don't just tell",
+      "bullets": [
+        "Corridor ribbon & Pilot-1 timeline",
+        "Mitglieder and influence zones",
+        "OSM land, industry, power, transport",
+        "Intelligence feed on one screen"
+      ],
+      "showUrl": true
+    },
+    {
+      "id": "demo-company",
+      "layout": "columns",
+      "title": "Demo — company seeking a location",
+      "image": "fig07-giant-matching-map.png",
+      "imageWidth": 0.64,
+      "sidebarTitle": "Story on the map",
+      "bullets": [
+        "Filter corridor layers",
+        "Member focus — scored links to land & OSM",
+        "Match review — preview, Pass / Save",
+        "Less talk — show the prototype"
+      ],
+      "showUrl": true
+    },
+    {
+      "id": "demo-investor",
+      "layout": "columns",
+      "title": "Demo — investor seeking opportunities",
+      "image": "fig03-mitglieder-matching.png",
+      "imageWidth": 0.48,
+      "sidebarTitle": "14 Mitglieder — developer, investor, infrastructure, consulting, public",
+      "bullets": [
+        "See link density per Mitglied",
+        "Compare paths: BUWOG, SEGRO, WFG",
+        "Qualified intros — not cold outreach"
+      ]
+    },
+    {
+      "id": "demo-partners",
+      "layout": "columns",
+      "title": "Demo — municipality & partners",
+      "image": "fig04-osm-intel.png",
+      "imageWidth": 0.62,
+      "sidebarTitle": "OSM Intel",
+      "bullets": [
+        "Land parcels & suitability signals",
+        "Industry, power, transport corridors",
+        "Indicative layers — planning stays with authorities"
+      ]
+    },
+    {
+      "id": "match-review",
+      "layout": "columns",
+      "title": "Match review — decide on the map",
+      "image": "fig06-matching-review-popup.png",
+      "imageWidth": 0.58,
+      "sidebarTitle": "Tap any asset in member focus:",
+      "bullets": [
+        "Embedded site preview",
+        "Match score and rationale",
+        "Pass / Save — stay in context"
+      ]
+    },
+    {
+      "id": "asset-inventory",
+      "layout": "bullets",
+      "title": "Next horizon — what belongs to members?",
+      "items": [
+        "Important follow-up: member asset inventory with Mitglieder",
+        "Land inventory · infrastructure inventory · development opportunity inventory",
+        "Today’s map is step one — visibility and matching on open & curated layers",
+        "Pilot-1 (PV + BESS + EWF) anchors the programme timeline on the same surface"
+      ]
+    },
+    {
+      "id": "berplus-pilot",
+      "layout": "numbered",
+      "title": "What BER+ must do — pilot phase",
+      "items": [
+        "Collect — member profiles, priorities, asset claims",
+        "Validate — locations and links with members (Arcadis, WFG, etc.)",
+        "Define — ownership of data refresh and matching rules",
+        "Maintain — quarterly OSM refresh, review queue",
+        "Host — neutral Board Room for board and member sessions"
+      ],
+      "closing": "The platform is not magic — BER+ makes it real."
+    },
+    {
+      "id": "berplus-future",
+      "layout": "bullets",
+      "title": "Future phase — how the platform evolves",
+      "items": [
+        "Verified member asset registry linked to the map",
+        "Matching at scale — more Mitglieder, more rules, more exports",
+        "Embedded in BER+ briefings, investor days, municipality sessions",
+        "Intelligence packs and advocacy evidence from live map exports"
+      ],
+      "closing": "Goal: “We could start building this tomorrow.”"
+    },
+    {
+      "id": "questions",
+      "layout": "numbered",
+      "title": "Questions for the room",
+      "items": [
+        "Does the problem framing match your experience in the region?",
+        "Which 3–5 Mitglieder pilot verified links first?",
+        "Who owns the asset inventory conversation with members?",
+        "First joint step after Pilot-1 — hosting MOU, data refresh, matching group?"
+      ]
+    },
+    {
+      "id": "summary",
+      "layout": "bullets",
+      "title": "Summary",
+      "items": [
+        "Problem first — fragmented visibility; response — Coordination Map",
+        "Live today: https://ber-war-map.vercel.app/",
+        "Next: pilot members, asset inventory dialogue, host the Hub"
+      ]
+    },
+    {
+      "id": "thanks",
+      "layout": "plain",
+      "lines": ["Thank you", "https://ber-war-map.vercel.app/", "Live demo · questions"]
+    }
+  ]
+}

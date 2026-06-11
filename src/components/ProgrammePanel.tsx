@@ -12,7 +12,7 @@ export function ProgrammePanel() {
   const { resetProgramme } = useProgramme();
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col" data-testid="panel-programme">
       <div className="mb-3 flex gap-1 rounded-lg bg-white/5 p-1">
         <SubTabButton active={subTab === "timeline"} onClick={() => setSubTab("timeline")}>
           Timeline

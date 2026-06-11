@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 import {
   CATEGORY_COLORS,
   CATEGORY_LABELS,
@@ -26,7 +27,7 @@ export default function MitgliederPage() {
           </div>
           <div className="flex gap-2">
             <Link href="/" className="rounded-lg bg-white/10 px-3 py-2 text-sm font-medium text-white hover:bg-white/15">
-              War room map
+              {BRAND.mapLabel}
             </Link>
             <Link
               href="/api/mitglieder"

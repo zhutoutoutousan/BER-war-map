@@ -1,6 +1,6 @@
-# BER+ war-room map (Next.js PWA)
+# BER+ Coordination Hub (Next.js PWA)
 
-War-room style strategic map + RSS “intelligence” feed for the BER+ corridor.
+Coordination map for the Flughafenregion — matching, visibility, OSM intel, and member asset links.
 
 ## Run
 
@@ -20,16 +20,28 @@ Open `http://localhost:3001` (port **3001** — 3000 is often used by other proj
 3. Open [http://localhost:3001/clear-sw.html](http://localhost:3001/clear-sw.html) once, then hard-refresh the map (`Ctrl+Shift+R`).
 4. Use **only** `npm run dev` while developing — use `npm run build` + `npm run start` only to test production locally.
 
+## Stakeholder UX tests (Playwright)
+
+Automated screenshots + assertions for each board-room persona (company, investor, municipality, explore):
+
+```bash
+npm run dev:fresh          # fix stale .next / module errors
+npm run test:ux            # desktop + mobile
+npm run test:ux -- --project=desktop
+```
+
+Screenshots land in `e2e/screenshots/{persona}/`. HTML report: `e2e/report/`.
+
 ## June 12 presentation (IDI S26)
 
-- **Strategic framing:** left tab **BER+ Paths** — coordination problems, why now, 12–24 month steps
+- **Strategic framing:** left tab **Coordination** — problem → solution, member paths, pilot steps
 - **Member paths:** select a Mitglied → right **Member path** panel (problem → see → do)
 - **LaTeX slides:** `docs/presentation/june12-final.tex`
 - **Screenshots:** `http://localhost:3000/capture` or `npm run presentation:screenshots` → `docs/presentation/figures/`
 
 ## Intelligence TV (map overlay)
 
-Bottom-right **BER+ Intelligence** widget on the war-room map:
+Bottom-right **BER+ Intelligence** widget on the coordination map:
 
 - Aggregates ~25 German RSS feeds ([Feedspot list](https://rss.feedspot.com/german_news_rss_feeds/)) + YouTube (BER, DW, tagesschau)
 - Filters by BER+ corridor keywords (`src/lib/ber-topics.ts`)

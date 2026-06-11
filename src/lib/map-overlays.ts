@@ -43,6 +43,32 @@ export function warRoomOverlaysReady(map: MapLibreMap) {
   return Boolean(map.getSource("ber-corridor") && map.getLayer("osm-intel-industry-fill"));
 }
 
+/** Wait until style is loaded and map has finished its current frame/animation. Runs once. */
+export function whenMapReady(map: MapLibreMap, fn: () => void): () => void {
+  let cancelled = false;
+  const dispose = () => {
+    map.off("idle", run);
+    map.off("style.load", run);
+  };
+  const run = () => {
+    if (cancelled || !map.isStyleLoaded() || !map.loaded()) return;
+    dispose();
+    fn();
+  };
+  if (map.isStyleLoaded() && map.loaded()) {
+    fn();
+    return () => {
+      cancelled = true;
+    };
+  }
+  map.on("idle", run);
+  map.on("style.load", run);
+  return () => {
+    cancelled = true;
+    dispose();
+  };
+}
+
 export function setupWarRoomOverlays(
   map: MapLibreMap,
   corridorGeo: GeoJSON.FeatureCollection,
@@ -985,6 +1011,82 @@ function visibilityCacheKey(
   focusMemberId?: string | null
 ): string {
   return JSON.stringify({ visible, berTargetsOnly, focusMemberId: focusMemberId ?? null });
+}
+
+export function clearOsmVisibilityCache(map: MapLibreMap) {
+  visibilityCache.delete(map);
+}
+
+/** BER corridor / members / land — hidden in benchmark teleport views */
+const BER_CHROME_LAYER_IDS = [
+  "ber-airport-fill-glow",
+  "ber-airport-fill",
+  "ber-airport-outline-glow",
+  "ber-airport-outline",
+  "corridor-zone-fill",
+  "corridor-zone-outline",
+  "corridor-outer-glow",
+  "corridor-glow",
+  "corridor-line",
+  "corridor-line-label",
+  "corridor-label",
+  "pilot-glow",
+  "pilot-point",
+  "pilot-label",
+  "member-point-glow",
+  "member-point",
+  "member-label",
+  "member-zone-outer-glow",
+  "member-zone-fill",
+  "member-zone-outline",
+  "member-zone-label",
+  "land-anchor-zone-fill",
+  "land-anchor-zone-outline",
+  "land-anchor-label",
+  "ber-cctv-clusters",
+  "ber-cctv-cluster-count",
+  "ber-cctv-point-glow",
+  "ber-cctv-point",
+  "ber-cctv-label"
+];
+
+export function setBerChromeVisible(map: MapLibreMap, visible: boolean) {
+  const v = visible ? "visible" : "none";
+  for (const id of BER_CHROME_LAYER_IDS) {
+    if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", v);
+  }
+}
+
+const CCTV_LAYER_IDS = [
+  "cctv-cluster-glow",
+  "cctv-cluster",
+  "cctv-cluster-count",
+  "cctv-halo",
+  "cctv-point"
+];
+
+export function setCctvLayersVisible(map: MapLibreMap, visible: boolean) {
+  const v = visible ? "visible" : "none";
+  for (const id of CCTV_LAYER_IDS) {
+    if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", v);
+  }
+}
+
+export function setOsmIntelLayersVisible(map: MapLibreMap, visible: boolean) {
+  const v = visible ? "visible" : "none";
+  for (const cat of OSM_INTEL_CATEGORIES) {
+    for (const suffix of ["-fill", "-line", "-point"] as const) {
+      const id = `osm-intel-${cat.id}${suffix}`;
+      if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", v);
+    }
+    const iconId = `osm-intel-icon-${cat.id}`;
+    if (map.getLayer(iconId)) map.setLayoutProperty(iconId, "visibility", v);
+    const hitId = `osm-intel-icon-hit-${cat.id}`;
+    if (map.getLayer(hitId)) map.setLayoutProperty(hitId, "visibility", v);
+  }
+  for (const id of ["osm-intel-member-super-fill", "osm-intel-member-super-line", "osm-intel-member-outline", "osm-intel-land-highlight"]) {
+    if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", v);
+  }
 }
 
 export function applyOsmIntelVisibility(

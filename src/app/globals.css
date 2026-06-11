@@ -20,6 +20,46 @@ body {
   color: rgba(255, 255, 255, 0.92);
 }
 
+/* Persona banner — brief highlight after role selection */
+@keyframes persona-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes persona-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+  50% {
+    box-shadow: 0 0 24px 4px rgba(125, 211, 252, 0.35);
+  }
+}
+
+.persona-pulse {
+  animation: persona-enter 0.45s ease-out, persona-glow 1.8s ease-in-out 2;
+}
+
+@keyframes cameo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 /* —— War-room scrollbars (军情室) —— */
 :root {
   --scrollbar-track: rgba(6, 8, 12, 0.92);
@@ -121,6 +161,16 @@ html::-webkit-scrollbar-corner,
   color: #0f172a;
 }
 
+.ber-map-popup .maplibregl-popup-content {
+  background: rgba(15, 23, 42, 0.96);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ber-map-popup .maplibregl-popup-close-button {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .ber-osm-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip,
 .ber-osm-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip,
 .ber-osm-popup.maplibregl-popup-anchor-left .maplibregl-popup-tip,
@@ -187,6 +237,17 @@ html[data-capture-layout="right-focus"] [data-testid="showcase-panel-right"] {
   width: min(480px, 44vw) !important;
   max-width: 44vw !important;
   max-height: min(88vh, calc(100dvh - 4.5rem)) !important;
+}
+
+/* Guided tour — spotlight on in-app targets (no modal block) */
+[data-tour-spotlight="true"] {
+  outline: 2px solid rgb(56 189 248 / 0.95);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgb(56 189 248 / 0.18);
+  border-radius: 0.5rem;
+  transition: outline-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 24;
 }
 
 html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {

@@ -222,7 +222,8 @@ function tabLabel(tab: LeftTab): string {
     briefing: "Briefing",
     members: "Mitglieder",
     programme: "Programme",
-    junqingchu: "OSM Intel"
+    junqingchu: "OSM Intel",
+    inventory: "Asset mgmt"
   };
   return labels[tab];
 }

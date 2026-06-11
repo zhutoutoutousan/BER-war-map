@@ -17,7 +17,7 @@ export function IntelligenceTV() {
   const [data, setData] = useState<Payload | null>(null);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const load = useCallback(async () => {
     try {

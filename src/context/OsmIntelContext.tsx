@@ -10,15 +10,16 @@ type OsmIntelContextValue = {
   loading: boolean;
   error: string | null;
   data: OsmIntelPayload | null;
+  activeRegionId: string | null;
   visibleCategories: Record<OsmIntelCategory, boolean>;
   berTargetsOnly: boolean;
   selectedFeatureId: string | null;
-  /** Map click anchor for popup when picking an icon marker */
   selectedOsmAnchor: [number, number] | null;
   toggleCategory: (id: OsmIntelCategory) => void;
   setBerTargetsOnly: (v: boolean) => void;
   selectFeature: (id: string | null, anchor?: [number, number] | null) => void;
-  reload: () => Promise<void>;
+  reloadBerCorridor: () => Promise<void>;
+  loadBenchmarkRegion: (benchmarkId: string) => Promise<void>;
 };
 
 const defaultVisible = Object.fromEntries(
@@ -31,6 +32,7 @@ export function OsmIntelProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<OsmIntelPayload | null>(null);
+  const [activeRegionId, setActiveRegionId] = useState<string | null>(null);
   const [visibleCategories, setVisibleCategories] = useState(defaultVisible);
   const [berTargetsOnly, setBerTargetsOnly] = useState(false);
   const [selectedFeatureId, setSelectedFeatureId] = useState<string | null>(null);
@@ -42,10 +44,11 @@ export function OsmIntelProvider({ children }: { children: ReactNode }) {
     setSelectedOsmAnchor(id ? (anchor ?? null) : null);
   }, []);
 
-  const reload = useCallback(async () => {
-    osmTrace("OsmIntelContext", "fetch start");
+  const reloadBerCorridor = useCallback(async () => {
+    osmTrace("OsmIntelContext", "fetch BER corridor");
     setLoading(true);
     setError(null);
+    setActiveRegionId(null);
     try {
       const res = await fetch("/api/osm/schoenefeld", { cache: "no-store" });
       if (!res.ok) {
@@ -69,9 +72,47 @@ export function OsmIntelProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const loadBenchmarkRegion = useCallback(async (benchmarkId: string) => {
+    if (benchmarkId === "ber-osm-prototype") {
+      setBerTargetsOnly(false);
+      await reloadBerCorridor();
+      return;
+    }
+    osmTrace("OsmIntelContext", "fetch benchmark region", { benchmarkId });
+    setLoading(true);
+    setError(null);
+    setActiveRegionId(benchmarkId);
+    setBerTargetsOnly(false);
+    try {
+      const res = await fetch(`/api/osm/benchmark/${benchmarkId}`, { cache: "no-store" });
+      const payload = (await res.json()) as OsmIntelPayload & { fetchError?: string };
+      if (!res.ok && !payload.geojson) {
+        throw new Error((payload as { error?: string }).error ?? `HTTP ${res.status}`);
+      }
+      if (payload.fetchError) {
+        osmTraceWarn("OsmIntelContext", "benchmark osm partial", {
+          benchmarkId,
+          error: payload.fetchError
+        });
+        setError(payload.fetchError);
+      }
+      osmTrace("OsmIntelContext", "benchmark osm ok", {
+        benchmarkId,
+        features: payload.geojson.features.length
+      });
+      setData(payload);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : "Failed to load benchmark OSM";
+      osmTraceWarn("OsmIntelContext", "benchmark fetch failed", { error: msg });
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  }, [reloadBerCorridor]);
+
   useEffect(() => {
-    reload();
-  }, [reload]);
+    reloadBerCorridor();
+  }, [reloadBerCorridor]);
 
   const toggleCategory = useCallback((id: OsmIntelCategory) => {
     setVisibleCategories((prev) => {
@@ -87,6 +128,7 @@ export function OsmIntelProvider({ children }: { children: ReactNode }) {
         loading,
         error,
         data,
+        activeRegionId,
         visibleCategories,
         berTargetsOnly,
         selectedFeatureId,
@@ -94,7 +136,8 @@ export function OsmIntelProvider({ children }: { children: ReactNode }) {
         toggleCategory,
         setBerTargetsOnly,
         selectFeature,
-        reload
+        reloadBerCorridor,
+        loadBenchmarkRegion
       }}
     >
       {children}
