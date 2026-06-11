@@ -444,7 +444,7 @@ function MapWorkspaceContent({
       if (action.openLeftPanel === false) {
         setLeftPanelOpen(false);
         if (isMobile) setMobileSheet(null);
-      } else {
+      } else if (action.openLeftPanel === true) {
         setLeftPanelOpen(true);
         if (isMobile) setMobileSheet("explore");
       }
@@ -570,7 +570,11 @@ function MapWorkspaceContent({
       {splitActive ? (
         <div
           className={`absolute inset-0 z-0 grid grid-cols-1 md:grid-cols-2 ${
-            geoHidden ? "invisible pointer-events-none" : mobileSheet !== null ? "pointer-events-none" : ""
+            geoHidden
+              ? "invisible pointer-events-none"
+              : isMobile && mobileSheet !== null
+                ? "pointer-events-none"
+                : ""
           }`}
           data-testid="split-compare-maps"
         >
@@ -587,7 +591,7 @@ function MapWorkspaceContent({
               registerMapActions
               osmOverlayVisible
               filterCategory={filterCategory}
-              interactionLocked={mobileSheet !== null}
+              interactionLocked={isMobile && mobileSheet !== null}
             />
           </div>
           <div
@@ -608,7 +612,7 @@ function MapWorkspaceContent({
               registerMapActions={false}
               osmOverlayVisible
               filterCategory={filterCategory}
-              interactionLocked={mobileSheet !== null}
+              interactionLocked={isMobile && mobileSheet !== null}
             />
           </div>
         </div>
@@ -623,11 +627,11 @@ function MapWorkspaceContent({
           registerMapActions
           osmOverlayVisible
           filterCategory={filterCategory}
-          interactionLocked={mobileSheet !== null}
+          interactionLocked={isMobile && mobileSheet !== null}
           className={
             geoHidden
               ? "invisible pointer-events-none"
-              : mobileSheet !== null
+              : isMobile && mobileSheet !== null
                 ? "pointer-events-none"
                 : undefined
           }

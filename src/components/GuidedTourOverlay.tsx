@@ -13,7 +13,7 @@ import {
 } from "@/data/guided-tour";
 import { BER_PLUS_FUTURE_EVOLUTION } from "@/data/ber-plus-coordination";
 import { useGuidedTourActions } from "@/context/GuidedTourContext";
-import { useIsMobile } from "@/lib/use-media";
+import { isMobileViewport, useIsMobile } from "@/lib/use-media";
 
 type Props = {
   onComplete: () => void;
@@ -29,7 +29,7 @@ export function GuidedTourOverlay({ onComplete, onSkip, embedded = true, sheetOp
   const { applyTourAction } = useGuidedTourActions();
   const steps = useMemo(() => getWalkthroughSteps(), []);
   const [index, setIndex] = useState(0);
-  const [minimized, setMinimized] = useState(false);
+  const [minimized, setMinimized] = useState(() => isMobileViewport());
   const step = steps[index]!;
   const isLast = index >= steps.length - 1;
   const progress = ((index + 1) / steps.length) * 100;
@@ -42,54 +42,66 @@ export function GuidedTourOverlay({ onComplete, onSkip, embedded = true, sheetOp
   }, [step.id, applyTourAction]);
 
   useEffect(() => {
+    if (isMobile) setMinimized(true);
+  }, [isMobile, index]);
+
+  useEffect(() => {
     if (isMobile && sheetOpen && expanded) setMinimized(true);
   }, [isMobile, sheetOpen, expanded]);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
-    document.documentElement.dataset.guidedTourOpen = expanded && !minimized ? "true" : "false";
+    document.documentElement.dataset.guidedTourOpen =
+      isMobile && expanded && !minimized ? "true" : "false";
     return () => {
       delete document.documentElement.dataset.guidedTourOpen;
     };
-  }, [expanded, minimized]);
+  }, [expanded, minimized, isMobile]);
 
   const advance = () => {
     if (isLast) {
       onComplete();
       return;
     }
-    setMinimized(false);
+    if (!isMobile) setMinimized(false);
     setIndex((i) => i + 1);
   };
 
-  const panel = minimized ? (
-    <MinimizedCoach
-      index={index}
-      total={steps.length}
-      title={step.title}
-      onExpand={() => setMinimized(false)}
-    />
-  ) : (
-    <ExpandedCoach
-      step={step}
-      index={index}
-      total={steps.length}
-      progress={progress}
-      isLast={isLast}
-      onMinimize={() => setMinimized(true)}
-      onSkip={onSkip}
-      onBack={() => setIndex((i) => i - 1)}
-      onAdvance={advance}
-    />
-  );
-
-  const wrapClass = isMobile
-    ? "guided-tour-mobile-dock pointer-events-none"
-    : "pointer-events-none fixed bottom-3 left-3 z-[55] w-[min(calc(100vw-2rem),22rem)]";
+  const panel =
+    minimized && isMobile ? (
+      <MobileTourChip
+        index={index}
+        total={steps.length}
+        onExpand={() => setMinimized(false)}
+      />
+    ) : minimized ? (
+      <MinimizedCoach
+        index={index}
+        total={steps.length}
+        title={step.title}
+        onExpand={() => setMinimized(false)}
+      />
+    ) : (
+      <ExpandedCoach
+        step={step}
+        index={index}
+        total={steps.length}
+        progress={progress}
+        isLast={isLast}
+        compactHeader={isMobile}
+        onMinimize={() => setMinimized(true)}
+        onSkip={onSkip}
+        onBack={() => setIndex((i) => i - 1)}
+        onAdvance={advance}
+      />
+    );
 
   const inner = (
-    <div className={`${wrapClass} ${isMobile ? "" : ""}`} data-testid="guided-tour-overlay">
-      <div className={isMobile ? "pointer-events-auto" : undefined}>{panel}</div>
+    <div
+      className={isMobile ? "guided-tour-mobile-dock" : "guided-tour-desktop-dock"}
+      data-testid="guided-tour-overlay"
+    >
+      {panel}
     </div>
   );
 
@@ -98,6 +110,34 @@ export function GuidedTourOverlay({ onComplete, onSkip, embedded = true, sheetOp
   }
 
   return inner;
+}
+
+function MobileTourChip({
+  index,
+  total,
+  onExpand
+}: {
+  index: number;
+  total: number;
+  onExpand: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onExpand}
+      className="guided-tour-mobile-chip floating-panel inline-flex min-h-[44px] items-center gap-2 rounded-full px-3 py-2 text-left touch-manipulation hover:bg-white/5"
+      data-testid="guided-tour-expand"
+      aria-label={`Open demo walkthrough step ${index + 1} of ${total}`}
+    >
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-500/30 text-[10px] font-bold text-sky-100">
+        {index + 1}
+      </span>
+      <span className="text-[11px] font-semibold text-white/90">Demo walkthrough</span>
+      <span className="text-[10px] text-white/45">
+        {index + 1}/{total}
+      </span>
+    </button>
+  );
 }
 
 function MinimizedCoach({
@@ -135,6 +175,7 @@ function ExpandedCoach({
   total,
   progress,
   isLast,
+  compactHeader = false,
   onMinimize,
   onSkip,
   onBack,
@@ -145,6 +186,7 @@ function ExpandedCoach({
   total: number;
   progress: number;
   isLast: boolean;
+  compactHeader?: boolean;
   onMinimize: () => void;
   onSkip: () => void;
   onBack: () => void;
@@ -157,19 +199,28 @@ function ExpandedCoach({
       aria-label="Live walkthrough"
     >
       <div className="flex shrink-0 items-start justify-between gap-2 border-b border-white/10 bg-sky-950/40 px-3 py-2">
-        <TourProgress
-          title={walkthroughTitle()}
-          subtitle={GUIDED_TOUR_SUBTITLE}
-          current={index}
-          total={total}
-          progress={progress}
-          currentAct={step.act}
-        />
+        {compactHeader ? (
+          <div className="min-w-0 flex-1 text-[10px] text-white/50">
+            <span className="font-bold uppercase tracking-[0.1em] text-sky-300/85">Demo walkthrough</span>
+            <span className="ml-2">
+              {index + 1}/{total}
+            </span>
+          </div>
+        ) : (
+          <TourProgress
+            title={walkthroughTitle()}
+            subtitle={GUIDED_TOUR_SUBTITLE}
+            current={index}
+            total={total}
+            progress={progress}
+            currentAct={step.act}
+          />
+        )}
         <button
           type="button"
           onClick={onMinimize}
           className="touch-target shrink-0 rounded-md px-2 text-lg leading-none text-white/45 hover:bg-white/10 hover:text-white/70"
-          aria-label="Minimize walkthrough"
+          aria-label="Collapse walkthrough"
           data-testid="guided-tour-minimize"
         >
           −
@@ -177,7 +228,16 @@ function ExpandedCoach({
       </div>
 
       <div className="guided-tour-body px-3 py-2.5">
-        <ActTrail currentAct={step.act} />
+        {compactHeader ? (
+          <div className="mb-2 h-0.5 overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-sky-500/80 transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        ) : (
+          <ActTrail currentAct={step.act} />
+        )}
         <StepView step={step} />
         {step.showEvolution ? <TourEvolutionCards /> : null}
 

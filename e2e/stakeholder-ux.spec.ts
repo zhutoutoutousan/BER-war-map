@@ -40,7 +40,11 @@ async function goToTab(page: Page, tab: string) {
 async function completeGuidedTour(page: Page) {
   const overlay = page.getByTestId("guided-tour-overlay");
   if (!(await overlay.isVisible({ timeout: 5000 }).catch(() => false))) return;
-  await page.getByTestId("guided-tour-skip").click();
+  const skip = page.getByTestId("guided-tour-skip");
+  if (!(await skip.isVisible({ timeout: 500 }).catch(() => false))) {
+    await page.getByTestId("guided-tour-expand").click();
+  }
+  await skip.click();
   await expect(overlay).toBeHidden({ timeout: 15_000 });
 }
 
