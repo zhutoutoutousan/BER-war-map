@@ -439,6 +439,21 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
   padding-right: max(0.5rem, env(safe-area-inset-right));
 }
 
+/* Guided tour — desktop dock (panel clickable; rest passes through to map) */
+.guided-tour-desktop-dock {
+  position: fixed;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  z-index: 55;
+  width: min(22rem, calc(100vw - 2rem));
+  pointer-events: none;
+}
+
+.guided-tour-desktop-dock .guided-tour-panel,
+.guided-tour-desktop-dock [data-testid="guided-tour-expand"] {
+  pointer-events: auto;
+}
+
 @media (max-width: 767px) {
   .guided-tour-mobile-dock {
     position: fixed;
@@ -447,6 +462,19 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
     bottom: var(--mobile-tour-dock-offset);
     z-index: 55;
     max-height: min(46dvh, 360px);
+    pointer-events: none;
+  }
+
+  .guided-tour-mobile-dock .guided-tour-panel,
+  .guided-tour-mobile-dock .guided-tour-mobile-chip,
+  .guided-tour-mobile-dock [data-testid="guided-tour-expand"] {
+    pointer-events: auto;
+  }
+
+  .guided-tour-mobile-dock:not(:has(.guided-tour-panel)) {
+    left: max(0.5rem, env(safe-area-inset-left));
+    right: auto;
+    max-height: none;
   }
 
   .guided-tour-mobile-dock .guided-tour-panel {
