@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { COORDINATION_THEMES, STRATEGIC_PROBE } from "@/data/ber-plus-coordination";
+import { MemberAssetInventorySection } from "@/components/MemberAssetInventorySection";
 import type { LeftTab } from "@/components/BerPlusValuePanel";
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
 
 export function BriefingPanel({ onGoToTab }: Props) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" data-testid="panel-briefing">
       <div className="rounded-lg border border-sky-500/20 bg-sky-950/20 px-3 py-2">
         <div className="text-xs font-semibold text-sky-200">Evidence for June 12</div>
         <p className="mt-1 text-xs text-white/70">
@@ -21,13 +22,18 @@ export function BriefingPanel({ onGoToTab }: Props) {
             onClick={() => onGoToTab("value")}
             className="mt-2 text-xs text-sky-200 hover:underline"
           >
-            Full BER+ coordination framing →
+            Peer precedents & map benchmarks →
           </button>
         ) : null}
       </div>
 
+      <MemberAssetInventorySection
+        compact
+        onGoToOsmIntel={onGoToTab ? () => onGoToTab("junqingchu") : undefined}
+        onGoToCollabDemo={onGoToTab ? () => onGoToTab("inventory") : undefined}
+      />
+
       <div>
-        <div className="text-sm font-semibold text-white">The BER+ dilemma (why now)</div>
         <div className="mt-2 space-y-2 text-sm text-white/75">
           <div>
             <div className="font-medium text-white/85">Grid congestion, stalled growth</div>

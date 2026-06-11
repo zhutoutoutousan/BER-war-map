@@ -27,12 +27,15 @@ export const SCHOENEFELD_OSM_BBOX = {
 
 export const OVERPASS_ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
-  "https://overpass.kumi.systems/api/interpreter"
+  "https://overpass.kumi.systems/api/interpreter",
+  "https://overpass.private.coffee/api/interpreter"
 ] as const;
 
-const B = SCHOENEFELD_OSM_BBOX;
+export type OsmBbox = { south: number; west: number; north: number; east: number };
 
-export const SCHOENEFELD_OVERPASS_QUERY = `[out:json][timeout:120];
+export function buildOverpassQuery(bbox: OsmBbox, timeoutSec = 90): string {
+  const B = bbox;
+  return `[out:json][timeout:${timeoutSec}];
 (
   way["landuse"~"industrial|commercial|retail|logistics|greenfield|brownfield|construction|meadow|farmland|grass|orchard"](${B.south},${B.west},${B.north},${B.east});
   way["aeroway"](${B.south},${B.west},${B.north},${B.east});
@@ -46,6 +49,9 @@ export const SCHOENEFELD_OVERPASS_QUERY = `[out:json][timeout:120];
   way["building"="industrial"](${B.south},${B.west},${B.north},${B.east});
 );
 out geom;`;
+}
+
+export const SCHOENEFELD_OVERPASS_QUERY = buildOverpassQuery(SCHOENEFELD_OSM_BBOX, 120);
 
 export type OsmElement = {
   type: "node" | "way" | "relation";
@@ -135,6 +141,30 @@ export type OsmIntelPayload = {
   attribution: string;
 };
 
+export function emptyOsmIntelPayload(bbox: OsmBbox, regionLabel: string): OsmIntelPayload {
+  const emptySummary: OsmIntelSummary = {
+    total: 0,
+    byCategory: { land: 0, aeroway: 0, industry: 0, power: 0, transport: 0, utilities: 0 },
+    berRelevantCount: 0,
+    topTargets: [],
+    infrastructure: [],
+    landParcels: [],
+    developableHa: 0,
+    infrastructureNote: `${regionLabel}: OSM fetch unavailable — try again shortly.`,
+    memberLinkCounts: {},
+    memberLinkedTotal: 0
+  };
+  return {
+    geojson: { type: "FeatureCollection", features: [] },
+    iconGeojson: { type: "FeatureCollection", features: [] },
+    summary: emptySummary,
+    curatedSites: [],
+    fetchedAt: new Date().toISOString(),
+    bbox,
+    attribution: "© OpenStreetMap contributors · Overpass API · indicative only (not cadastral)"
+  };
+}
+
 const OCCUPIED_LANDUSE = new Set(["industrial", "commercial", "retail", "logistics", "railway"]);
 
 const LANDUSE_CATEGORIES: Record<string, OsmIntelCategory> = {
@@ -216,7 +246,19 @@ function centroidOf(geom: GeoJSON.Geometry): [number, number] | null {
   return [lng / ring.length, lat / ring.length];
 }
 
-export function osmElementsToIntel(elements: OsmElement[]): OsmIntelPayload {
+export type OsmIntelBuildOptions = {
+  bbox?: OsmBbox;
+  regionLabel?: string;
+  curatedSites?: BerLandSite[];
+};
+
+export function osmElementsToIntel(
+  elements: OsmElement[],
+  opts: OsmIntelBuildOptions = {}
+): OsmIntelPayload {
+  const bbox = opts.bbox ?? SCHOENEFELD_OSM_BBOX;
+  const regionLabel = opts.regionLabel ?? "Schönefeld corridor";
+  const curatedSites = opts.curatedSites ?? BER_LAND_SITES;
   const features: GeoJSON.Feature[] = [];
   const dossier: OsmIntelDossierItem[] = [];
   const landParcels: OsmLandParcel[] = [];
@@ -383,19 +425,24 @@ export function osmElementsToIntel(elements: OsmElement[]): OsmIntelPayload {
       infrastructure,
       landParcels: rankedLand,
       developableHa: Math.round(developableHa * 10) / 10,
-      infrastructureNote: `Schönefeld sector: ${substations} power, ${transport} transport, ${industry} industry, ${iconGeojson.features.length} icons, ${memberLinkedTotal} Mitglieder-linked OSM features.`,
+      infrastructureNote: `${regionLabel}: ${substations} power, ${transport} transport, ${industry} industry, ${iconGeojson.features.length} icons${memberLinkedTotal ? `, ${memberLinkedTotal} member-linked features` : ""}.`,
       memberLinkCounts,
       memberLinkedTotal
     },
-    curatedSites: BER_LAND_SITES,
+    curatedSites,
     fetchedAt: new Date().toISOString(),
-    bbox: SCHOENEFELD_OSM_BBOX,
+    bbox,
     attribution: "© OpenStreetMap contributors · Overpass API · indicative only (not cadastral)"
   };
 }
 
-export async function fetchSchoenefeldOsmIntel(): Promise<OsmIntelPayload> {
-  const body = "data=" + encodeURIComponent(SCHOENEFELD_OVERPASS_QUERY);
+export async function fetchOsmIntelForBbox(
+  bbox: OsmBbox,
+  regionLabel: string,
+  opts?: { curatedSites?: BerLandSite[]; timeoutSec?: number }
+): Promise<OsmIntelPayload> {
+  const query = buildOverpassQuery(bbox, opts?.timeoutSec ?? 90);
+  const body = "data=" + encodeURIComponent(query);
   let lastError: Error | null = null;
 
   for (const endpoint of OVERPASS_ENDPOINTS) {
@@ -405,7 +452,7 @@ export async function fetchSchoenefeldOsmIntel(): Promise<OsmIntelPayload> {
         body,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "User-Agent": "BER-war-map/0.1 Schönefeld OSM (+https://www.ber-plus.de/)"
+          "User-Agent": `BER-war-map/0.1 ${regionLabel} OSM (+https://www.ber-plus.de/)`
         },
         cache: "no-store",
         signal: AbortSignal.timeout(125_000)
@@ -413,11 +460,22 @@ export async function fetchSchoenefeldOsmIntel(): Promise<OsmIntelPayload> {
       if (!res.ok) throw new Error(`Overpass ${res.status}`);
       const data = (await res.json()) as { elements?: OsmElement[] };
       if (!data.elements?.length) throw new Error("Empty Overpass response");
-      return osmElementsToIntel(data.elements);
+      return osmElementsToIntel(data.elements, {
+        bbox,
+        regionLabel,
+        curatedSites: opts?.curatedSites ?? []
+      });
     } catch (e) {
       lastError = e instanceof Error ? e : new Error("Overpass failed");
     }
   }
 
   throw lastError ?? new Error("Overpass unavailable");
+}
+
+export async function fetchSchoenefeldOsmIntel(): Promise<OsmIntelPayload> {
+  return fetchOsmIntelForBbox(SCHOENEFELD_OSM_BBOX, "Schönefeld corridor", {
+    curatedSites: BER_LAND_SITES,
+    timeoutSec: 120
+  });
 }

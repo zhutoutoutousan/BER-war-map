@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import type { Map as MapLibreMap, Popup } from "maplibre-gl";
+import type { GeoJSONSource, Map as MapLibreMap, Popup } from "maplibre-gl";
 import corridor from "@/data/ber-corridor.json";
 import { useCctv } from "@/context/CctvContext";
 import { useMapActions } from "@/context/MapActionsContext";
@@ -18,18 +18,47 @@ import {
   bindWarRoomMapClicks,
   setLandAnchorSelected,
   setMemberZoneHighlight,
+  clearOsmVisibilityCache,
+  setOsmIntelLayersVisible,
+  setBerChromeVisible,
+  setCctvLayersVisible,
   setupWarRoomOverlays,
   syncOsmIntelOnMap,
   updateCctvGeo,
-  warRoomOverlaysReady
+  warRoomOverlaysReady,
+  whenMapReady
 } from "@/lib/map-overlays";
-import { CARTO_DARK_STYLE, OSM_STANDARD_STYLE } from "@/lib/war-room-map-style";
+import {
+  bindBenchmarkMapClicks,
+  benchmarkStakeholdersToGeoJSON,
+  raiseBenchmarkLayersToTop,
+  resetBenchmarkMapClicks,
+  setBenchmarkLayersVisible,
+  setBenchmarkStakeholdersVisible,
+  setupBenchmarkOverlays,
+  syncBenchmarkGeo,
+  syncBenchmarkStakeholders
+} from "@/lib/benchmark-overlays";
+import { benchmarkPopupHtml, singleBenchmarkGeoJSON } from "@/lib/benchmark-geo";
+import { getBenchmarkById } from "@/data/benchmarks";
+import { getMapRegion, type MapRegionId } from "@/lib/map-regions";
+import type { OsmIntelPayload } from "@/lib/osm-schoenefeld";
+import { CARTO_DARK_FALLBACK_STYLE } from "@/lib/war-room-map-style";
 
 type Props = {
   selectedMemberId: string | null;
   onSelectMember: (id: string | null) => void;
+  selectedBenchmarkId?: string | null;
+  onSelectBenchmark?: (id: string | null) => void;
+  regionId?: MapRegionId;
+  osmPayloadOverride?: OsmIntelPayload | null;
+  showCctv?: boolean;
+  registerMapActions?: boolean;
+  osmOverlayVisible?: boolean;
   filterCategory: MemberCategory | "all";
   className?: string;
+  /** Side-by-side split pane — do not use absolute full-viewport positioning */
+  embedded?: boolean;
   interactionLocked?: boolean;
 };
 
@@ -44,30 +73,46 @@ function escapeHtml(s: string) {
 export function WarRoomMap({
   selectedMemberId,
   onSelectMember,
+  selectedBenchmarkId = null,
+  onSelectBenchmark,
+  regionId = "ber-corridor",
+  osmPayloadOverride,
+  showCctv = false,
+  registerMapActions = true,
+  osmOverlayVisible = true,
   filterCategory,
   className,
+  embedded = false,
   interactionLocked = false
 }: Props) {
   const { data: cctvData, selectedCameraId, selectCamera } = useCctv();
   const { registerFly } = useMapActions();
   const {
-    data: osmData,
+    data: contextOsmData,
     visibleCategories,
     berTargetsOnly,
     selectedFeatureId,
     selectedOsmAnchor,
     selectFeature
   } = useOsmIntel();
+  const osmData = osmPayloadOverride ?? contextOsmData;
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const popupRef = useRef<Popup | null>(null);
   const cctvPopupRef = useRef<Popup | null>(null);
   const osmPopupRef = useRef<Popup | null>(null);
+  const benchmarkPopupRef = useRef<Popup | null>(null);
+  const regionIdRef = useRef(regionId);
+  const osmOverlayVisibleRef = useRef(osmOverlayVisible);
   const lastOsmFeatureStateIdRef = useRef<string | number | null>(null);
+  regionIdRef.current = regionId;
+  osmOverlayVisibleRef.current = osmOverlayVisible;
   const onSelectRef = useRef(onSelectMember);
+  const onSelectBenchmarkRef = useRef(onSelectBenchmark);
   const onSelectCctvRef = useRef(selectCamera);
   const onSelectOsmRef = useRef(selectFeature);
   onSelectRef.current = onSelectMember;
+  onSelectBenchmarkRef.current = onSelectBenchmark;
   onSelectCctvRef.current = selectCamera;
   onSelectOsmRef.current = selectFeature;
 
@@ -103,9 +148,79 @@ export function WarRoomMap({
   membersGeoRef.current = membersGeo;
   const syncIdleRef = useRef<number | null>(null);
   const syncReasonRef = useRef("");
+  const lastFramedRegionRef = useRef<MapRegionId | null>(null);
+
+  const applyRegionConstraints = (map: MapLibreMap) => {
+    const region = getMapRegion(regionIdRef.current);
+    map.setMaxBounds(region.maxBounds);
+    map.setMinZoom(region.minZoom);
+    map.setMaxZoom(region.maxZoom);
+  };
+
+  const frameRegionView = (map: MapLibreMap, animate = true) => {
+    const region = getMapRegion(regionIdRef.current);
+    const pitch = region.isBerCorridor ? 48 : 42;
+    const bearing = region.isBerCorridor ? -20 : -12;
+
+    if (region.fitBounds) {
+      const fitOpts = {
+        padding: region.isBerCorridor
+          ? { top: 72, bottom: 220, left: 52, right: 52 }
+          : { top: 56, bottom: 160, left: 36, right: 36 },
+        pitch,
+        bearing,
+        maxZoom: region.zoom
+      };
+      if (animate) map.fitBounds(region.fitBounds, { ...fitOpts, duration: 1100, essential: true });
+      else map.fitBounds(region.fitBounds, { ...fitOpts, duration: 0 });
+      return;
+    }
+
+    const camera = { center: region.center, zoom: region.zoom, pitch, bearing };
+    if (animate) map.flyTo({ ...camera, duration: 1100, essential: true });
+    else map.jumpTo(camera);
+  };
+
+  const syncBenchmarkLayersForRegion = (map: MapLibreMap) => {
+    const rid = regionIdRef.current;
+    const siteId = rid === "ber-corridor" ? null : rid;
+    syncBenchmarkLayers(map, siteId);
+    setBerChromeVisible(map, rid === "ber-corridor" || rid === "ber-osm-prototype");
+    setCctvLayersVisible(map, showCctv);
+  };
+
+  const syncBenchmarkLayers = (map: MapLibreMap, siteId: string | null) => {
+    setupBenchmarkOverlays(map);
+    if (siteId && siteId !== "ber-corridor" && siteId !== "ber-osm-prototype") {
+      const pts = map.getSource("benchmark-points") as GeoJSONSource | undefined;
+      pts?.setData(singleBenchmarkGeoJSON(siteId));
+      const ln = map.getSource("benchmark-lines") as GeoJSONSource | undefined;
+      ln?.setData({ type: "FeatureCollection", features: [] });
+      const b = getBenchmarkById(siteId);
+      syncBenchmarkStakeholders(map, b ? benchmarkStakeholdersToGeoJSON(b) : { type: "FeatureCollection", features: [] });
+      setBenchmarkLayersVisible(map, true);
+      setBenchmarkStakeholdersVisible(map, true);
+    } else {
+      syncBenchmarkGeo(map);
+      syncBenchmarkStakeholders(map, { type: "FeatureCollection", features: [] });
+      setBenchmarkLayersVisible(map, false);
+      setBenchmarkStakeholdersVisible(map, false);
+    }
+    bindBenchmarkMapClicks(map, (id) => onSelectBenchmarkRef.current?.(id));
+  };
+
+  const whenMapCanSync = (map: MapLibreMap, fn: () => void) => {
+    return whenMapReady(map, () => {
+      ensureOverlays(map);
+      fn();
+    });
+  };
 
   const ensureOverlays = (map: MapLibreMap) => {
-    if (warRoomOverlaysReady(map)) return;
+    if (warRoomOverlaysReady(map)) {
+      syncBenchmarkLayersForRegion(map);
+      return;
+    }
     osmTrace("WarRoomMap", "ensureOverlays — creating/repairing layers");
     setupWarRoomOverlays(map, corridorGeoRef.current, membersGeoRef.current);
     bindWarRoomMapClicks(map, {
@@ -113,6 +228,9 @@ export function WarRoomMap({
       onSelectCctv: (id) => onSelectCctvRef.current(id),
       onSelectOsm: (id, anchor) => onSelectOsmRef.current(id, anchor)
     });
+    syncBenchmarkLayersForRegion(map);
+    setBerChromeVisible(map, regionIdRef.current === "ber-corridor");
+    setCctvLayersVisible(map, showCctv);
   };
 
   const runOsmSync = (reason: string) => {
@@ -134,6 +252,10 @@ export function WarRoomMap({
         styleLoaded: map.isStyleLoaded(),
         loaded: map.loaded()
       });
+      whenMapReady(map, () => {
+        ensureOverlays(mapRef.current!);
+        runOsmSync(reason);
+      });
       return;
     }
     osmTrace("WarRoomMap.sync", reason, {
@@ -141,6 +263,9 @@ export function WarRoomMap({
       icons: sync.osmIconGeo?.features.length ?? null,
       berTargetsOnly: sync.berTargetsOnly
     });
+    if (osmOverlayVisibleRef.current) {
+      clearOsmVisibilityCache(map);
+    }
     syncOsmIntelOnMap(
       map,
       sync.osmGeo,
@@ -148,6 +273,10 @@ export function WarRoomMap({
       sync.berTargetsOnly,
       sync.osmIconGeo ?? undefined
     );
+    if (!osmOverlayVisibleRef.current) {
+      setOsmIntelLayersVisible(map, false);
+    }
+    raiseBenchmarkLayersToTop(map);
   };
 
   const syncOsmToMap = (reason: string) => {
@@ -180,8 +309,16 @@ export function WarRoomMap({
     const finishMapSetup = (map: MapLibreMap, reason: string) => {
       if (cancelled || mapRef.current !== map) return;
       ensureOverlays(map);
+      applyRegionConstraints(map);
+      if (lastFramedRegionRef.current !== regionIdRef.current) {
+        lastFramedRegionRef.current = regionIdRef.current;
+        frameRegionView(map, false);
+      }
       setMemberZoneHighlight(map, null);
+      setBerChromeVisible(map, regionIdRef.current === "ber-corridor");
+      setCctvLayersVisible(map, showCctv);
       syncOsmToMap(reason);
+      if (embedded) requestAnimationFrame(() => map.resize());
     };
 
     const whenStyleReady = (map: MapLibreMap, reason: string) => {
@@ -197,14 +334,15 @@ export function WarRoomMap({
       const maplibre = await import("maplibre-gl");
       if (cancelled) return;
 
+      const initialRegion = getMapRegion(regionIdRef.current);
       const map = new maplibre.Map({
         container: containerRef.current!,
         // Raster basemap — GL style was erroring on load and wiping overlays via setStyle
-        style: CARTO_DARK_STYLE,
-        center: [13.5, 52.362],
-        zoom: 10.4,
-        pitch: 48,
-        bearing: -20,
+        style: CARTO_DARK_FALLBACK_STYLE,
+        center: initialRegion.center,
+        zoom: initialRegion.zoom,
+        pitch: initialRegion.isBerCorridor ? 48 : 42,
+        bearing: initialRegion.isBerCorridor ? -20 : -12,
         attributionControl: { compact: true }
       });
 
@@ -216,7 +354,8 @@ export function WarRoomMap({
           error: "error" in ev ? String(ev.error) : "unknown"
         });
         fallbackStage = 1;
-        map.setStyle(OSM_STANDARD_STYLE);
+        resetBenchmarkMapClicks(map);
+        map.setStyle(CARTO_DARK_FALLBACK_STYLE);
       });
 
       onResize = () => map.resize();
@@ -226,20 +365,23 @@ export function WarRoomMap({
         osmTrace("WarRoomMap", "map load");
         map.resize();
         (window as Window & { __berMap?: MapLibreMap }).__berMap = map;
-        registerFly((center, zoom = 12.5) => {
-          map.flyTo({
-            center,
-            zoom,
-            pitch: 48,
-            bearing: -15,
-            duration: 1400,
-            essential: true
+        if (registerMapActions) {
+          registerFly((center, zoom = 12.5) => {
+            map.flyTo({
+              center,
+              zoom,
+              pitch: 48,
+              bearing: -15,
+              duration: 1400,
+              essential: true
+            });
           });
-        });
+        }
         whenStyleReady(map, "map.load");
       });
 
       map.on("style.load", () => {
+        resetBenchmarkMapClicks(map);
         osmTrace("WarRoomMap", "style.load", {
           styleLoaded: map.isStyleLoaded(),
           ready: warRoomOverlaysReady(map)
@@ -262,6 +404,7 @@ export function WarRoomMap({
       popupRef.current?.remove();
       cctvPopupRef.current?.remove();
       osmPopupRef.current?.remove();
+      benchmarkPopupRef.current?.remove();
       mapRef.current?.remove();
       mapRef.current = null;
     };
@@ -276,10 +419,11 @@ export function WarRoomMap({
   }, [membersGeo]);
 
   useEffect(() => {
+    if (!showCctv) return;
     const map = mapRef.current;
     if (!map?.isStyleLoaded() || !cctvGeo) return;
     updateCctvGeo(map, cctvGeo as GeoJSON.FeatureCollection<GeoJSON.Point, CctvMapProperties>);
-  }, [cctvGeo]);
+  }, [cctvGeo, showCctv]);
 
   useEffect(() => {
     if (!osmGeo) {
@@ -318,7 +462,24 @@ export function WarRoomMap({
       cancelled = true;
       map.off("idle", run);
     };
-  }, [osmGeo, osmIconGeo, visibleCategories, berTargetsOnly]);
+  }, [osmGeo, osmIconGeo, visibleCategories, berTargetsOnly, osmOverlayVisible, osmPayloadOverride]);
+
+  useEffect(() => {
+    regionIdRef.current = regionId;
+    const map = mapRef.current;
+    if (!map) return;
+    const cleanup = whenMapCanSync(map, () => {
+      applyRegionConstraints(map);
+      if (lastFramedRegionRef.current !== regionId) {
+        lastFramedRegionRef.current = regionId;
+        frameRegionView(map, true);
+      }
+      syncBenchmarkLayersForRegion(map);
+      clearOsmVisibilityCache(map);
+      syncOsmToMap("region change");
+    });
+    return cleanup;
+  }, [regionId]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -380,6 +541,42 @@ export function WarRoomMap({
 
   useEffect(() => {
     const map = mapRef.current;
+    if (!map || !selectedBenchmarkId) return;
+    if (regionId !== selectedBenchmarkId && regionId !== "ber-corridor") return;
+
+    const b = getBenchmarkById(selectedBenchmarkId);
+    if (!b) return;
+
+    let cancelled = false;
+    const cleanup = whenMapCanSync(map, () => {
+      void (async () => {
+        if (cancelled) return;
+        const maplibre = await import("maplibre-gl");
+        benchmarkPopupRef.current?.remove();
+        benchmarkPopupRef.current = new maplibre.Popup({
+          closeButton: true,
+          closeOnClick: false,
+          maxWidth: "280px",
+          className: "ber-map-popup"
+        })
+          .setLngLat(b.coordinates)
+          .setHTML(benchmarkPopupHtml(selectedBenchmarkId))
+          .addTo(map);
+
+        benchmarkPopupRef.current.on("close", () => {
+          benchmarkPopupRef.current = null;
+        });
+      })();
+    });
+    return () => {
+      cancelled = true;
+      cleanup();
+    };
+  }, [selectedBenchmarkId, regionId]);
+
+  useEffect(() => {
+    if (!showCctv) return;
+    const map = mapRef.current;
     if (!map?.isStyleLoaded()) return;
 
     (async () => {
@@ -436,7 +633,13 @@ export function WarRoomMap({
 
       cctvPopupRef.current.on("close", () => onSelectCctvRef.current(null));
     })();
-  }, [selectedCameraId, cctvGeo]);
+  }, [selectedCameraId, cctvGeo, showCctv]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map?.isStyleLoaded()) return;
+    setCctvLayersVisible(map, showCctv);
+  }, [showCctv]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -446,10 +649,7 @@ export function WarRoomMap({
 
     const run = async () => {
       if (cancelled) return;
-      if (!map.isStyleLoaded()) {
-        osmTraceSkip("WarRoomMap.popup", "style not loaded yet");
-        return;
-      }
+      if (!map.isStyleLoaded() || !map.loaded()) return;
 
       const maplibre = await import("maplibre-gl");
 
@@ -592,23 +792,24 @@ export function WarRoomMap({
       osmPopupRef.current.on("close", () => onSelectOsmRef.current(null));
     };
 
-    void run();
-    if (!map.isStyleLoaded() || !map.getSource("ber-osm-intel")) {
-      const onReady = () => {
-        void run();
-      };
-      map.once("idle", onReady);
-      map.once("style.load", onReady);
-      return () => {
-        cancelled = true;
-        map.off("idle", onReady);
-        map.off("style.load", onReady);
-      };
-    }
+    const cleanup = whenMapReady(map, () => {
+      void run();
+    });
     return () => {
       cancelled = true;
+      cleanup();
     };
   }, [selectedFeatureId, selectedOsmAnchor, osmGeo, osmIconGeo]);
+
+  useEffect(() => {
+    if (!embedded || !containerRef.current) return;
+    const el = containerRef.current;
+    const ro = new ResizeObserver(() => {
+      mapRef.current?.resize();
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [embedded]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -624,8 +825,12 @@ export function WarRoomMap({
   return (
     <div
       ref={containerRef}
-      data-testid="showcase-map"
-      className={`absolute inset-0 h-full w-full ${className ?? ""}`}
+      data-testid={embedded ? "showcase-map-embedded" : "showcase-map"}
+      className={
+        embedded
+          ? "absolute inset-0"
+          : `absolute inset-0 h-full w-full ${className ?? ""}`
+      }
     />
   );
 }

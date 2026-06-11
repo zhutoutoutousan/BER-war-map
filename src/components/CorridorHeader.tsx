@@ -1,17 +1,22 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 
 export function CorridorHeader({
   compact = false,
   sessionLabel,
+  personaLabel,
+  personaAccentClass,
   onSwitchUser,
   viewMode,
   onViewModeChange
 }: {
   compact?: boolean;
   sessionLabel?: string | null;
+  personaLabel?: string | null;
+  personaAccentClass?: string;
   onSwitchUser?: () => void;
-  viewMode?: "geo" | "matching";
-  onViewModeChange?: (mode: "geo" | "matching") => void;
+  viewMode?: "geo" | "matching" | "global";
+  onViewModeChange?: (mode: "geo" | "matching" | "global") => void;
 }) {
   if (compact) {
     return (
@@ -21,8 +26,8 @@ export function CorridorHeader({
             BER+ · June 12
           </div>
           <div className="truncate text-sm font-semibold text-white max-md:text-xs">
-            <span className="max-md:hidden">Match · visibility · intelligence — Flughafenregion</span>
-            <span className="md:hidden">Corridor war room</span>
+            <span className="max-md:hidden">{BRAND.name} · {BRAND.region.split(" ").slice(-1)[0]}</span>
+            <span className="md:hidden">{BRAND.shortName}</span>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-1.5 text-[10px]">
@@ -32,7 +37,7 @@ export function CorridorHeader({
                 type="button"
                 onClick={() => onViewModeChange("geo")}
                 className={`min-h-[36px] rounded-full px-2.5 py-1 font-medium touch-manipulation sm:py-0.5 ${
-                  viewMode !== "matching"
+                  viewMode === "geo"
                     ? "bg-sky-500/30 text-sky-100"
                     : "text-white/55 hover:text-white/75"
                 }`}
@@ -50,22 +55,44 @@ export function CorridorHeader({
                 }`}
                 data-testid="view-mode-matching"
               >
-                Matching map
+                Matching
+              </button>
+              <button
+                type="button"
+                onClick={() => onViewModeChange("global")}
+                className={`min-h-[36px] rounded-full px-2.5 py-1 font-medium touch-manipulation sm:py-0.5 ${
+                  viewMode === "global"
+                    ? "bg-violet-500/30 text-violet-100"
+                    : "text-white/55 hover:text-white/75"
+                }`}
+                data-testid="view-mode-global"
+              >
+                Global
               </button>
             </div>
           ) : null}
-          {sessionLabel ? (
+          {sessionLabel || personaLabel ? (
             <button
               type="button"
               onClick={onSwitchUser}
-              className="min-h-[36px] rounded-full bg-emerald-400/15 px-2.5 py-1 text-emerald-100 touch-manipulation hover:bg-emerald-400/25"
+              className={`min-h-[36px] rounded-full px-2.5 py-1 touch-manipulation ${
+                personaLabel && personaAccentClass
+                  ? `${personaAccentClass} font-semibold ring-1 ring-white/20`
+                  : "bg-emerald-400/15 text-emerald-100 hover:bg-emerald-400/25"
+              }`}
               data-testid="session-switch-user"
               title="Switch guest / Mitglied"
             >
               <span className="max-md:hidden">
-                {sessionLabel === "Guest" ? "Guest" : `Signed in · ${sessionLabel}`}
+                {personaLabel
+                  ? `${personaLabel} view`
+                  : sessionLabel === "Guest"
+                    ? "Guest"
+                    : `Signed in · ${sessionLabel}`}
               </span>
-              <span className="md:hidden">{sessionLabel === "Guest" ? "Guest" : sessionLabel}</span>
+              <span className="md:hidden">
+                {personaLabel ?? (sessionLabel === "Guest" ? "Guest" : sessionLabel)}
+              </span>
             </button>
           ) : null}
           <span className="max-md:hidden">
@@ -88,9 +115,9 @@ export function CorridorHeader({
   return (
     <div className="panel flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between">
       <div className="flex flex-col gap-1">
-        <div className="text-xs tracking-wide text-white/60">BER+ Resilience Infrastructure Hub</div>
-        <div className="text-lg font-semibold text-white">From Pilot-1 to a Scalable EWF-as-a-Service Platform</div>
-        <div className="text-sm text-white/70">Corridor briefing — BER+ | 10 min • 21 April 2026</div>
+        <div className="text-xs tracking-wide text-white/60">{BRAND.name}</div>
+        <div className="text-lg font-semibold text-white">{BRAND.tagline}</div>
+        <div className="text-sm text-white/70">{BRAND.subtitle}</div>
       </div>
 
       <div className="flex flex-wrap gap-2 text-xs">

@@ -6,6 +6,9 @@ type Props = {
   title?: string;
   side?: "left" | "right";
   defaultCollapsed?: boolean;
+  /** Controlled expand — use with onOpenChange to open panel from top nav */
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   className?: string;
   testId?: string;
   children: ReactNode;
@@ -15,11 +18,20 @@ export function FloatingPanel({
   title,
   side = "left",
   defaultCollapsed = false,
+  open: openProp,
+  onOpenChange,
   className = "",
   testId,
   children
 }: Props) {
-  const [collapsed, setCollapsed] = useState(defaultCollapsed);
+  const [collapsedInternal, setCollapsedInternal] = useState(defaultCollapsed);
+  const controlled = openProp !== undefined;
+  const collapsed = controlled ? !openProp : collapsedInternal;
+
+  const setCollapsed = (next: boolean) => {
+    if (controlled) onOpenChange?.(!next);
+    else setCollapsedInternal(next);
+  };
   const showBody = !collapsed;
 
   const header = title ? (
@@ -27,7 +39,7 @@ export function FloatingPanel({
       <span className="text-xs font-semibold uppercase tracking-wide text-white/70">{title}</span>
       <button
         type="button"
-        onClick={() => setCollapsed((c) => !c)}
+        onClick={() => setCollapsed(!collapsed)}
         className="min-h-[44px] min-w-[44px] rounded-lg px-3 text-xs text-white/60 hover:bg-white/10 hover:text-white/90"
         aria-expanded={showBody}
       >

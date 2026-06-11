@@ -46,3 +46,5 @@ pdflatex june12-final.tex
 ```
 
 If figures are missing, LaTeX will warn — add PNGs or comment out `\includegraphics` lines temporarily.
+
+Slide PNGs for video are exported from this PDF (`npm run video:slides`). See `docs/presentation/video/README.md`.

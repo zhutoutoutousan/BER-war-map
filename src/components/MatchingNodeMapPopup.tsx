@@ -13,6 +13,7 @@ import type { OsmIntelFeatureProperties } from "@/lib/osm-schoenefeld";
 import { resolveMatchingNodePreview } from "@/lib/matching-node-geo";
 import { recordSwipeDecision, savedCount } from "@/lib/matching-swipe-store";
 import { CARTO_DARK_STYLE } from "@/lib/war-room-map-style";
+import { BRAND } from "@/lib/brand";
 import { MatchReviewCard, SwipeActionButtons } from "@/components/MatchReviewCard";
 
 const SWIPE_THRESHOLD = 72;
@@ -332,7 +333,7 @@ export function MatchingNodeMapPopup({
               onClick={() => onOpenFullMap(preview.nodeId)}
               className="min-h-[44px] flex-1 rounded-lg bg-sky-500/25 text-xs font-medium text-sky-100 touch-manipulation hover:bg-sky-500/35"
             >
-              Open full war-room map
+              Open full {BRAND.shortName.toLowerCase()} map
             </button>
           ) : null}
           <button

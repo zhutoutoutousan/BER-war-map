@@ -12,9 +12,11 @@ import { MapWorkspace } from "@/components/MapWorkspace";
 import { COORDINATION_THEMES } from "@/data/ber-plus-coordination";
 import { MITGLIEDER } from "@/data/mitglieder";
 
+import { BRAND } from "@/lib/brand";
+
 const SHOTS = [
-  { id: "1", title: "War room overview", desc: "Full map + BER+ Paths tab" },
-  { id: "2", title: "BER+ coordination framing", desc: "Left panel — strategic probe" },
+  { id: "1", title: "Board Room overview", desc: "Full map + Overview tab" },
+  { id: "2", title: "BER+ Board Room framing", desc: "Left panel — problem, benchmarks, value" },
   { id: "3", title: "Mitglieder & matching", desc: "Member list + OSM link counts" },
   { id: "4", title: "OSM Intel / visibility", desc: "Land & infrastructure layers" },
   { id: "5", title: "Member path panel", desc: "Right panel — per-member steps" },
@@ -30,7 +32,7 @@ const SHOTS = [
   },
   {
     id: "8",
-    title: "Mobile war room",
+    title: "Mobile Board Room map",
     desc: "390×844 — bottom nav + Explore sheet → fig08-mobile-war-room.png"
   }
 ] as const;
@@ -62,7 +64,7 @@ function CaptureContent() {
           ))}
         </ul>
         <Link href="/" className="mt-8 inline-block text-sm text-white/60 hover:text-white">
-          ← Back to war room
+          ← Back to {BRAND.mapLabel}
         </Link>
       </div>
     );
@@ -73,7 +75,7 @@ function CaptureContent() {
       <div className="relative h-[100dvh] w-full bg-ink-950">
         <MapWorkspace />
         <div className="pointer-events-none absolute bottom-3 left-3 z-[30] rounded bg-black/70 px-2 py-1 text-[10px] text-white/80">
-          Fig. 1 — BER+ coordination war room (overview)
+          Fig. 1 — {BRAND.name} (overview)
         </div>
       </div>
     );
@@ -158,7 +160,7 @@ function CaptureContent() {
     const steps =
       shot === "6"
         ? [
-            "Open war room → switch to Matching map (header).",
+            `Open ${BRAND.mapLabel} → switch to Matching map (header).`,
             "Pick a Mitglied chip (e.g. GSG) and wait for the graph.",
             "Click a yellow OSM node → capture the Match review · geo modal."
           ]
@@ -182,7 +184,7 @@ function CaptureContent() {
           ))}
         </ol>
         <Link href="/" className="mt-8 inline-block rounded-lg bg-sky-500/25 px-4 py-2 text-sm text-sky-100 hover:bg-sky-500/40">
-          Open war room
+          Open {BRAND.mapLabel}
         </Link>
         <Link href="/capture" className="ml-4 mt-8 inline-block text-sm text-white/60 hover:text-white">
           ← All shots

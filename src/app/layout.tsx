@@ -2,9 +2,11 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
+import { BRAND } from "@/lib/brand";
+
 export const metadata: Metadata = {
-  title: "BER+ Resilience Infrastructure Hub",
-  description: "War-room style strategic map + RSS intelligence feed for the BER+ corridor.",
+  title: BRAND.name,
+  description: `${BRAND.tagline} — ${BRAND.subtitle}`,
   manifest: "/manifest.webmanifest"
 };
 

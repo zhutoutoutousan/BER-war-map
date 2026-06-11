@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 import { ProgrammeProvider } from "@/context/ProgrammeContext";
 import { ProgrammePanel } from "@/components/ProgrammePanel";
 
@@ -18,7 +19,7 @@ export default function ProgrammePage() {
               href="/"
               className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white/80 hover:bg-white/10"
             >
-              ← War room map
+              ← {BRAND.mapLabel}
             </Link>
           </div>
 

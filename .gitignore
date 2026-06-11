@@ -10,3 +10,24 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+# Presentation video pipeline (generated; see docs/presentation/video/README.md)
+docs/presentation/video/work/
+docs/presentation/video/audio/
+docs/presentation/video/demos/
+docs/presentation/video/slides-rendered/
+docs/presentation/video/assets/bgm-stakeholder.mp3
+docs/presentation/video/out/*.mp4
+
+# LaTeX build artifacts (PDF kept; aux files ignored)
+docs/presentation/*.aux
+docs/presentation/*.log
+docs/presentation/*.nav
+docs/presentation/*.out
+docs/presentation/*.snm
+docs/presentation/*.toc
+docs/presentation/*.vrb
+docs/presentation/*.fls
+docs/presentation/*.fdb_latexmk
+docs/presentation/video/work/latex-pages/
+docs/presentation/video/work/mobile/
+

@@ -8,6 +8,7 @@ import {
   useRef,
   type ReactNode
 } from "react";
+import { getBenchmarkById } from "@/data/benchmarks";
 import { getBerLandSiteById } from "@/data/ber-land-sites";
 import { getMitgliedById } from "@/data/mitglieder";
 
@@ -17,6 +18,7 @@ type MapActionsContextValue = {
   flyTo: FlyFn;
   focusLandSite: (siteId: string) => void;
   focusMember: (memberId: string) => void;
+  focusBenchmark: (benchmarkId: string) => void;
   registerFly: (fn: FlyFn) => void;
   mapReady: boolean;
 };
@@ -46,6 +48,10 @@ export function MapActionsProvider({ children }: { children: ReactNode }) {
       focusMember: (memberId) => {
         const member = getMitgliedById(memberId);
         if (member) flyTo(member.coordinates, 12.6);
+      },
+      focusBenchmark: (benchmarkId) => {
+        const b = getBenchmarkById(benchmarkId);
+        if (b) flyTo(b.coordinates, b.mapZoom ?? 6);
       },
       registerFly,
       get mapReady() {

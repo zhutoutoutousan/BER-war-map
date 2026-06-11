@@ -1,6 +1,7 @@
 {
-  "name": "BER+ Resilience Infrastructure Hub",
-  "short_name": "BER+ Hub",
+  "name": "BER+ Board Room",
+  "short_name": "Board Room",
+  "description": "Board room map for matching, visibility, and corridor intelligence in the Flughafenregion.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#06080c",
@@ -14,4 +15,3 @@
     }
   ]
 }
-

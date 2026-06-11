@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 52" role="img" aria-label="BER+">
+  <defs>
+    <linearGradient id="m-ribbon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="32" font-weight="700" fill="#f8fafc">BER+</text>
+  <rect x="0" y="42" width="200" height="4" rx="2" fill="url(#m-ribbon)" opacity="0.9"/>
+</svg>

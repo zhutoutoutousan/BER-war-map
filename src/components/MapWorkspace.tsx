@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WarRoomMap } from "@/components/WarRoomMap";
 import { MembersPanel } from "@/components/MembersPanel";
 import { MemberDetailPanel } from "@/components/MemberDetailPanel";
@@ -13,35 +13,60 @@ import { ProgrammePanel } from "@/components/ProgrammePanel";
 import { FloatingPanel } from "@/components/FloatingPanel";
 import { MobileBottomSheet } from "@/components/MobileBottomSheet";
 import { MapRevealHint } from "@/components/MapRevealHint";
-import { CorridorHeader } from "@/components/CorridorHeader";
+import { CorridorHeader } from "@/components/CorridorHeader.next";
 import { ProgrammePhaseBanner } from "@/components/ProgrammePhaseBanner";
 import { TimelineControl } from "@/components/TimelineControl";
-import { CctvPanel } from "@/components/CctvPanel";
+import { BenchmarkTeleportBar } from "@/components/BenchmarkTeleportBar";
 import { CctvProvider } from "@/context/CctvContext";
 import { OsmIntelProvider } from "@/context/OsmIntelContext";
 import { ProgrammeProvider } from "@/context/ProgrammeContext";
 import { MemberHomePanel } from "@/components/MemberHomePanel";
 import { SessionPickerModal } from "@/components/SessionPickerModal";
+import { ProblemCameoGate } from "@/components/ProblemCameoGate";
+import { GuidedTourOverlay } from "@/components/GuidedTourOverlay";
+import { GuidedTourProvider } from "@/context/GuidedTourContext";
+import type { TourAction } from "@/data/guided-tour";
 import { GiantMatchingMap, type WorkspaceViewMode } from "@/components/GiantMatchingMap";
+import {
+  BENCHMARK_CATEGORIES,
+  BENCHMARK_CATEGORY_COLORS,
+  benchmarkOsmBbox,
+  getBenchmarkById,
+  type BenchmarkCategory
+} from "@/data/benchmarks";
 import { BerPlusChatbot } from "@/components/BerPlusChatbot";
+import { TELEPORT_SITES, getMapRegion, type MapRegionId } from "@/lib/map-regions";
+import { emptyOsmIntelPayload, type OsmIntelPayload } from "@/lib/osm-schoenefeld";
+import { IntelligenceTV } from "@/components/IntelligenceTV";
+import { PersonaViewBanner } from "@/components/PersonaViewBanner";
+import { PersonaTabBar, TAB_LABELS } from "@/components/PersonaTabBar";
 import { MapActionsProvider, useMapActions } from "@/context/MapActionsContext";
 import { useOsmIntel } from "@/context/OsmIntelContext";
+import { CollaborativeInventoryPanel } from "@/components/CollaborativeInventoryPanel";
+import {
+  CollaborativeInventoryProvider,
+  useCollaborativeInventory
+} from "@/context/CollaborativeInventoryContext";
 import { UserSessionProvider, useUserSession } from "@/context/UserSessionContext";
 import { getMitgliedById } from "@/data/mitglieder";
 import type { MemberCategory } from "@/data/mitglieder";
 import { CATEGORY_COLORS } from "@/data/mitglieder";
 import { useIsMobile } from "@/lib/use-media";
 import { labelForSelectedFeature } from "@/lib/map-reveal-label";
+import { GUEST_PERSONAS, personaPanelTitle } from "@/lib/guest-personas";
+import { useProgramme } from "@/context/ProgrammeContext";
+import { phaseForDate, PHASES } from "@/data/programme";
 
 type MobileSheet = null | "explore" | "member";
 
 const LEFT_TAB_TITLES: Record<LeftTab, string> = {
-  value: "BER+ Paths",
-  foryou: "For you",
-  members: "Mitglieder",
-  briefing: "Briefing",
-  programme: "Programme",
-  junqingchu: "OSM Intel"
+  value: TAB_LABELS.value,
+  foryou: TAB_LABELS.foryou,
+  members: TAB_LABELS.members,
+  briefing: TAB_LABELS.briefing,
+  programme: TAB_LABELS.programme,
+  junqingchu: TAB_LABELS.junqingchu,
+  inventory: TAB_LABELS.inventory
 };
 
 export function MapWorkspace() {
@@ -62,23 +87,33 @@ function MapWorkspaceWithSession() {
 
   return (
     <UserSessionProvider urlMemberId={memberParam}>
-      <SessionPickerModal />
-      <MapWorkspaceInner />
+      <CollaborativeInventoryProvider>
+        <SessionPickerModal />
+        <CameoGateHost />
+        <MapWorkspaceInner />
+      </CollaborativeInventoryProvider>
     </UserSessionProvider>
   );
+}
+
+function CameoGateHost() {
+  const { session, boardRoomUnlocked, completeCameo } = useUserSession();
+  if (!session || boardRoomUnlocked) return null;
+  return <ProblemCameoGate onComplete={completeCameo} />;
 }
 
 function MapWorkspaceInner() {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
   const memberParam = searchParams.get("member");
-  const { session, sessionReady, isMember, memberId: sessionMemberId, switchUser } = useUserSession();
+  const { session, sessionReady, isMember, memberId: sessionMemberId, switchUser, guestPersona, boardRoomUnlocked } = useUserSession();
 
   const initialTab: LeftTab =
     tabParam === "members" ||
     tabParam === "briefing" ||
     tabParam === "programme" ||
     tabParam === "junqingchu" ||
+    tabParam === "inventory" ||
     tabParam === "value" ||
     tabParam === "foryou"
       ? tabParam
@@ -100,6 +135,7 @@ function MapWorkspaceInner() {
       tabParam === "briefing" ||
       tabParam === "programme" ||
       tabParam === "junqingchu" ||
+      tabParam === "inventory" ||
       tabParam === "value" ||
       tabParam === "foryou"
     ) {
@@ -133,6 +169,7 @@ function MapWorkspaceInner() {
         selectedMember={selectedMember}
         loggedInMemberId={loggedInMemberId}
         session={session}
+        guestPersona={guestPersona}
         switchUser={switchUser}
       />
     </MapActionsProvider>
@@ -151,6 +188,7 @@ function MapWorkspaceContent({
   selectedMember,
   loggedInMemberId,
   session,
+  guestPersona,
   switchUser
 }: {
   leftTab: LeftTab;
@@ -164,15 +202,40 @@ function MapWorkspaceContent({
   selectedMember: ReturnType<typeof getMitgliedById> | null;
   loggedInMemberId: string | null;
   session: ReturnType<typeof useUserSession>["session"];
+  guestPersona: ReturnType<typeof useUserSession>["guestPersona"];
   switchUser: () => void;
 }) {
-  const { selectFeature, selectedFeatureId, data: osmData } = useOsmIntel();
+  const { boardRoomUnlocked, showGuidedTour, completeGuidedTour, skipGuidedTour, replayGuidedTour, tourReplayKey } =
+    useUserSession();
+  const {
+    selectFeature,
+    selectedFeatureId,
+    data: osmData,
+    loadBenchmarkRegion,
+    reloadBerCorridor,
+    activeRegionId,
+    loading: osmLoading
+  } = useOsmIntel();
   const { focusLandSite, focusMember } = useMapActions();
+  const [selectedBenchmarkId, setSelectedBenchmarkId] = useState<string | null>(null);
+  const [activeRegion, setActiveRegion] = useState<MapRegionId>("ber-corridor");
+  const [splitCompare, setSplitCompare] = useState(false);
+  const [compareRegion, setCompareRegion] = useState<MapRegionId>(
+    TELEPORT_SITES.find((s) => s.id !== "ber-corridor")?.id ?? "schiphol-aaa"
+  );
+  const [compareOsm, setCompareOsm] = useState<OsmIntelPayload | null>(null);
+  const [timelineChromeOpen, setTimelineChromeOpen] = useState(false);
+  const [mapLegendOpen, setMapLegendOpen] = useState(false);
+  const [teleportBarOpen, setTeleportBarOpen] = useState(false);
+  const [leftPanelOpen, setLeftPanelOpen] = useState(false);
+  const { stats: collabStats } = useCollaborativeInventory();
   const isMobile = useIsMobile();
   const [mobileSheet, setMobileSheet] = useState<MobileSheet>(null);
   const [mapRevealHint, setMapRevealHint] = useState<string | null>(null);
+  const [personaPulse, setPersonaPulse] = useState(false);
   const hintTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const prevFeatureRef = useRef<string | null>(null);
+  const personaAppliedRef = useRef<string | null>(null);
 
   const showMapRevealHint = useCallback((message: string) => {
     setMapRevealHint(message);
@@ -183,6 +246,24 @@ function MapWorkspaceContent({
   const revealMapOnMobile = useCallback(() => {
     if (isMobile) setMobileSheet(null);
   }, [isMobile]);
+
+  const openAssetMgmt = useCallback(() => {
+    setViewMode("geo");
+    setLeftTab("inventory");
+    setLeftPanelOpen(true);
+    if (isMobile) setMobileSheet("explore");
+  }, [isMobile, setLeftTab, setViewMode]);
+
+  const handleGoToTab = useCallback(
+    (tab: LeftTab) => {
+      if (tab === "inventory") {
+        openAssetMgmt();
+        return;
+      }
+      setLeftTab(tab);
+    },
+    [openAssetMgmt, setLeftTab]
+  );
 
   useEffect(() => {
     if (!isMobile || !selectedFeatureId || !mobileSheet) {
@@ -241,6 +322,83 @@ function MapWorkspaceContent({
   );
 
   const geoHidden = viewMode === "matching";
+  const splitActive = splitCompare;
+
+  const compareOsmForMap = useMemo(() => {
+    if (compareOsm) return compareOsm;
+    if (!splitActive || compareRegion === "ber-corridor") return null;
+    const b = getBenchmarkById(compareRegion);
+    if (!b) return null;
+    return emptyOsmIntelPayload(benchmarkOsmBbox(b), b.name);
+  }, [compareOsm, splitActive, compareRegion]);
+
+  const teleportTo = useCallback(
+    (id: MapRegionId) => {
+      if (splitActive && id !== "ber-corridor") {
+        setCompareRegion(id);
+        return;
+      }
+      setActiveRegion(id);
+      setViewMode("geo");
+      if (id === "ber-corridor") {
+        setSelectedBenchmarkId(null);
+        void reloadBerCorridor();
+      } else {
+        setSelectedBenchmarkId(id);
+        void loadBenchmarkRegion(id);
+      }
+      if (isMobile) setMobileSheet(null);
+    },
+    [splitActive, loadBenchmarkRegion, reloadBerCorridor, isMobile, setViewMode]
+  );
+
+  const handleToggleSplit = useCallback(() => {
+    setSplitCompare((prev) => {
+      const next = !prev;
+      if (next) {
+        setActiveRegion("ber-corridor");
+        setSelectedBenchmarkId(null);
+        void reloadBerCorridor();
+      }
+      return next;
+    });
+  }, [reloadBerCorridor]);
+
+  useEffect(() => {
+    if (!splitActive || compareRegion === "ber-corridor") {
+      setCompareOsm(null);
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/osm/benchmark/${encodeURIComponent(compareRegion)}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+      .then((payload: OsmIntelPayload) => {
+        if (!cancelled) setCompareOsm(payload);
+      })
+      .catch(() => {
+        if (!cancelled) setCompareOsm(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [splitActive, compareRegion]);
+
+  const handleSelectBenchmark = useCallback(
+    (id: string | null) => {
+      if (id) teleportTo(id as MapRegionId);
+      // null = panel dismiss only — keep current locked region
+    },
+    [teleportTo]
+  );
+
+  const handleShowBenchmarkOnMap = useCallback(
+    (id: string) => {
+      teleportTo(id as MapRegionId);
+      const b = getBenchmarkById(id);
+      showMapRevealHint(`On map · ${b?.name ?? id} · loading OSM intel…`);
+    },
+    [teleportTo, showMapRevealHint]
+  );
 
   useEffect(() => {
     if (viewMode === "matching" && document.activeElement instanceof HTMLElement) {
@@ -249,44 +407,131 @@ function MapWorkspaceContent({
     if (viewMode === "matching") setMobileSheet(null);
   }, [viewMode]);
 
+  useEffect(() => {
+    if (!session || session.role !== "guest" || !guestPersona || loggedInMemberId) return;
+    const key = `guest:${guestPersona}`;
+    if (personaAppliedRef.current === key) return;
+    personaAppliedRef.current = key;
+    const config = GUEST_PERSONAS[guestPersona];
+    setFilterCategory(config.filterCategory);
+    setLeftTab(config.defaultTab);
+    if (config.demoMemberId) setSelectedMemberId(config.demoMemberId);
+    setPersonaPulse(true);
+    const pulseTimer = setTimeout(() => setPersonaPulse(false), 4000);
+    return () => clearTimeout(pulseTimer);
+  }, [
+    session,
+    guestPersona,
+    loggedInMemberId,
+    isMobile,
+    setFilterCategory,
+    setLeftTab,
+    setSelectedMemberId
+  ]);
+
+  useEffect(() => {
+    if (session?.role === "member") personaAppliedRef.current = null;
+  }, [session]);
+
+  const showGuestPersona = session?.role === "guest" && guestPersona;
+  const personaConfig = guestPersona ? GUEST_PERSONAS[guestPersona] : null;
+
+  const applyTourAction = useCallback(
+    (action: TourAction) => {
+      if (action.viewMode) setViewMode(action.viewMode);
+      else if (action.tab) setViewMode("geo");
+
+      if (action.openLeftPanel === false) {
+        setLeftPanelOpen(false);
+        if (isMobile) setMobileSheet(null);
+      } else {
+        setLeftPanelOpen(true);
+        if (isMobile) setMobileSheet("explore");
+      }
+
+      if (action.filterCategory !== undefined) setFilterCategory(action.filterCategory);
+
+      if (action.tab) {
+        if (action.tab === "inventory") openAssetMgmt();
+        else setLeftTab(action.tab);
+      }
+
+      if (action.memberId) {
+        setSelectedMemberId(action.memberId);
+        focusMember(action.memberId);
+      }
+
+      if (action.landSiteId) {
+        focusLandSite(action.landSiteId);
+        selectFeature(`curated/${action.landSiteId}`);
+      }
+    },
+    [
+      focusLandSite,
+      focusMember,
+      isMobile,
+      openAssetMgmt,
+      selectFeature,
+      setFilterCategory,
+      setLeftPanelOpen,
+      setLeftTab,
+      setMobileSheet,
+      setSelectedMemberId,
+      setViewMode
+    ]
+  );
+
+  const personaBanner =
+    guestPersona && session?.role === "guest" ? (
+      <PersonaViewBanner
+        persona={guestPersona}
+        pulse={personaPulse}
+        activeTab={leftTab}
+        onGoToTab={handleGoToTab}
+        onSwitchUser={switchUser}
+        onOpenMatching={() => setViewMode("matching")}
+      />
+    ) : null;
+
   const leftPanelTabs = (
-    <div className="mb-3 flex flex-wrap gap-1 rounded-lg bg-white/5 p-1">
-      {loggedInMemberId ? (
-        <TabButton testId="map-tab-foryou" active={leftTab === "foryou"} onClick={() => setLeftTab("foryou")}>
-          For you
-        </TabButton>
-      ) : null}
-      <TabButton testId="map-tab-value" active={leftTab === "value"} onClick={() => setLeftTab("value")}>
-        BER+ Paths
-      </TabButton>
-      <TabButton testId="map-tab-members" active={leftTab === "members"} onClick={() => setLeftTab("members")}>
-        Mitglieder
-      </TabButton>
-      <TabButton testId="map-tab-junqingchu" active={leftTab === "junqingchu"} onClick={() => setLeftTab("junqingchu")}>
-        OSM Intel
-      </TabButton>
-      <TabButton testId="map-tab-programme" active={leftTab === "programme"} onClick={() => setLeftTab("programme")}>
-        Programme
-      </TabButton>
-      <TabButton testId="map-tab-briefing" active={leftTab === "briefing"} onClick={() => setLeftTab("briefing")}>
-        Briefing
-      </TabButton>
-    </div>
+    <PersonaTabBar
+      leftTab={leftTab}
+      onSelect={setLeftTab}
+      guestPersona={guestPersona}
+      showForYou={!!loggedInMemberId}
+    />
   );
 
   const leftPanelBody =
     leftTab === "foryou" && loggedInMemberId ? (
       <MemberHomePanel
         memberId={loggedInMemberId}
-        onGoToTab={setLeftTab}
+        onGoToTab={handleGoToTab}
         onSelectMember={handleSelectMember}
         onOpenGiantMap={() => setViewMode("matching")}
       />
     ) : leftTab === "value" ? (
       <BerPlusValuePanel
-        onGoToTab={setLeftTab}
+        onGoToTab={handleGoToTab}
         selectedMemberCategory={selectedMember?.category ?? null}
         selectedMemberId={loggedInMemberId ?? selectedMemberId}
+        guestPersona={guestPersona}
+        selectedBenchmarkId={selectedBenchmarkId}
+        onSelectBenchmark={handleSelectBenchmark}
+        onShowBenchmarkOnMap={handleShowBenchmarkOnMap}
+        osmFeatureCount={
+          activeRegion === "ber-corridor" && activeRegionId === null
+            ? osmData?.geojson.features.length
+            : activeRegion !== "ber-corridor" && activeRegionId === activeRegion
+              ? osmData?.geojson.features.length
+              : undefined
+        }
+        osmLoading={
+          osmLoading &&
+          ((activeRegion === "ber-corridor" && activeRegionId === null) ||
+            activeRegionId === activeRegion)
+        }
+        onOpenMatching={() => setViewMode("matching")}
       />
     ) : leftTab === "members" ? (
       <MembersPanel
@@ -294,33 +539,100 @@ function MapWorkspaceContent({
         onSelect={handleSelectMember}
         filterCategory={filterCategory}
         onFilterCategory={setFilterCategory}
+        guestPersona={guestPersona}
       />
     ) : leftTab === "briefing" ? (
-      <BriefingPanel onGoToTab={setLeftTab} />
+      <BriefingPanel onGoToTab={handleGoToTab} />
     ) : leftTab === "programme" ? (
       <ProgrammePanel />
+    ) : leftTab === "inventory" ? (
+      <CollaborativeInventoryPanel
+        onFocusLandSite={focusLandSite}
+        onFocusMember={focusMember}
+        onGoToOsmIntel={() => setLeftTab("junqingchu")}
+      />
     ) : (
-      <JunqingchuPanel />
+      <JunqingchuPanel onGoToCollabDemo={openAssetMgmt} />
     );
 
   return (
+    <GuidedTourProvider applyTourAction={applyTourAction}>
     <div
-      className="relative h-[100dvh] w-full overflow-hidden bg-ink-950"
+      className={`relative h-[100dvh] w-full overflow-hidden bg-ink-950 ${
+        !boardRoomUnlocked ? "pointer-events-none select-none" : ""
+      }`}
       data-scene={`${viewMode}:${leftTab}${selectedMemberId ? `:${selectedMemberId}` : ""}`}
+      data-persona-ready={session?.role === "guest" && guestPersona ? guestPersona : undefined}
     >
-      <WarRoomMap
-        selectedMemberId={selectedMemberId}
-        onSelectMember={handleSelectMember}
-        filterCategory={filterCategory}
-        interactionLocked={mobileSheet !== null}
-        className={
-          geoHidden
-            ? "invisible pointer-events-none"
-            : mobileSheet !== null
-              ? "pointer-events-none"
-              : undefined
-        }
-      />
+      {!boardRoomUnlocked ? (
+        <div className="pointer-events-none absolute inset-0 z-[1] backdrop-blur-[2px] brightness-[0.55]" aria-hidden />
+      ) : null}
+      {splitActive ? (
+        <div
+          className={`absolute inset-0 z-0 grid grid-cols-1 md:grid-cols-2 ${
+            geoHidden ? "invisible pointer-events-none" : mobileSheet !== null ? "pointer-events-none" : ""
+          }`}
+          data-testid="split-compare-maps"
+        >
+          <div className="relative min-h-0 min-w-0 overflow-hidden" data-testid="split-pane-ber">
+            <SplitPaneLabel side="left" label="BER+ corridor" />
+            <WarRoomMap
+              key="split-ber"
+              embedded
+              regionId="ber-corridor"
+              selectedMemberId={selectedMemberId}
+              onSelectMember={handleSelectMember}
+              onSelectBenchmark={handleSelectBenchmark}
+              showCctv={false}
+              registerMapActions
+              osmOverlayVisible
+              filterCategory={filterCategory}
+              interactionLocked={mobileSheet !== null}
+            />
+          </div>
+          <div
+            className="relative min-h-0 min-w-0 overflow-hidden border-l border-white/15"
+            data-testid="split-pane-benchmark"
+          >
+            <SplitPaneLabel side="right" label={getMapRegion(compareRegion).label} />
+            <WarRoomMap
+              key={`split-${compareRegion}`}
+              embedded
+              regionId={compareRegion}
+              osmPayloadOverride={compareOsmForMap}
+              selectedMemberId={selectedMemberId}
+              onSelectMember={handleSelectMember}
+              selectedBenchmarkId={compareRegion}
+              onSelectBenchmark={handleSelectBenchmark}
+              showCctv={false}
+              registerMapActions={false}
+              osmOverlayVisible
+              filterCategory={filterCategory}
+              interactionLocked={mobileSheet !== null}
+            />
+          </div>
+        </div>
+      ) : (
+        <WarRoomMap
+          regionId={activeRegion}
+          selectedMemberId={selectedMemberId}
+          onSelectMember={handleSelectMember}
+          selectedBenchmarkId={activeRegion === "ber-corridor" ? selectedBenchmarkId : activeRegion}
+          onSelectBenchmark={handleSelectBenchmark}
+          showCctv={false}
+          registerMapActions
+          osmOverlayVisible
+          filterCategory={filterCategory}
+          interactionLocked={mobileSheet !== null}
+          className={
+            geoHidden
+              ? "invisible pointer-events-none"
+              : mobileSheet !== null
+                ? "pointer-events-none"
+                : undefined
+          }
+        />
+      )}
 
       {viewMode === "matching" ? (
         <GiantMatchingMap
@@ -353,63 +665,77 @@ function MapWorkspaceContent({
             compact
             viewMode={viewMode}
             onViewModeChange={setViewMode}
+            assetMgmtActive={leftTab === "inventory"}
+            onOpenAssetMgmt={openAssetMgmt}
+            assetMgmtBadge={`${collabStats.verified}/${collabStats.total}`}
             sessionLabel={
               loggedInMemberId
                 ? getMitgliedById(loggedInMemberId)?.shortName ?? null
-                : session?.role === "guest"
-                  ? "Guest"
-                  : null
+                : showGuestPersona
+                  ? null
+                  : session?.role === "guest"
+                    ? "Guest"
+                    : null
             }
+            personaLabel={showGuestPersona ? personaConfig?.shortLabel ?? null : null}
+            personaAccentClass={showGuestPersona ? personaConfig?.accent.badge : undefined}
             onSwitchUser={switchUser}
+            onOpenGuidedTour={boardRoomUnlocked ? replayGuidedTour : undefined}
+            guidedTourActive={showGuidedTour}
           />
         </div>
 
         <div className="hidden min-h-0 flex-1 items-stretch justify-between gap-2 md:flex">
-          <FloatingPanel testId="showcase-panel-left" title={LEFT_TAB_TITLES[leftTab]} side="left">
+          <FloatingPanel
+            testId="showcase-panel-left"
+            title={personaPanelTitle(guestPersona, leftTab, LEFT_TAB_TITLES)}
+            side="left"
+            defaultCollapsed
+            open={leftPanelOpen}
+            onOpenChange={setLeftPanelOpen}
+          >
+            {!isMobile ? personaBanner : null}
             {leftPanelTabs}
             {leftPanelBody}
           </FloatingPanel>
 
-          <FloatingPanel testId="showcase-panel-right" title="Member path" side="right" defaultCollapsed={false}>
+          <FloatingPanel testId="showcase-panel-right" title="Member path" side="right" defaultCollapsed>
             <MemberDetailPanel
               selectedId={selectedMemberId}
-              onGoToTab={setLeftTab}
+              onGoToTab={handleGoToTab}
               viewerMemberId={loggedInMemberId}
             />
           </FloatingPanel>
         </div>
 
         <div data-testid="capture-chrome" className="pointer-events-none relative flex shrink-0 flex-col gap-2">
+          <div className="pointer-events-auto mx-auto w-full max-w-2xl px-1">
+            <BenchmarkTeleportBar
+              activeId={splitActive ? "ber-corridor" : activeRegion}
+              compareId={compareRegion}
+              splitCompare={splitCompare}
+              open={teleportBarOpen}
+              onOpenChange={setTeleportBarOpen}
+              onTeleport={teleportTo}
+              onCompareRegion={setCompareRegion}
+              onToggleSplit={handleToggleSplit}
+            />
+          </div>
           <div className="pointer-events-auto mx-auto w-full max-w-xl px-1">
-            <div className="floating-panel px-3 py-2.5">
-              <TimelineControl compact />
-            </div>
+            <CollapsibleTimelineChrome open={timelineChromeOpen} onOpenChange={setTimelineChromeOpen} />
           </div>
 
           <div className="relative hidden flex-wrap items-end justify-between gap-2 md:flex">
           <div className="absolute bottom-0 left-0 z-20 flex flex-col items-start gap-2">
-            <CctvPanel />
-            <div className="floating-panel pointer-events-auto flex flex-wrap items-center gap-x-2 gap-y-1 px-3 py-2 text-[11px] text-white/80">
-            <LegendDot color="#38bdf8" label="BER+ Corridor" glow />
-            <span className="text-white/20">|</span>
-            <LegendDot color="#0ea5e9" label="BER" glow />
-            <span className="text-white/20">|</span>
-            <LegendDot color="#10b981" label="Pilot-1" />
-            <span className="text-white/20">|</span>
-            <LegendDot color={CATEGORY_COLORS.developer} label="Mitglieder" />
-            <span className="text-white/20">|</span>
-            <LegendDot color="#f472b6" label="CCTV" />
-            <span className="text-white/20">|</span>
-            <LegendDot color="#34d399" label="Land" />
-            <LegendDot color="#f59e0b" label="Industry" />
-            <LegendDot color="#a3e635" label="Transport" />
-            <span className="text-white/20">|</span>
-            <LegendDot color="#fbbf24" label="Member zones" />
-            <LegendDot color="#f59e0b" label="Member OSM" />
-            </div>
+            <CollapsibleMapLegend
+              open={mapLegendOpen}
+              onOpenChange={setMapLegendOpen}
+              showBenchmarkLegend={activeRegion !== "ber-corridor" || splitActive}
+            />
           </div>
 
-          <div className="absolute bottom-0 right-0 z-20 flex flex-col items-end gap-2">
+          <div className="absolute bottom-0 right-0 z-20 flex max-w-[min(420px,calc(100vw-1rem))] flex-col items-end gap-2">
+            <IntelligenceTV />
             <div className="floating-panel pointer-events-auto flex flex-wrap gap-1.5 p-1.5">
               <NavLink href="/briefing">Briefing</NavLink>
               <NavLink href="/mitglieder">Mitglieder</NavLink>
@@ -424,10 +750,11 @@ function MapWorkspaceContent({
         <>
           <MobileBottomSheet
             open={mobileSheet === "explore"}
-            title={LEFT_TAB_TITLES[leftTab]}
+            title={personaPanelTitle(guestPersona, leftTab, LEFT_TAB_TITLES)}
             testId="showcase-panel-left-mobile"
             onClose={() => setMobileSheet(null)}
           >
+            {isMobile ? personaBanner : null}
             {leftPanelTabs}
             {leftPanelBody}
           </MobileBottomSheet>
@@ -440,7 +767,7 @@ function MapWorkspaceContent({
             <MemberDetailPanel
               selectedId={selectedMemberId}
               onGoToTab={(tab) => {
-                setLeftTab(tab);
+                handleGoToTab(tab);
                 setMobileSheet("explore");
               }}
               viewerMemberId={loggedInMemberId}
@@ -457,7 +784,7 @@ function MapWorkspaceContent({
       ) : null}
 
       {isMobile ? (
-        <nav className="mobile-nav-bar md:hidden" aria-label="War room navigation">
+        <nav className="mobile-nav-bar md:hidden" aria-label="Board room navigation">
           <MobileNavButton
             active={viewMode === "geo" && mobileSheet === null}
             onClick={() => {
@@ -497,7 +824,150 @@ function MapWorkspaceContent({
         </nav>
       ) : null}
 
-      <BerPlusChatbot memberId={loggedInMemberId} mobileNavOffset={isMobile} />
+      {boardRoomUnlocked && showGuidedTour ? (
+        <GuidedTourOverlay
+          key={tourReplayKey}
+          onComplete={completeGuidedTour}
+          onSkip={skipGuidedTour}
+          embedded
+          sheetOpen={mobileSheet !== null}
+        />
+      ) : null}
+
+      <BerPlusChatbot
+        memberId={loggedInMemberId}
+        mobileNavOffset={isMobile}
+        tourDockOpen={isMobile && showGuidedTour}
+      />
+    </div>
+    </GuidedTourProvider>
+  );
+}
+
+function CollapsibleMapLegend({
+  open,
+  onOpenChange,
+  showBenchmarkLegend
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  showBenchmarkLegend: boolean;
+}) {
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => onOpenChange(true)}
+        className="floating-panel pointer-events-auto flex items-center gap-2 px-3 py-2 text-[11px] text-white/70 touch-manipulation hover:text-white/90"
+        data-testid="show-map-legend"
+        aria-expanded={false}
+      >
+        <span className="font-medium text-white/55">Map legend</span>
+        <span className="text-white/45">Show</span>
+      </button>
+    );
+  }
+
+  return (
+    <div className="flex flex-col items-start gap-2" data-testid="map-legend-chrome">
+      <div className="floating-panel pointer-events-auto flex items-center gap-2 px-3 py-1.5 text-[11px]">
+        <span className="font-medium text-white/55">Map legend</span>
+        <button
+          type="button"
+          onClick={() => onOpenChange(false)}
+          className="rounded-lg px-2 py-1 text-white/60 hover:bg-white/10 hover:text-white/90 touch-manipulation"
+          aria-expanded
+        >
+          Hide
+        </button>
+      </div>
+      {showBenchmarkLegend ? (
+        <div className="floating-panel pointer-events-auto flex max-w-md flex-wrap items-center gap-x-2 gap-y-1 px-3 py-2 text-[11px] text-white/80">
+          {(Object.keys(BENCHMARK_CATEGORIES) as BenchmarkCategory[]).map((cat) => (
+            <LegendDot
+              key={cat}
+              color={BENCHMARK_CATEGORY_COLORS[cat]}
+              label={BENCHMARK_CATEGORIES[cat].split(" ")[0]}
+            />
+          ))}
+          <span className="text-white/20">|</span>
+          <LegendDot color="#f472b6" label="Stakeholders" />
+        </div>
+      ) : null}
+      <div className="floating-panel pointer-events-auto flex flex-wrap items-center gap-x-2 gap-y-1 px-3 py-2 text-[11px] text-white/80">
+        <LegendDot color="#38bdf8" label="BER+ Corridor" glow />
+        <span className="text-white/20">|</span>
+        <LegendDot color="#0ea5e9" label="BER" glow />
+        <span className="text-white/20">|</span>
+        <LegendDot color="#10b981" label="Pilot-1" />
+        <span className="text-white/20">|</span>
+        <LegendDot color={CATEGORY_COLORS.developer} label="Mitglieder" />
+        <span className="text-white/20">|</span>
+        <LegendDot color="#34d399" label="Land" />
+        <LegendDot color="#f59e0b" label="Industry" />
+        <LegendDot color="#a3e635" label="Transport" />
+        <span className="text-white/20">|</span>
+        <LegendDot color="#fbbf24" label="Member zones" />
+        <LegendDot color="#f59e0b" label="Member OSM" />
+      </div>
+    </div>
+  );
+}
+
+function CollapsibleTimelineChrome({
+  open,
+  onOpenChange
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const { focusDate } = useProgramme();
+  const phase = phaseForDate(focusDate);
+  const phaseLabel = PHASES.find((p) => p.id === phase)?.label ?? "Programme";
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => onOpenChange(true)}
+        className="floating-panel mx-auto flex w-full items-center justify-between gap-2 px-3 py-2 text-[11px] text-white/70 touch-manipulation hover:text-white/90"
+        data-testid="show-programme-timeline"
+        aria-expanded={false}
+      >
+        <span className="font-medium text-white/55">Programme timeline</span>
+        <span className="truncate text-cyan-200/80">{phaseLabel}</span>
+        <span className="shrink-0 text-white/45">Show</span>
+      </button>
+    );
+  }
+
+  return (
+    <div className="floating-panel px-3 py-2.5" data-testid="programme-timeline-chrome">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <span className="text-[10px] font-semibold uppercase tracking-wide text-white/55">Programme timeline</span>
+        <button
+          type="button"
+          onClick={() => onOpenChange(false)}
+          className="min-h-[36px] rounded-lg px-3 text-xs text-white/60 hover:bg-white/10 hover:text-white/90 touch-manipulation"
+          aria-expanded
+        >
+          Hide
+        </button>
+      </div>
+      <TimelineControl compact />
+    </div>
+  );
+}
+
+function SplitPaneLabel({ side, label }: { side: "left" | "right"; label: string }) {
+  return (
+    <div
+      className={`pointer-events-none absolute top-14 z-[5] max-w-[min(100%,220px)] truncate rounded-md border border-white/15 bg-black/55 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white/75 backdrop-blur-sm ${
+        side === "left" ? "left-2" : "right-2"
+      }`}
+      data-testid={side === "left" ? "split-pane-label-left" : "split-pane-label-right"}
+    >
+      {label}
     </div>
   );
 }
@@ -537,31 +1007,6 @@ function NavLink({
     >
       {children}
     </Link>
-  );
-}
-
-function TabButton({
-  active,
-  onClick,
-  children,
-  testId
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-  testId: string;
-}) {
-  return (
-    <button
-      type="button"
-      data-testid={testId}
-      onClick={onClick}
-      className={`min-h-[44px] flex-1 rounded-md px-2 py-2 text-xs font-medium transition touch-manipulation ${
-        active ? "bg-white/12 text-white" : "text-white/60 hover:text-white/80"
-      }`}
-    >
-      {children}
-    </button>
   );
 }
 
