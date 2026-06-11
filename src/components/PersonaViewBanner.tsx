@@ -55,13 +55,13 @@ export function PersonaViewBanner({
         </button>
       </div>
 
-      <div className="mt-2.5 flex flex-wrap gap-1.5">
+      <div className="mt-2.5 mobile-scroll-x -mx-1 flex gap-1.5 px-1 pb-0.5">
         {config.highlightTabs.map((tab) => (
           <button
             key={tab}
             type="button"
             onClick={() => onGoToTab(tab)}
-            className={`rounded-full px-2.5 py-1 text-[10px] font-medium ring-1 transition touch-manipulation ${
+            className={`shrink-0 rounded-full px-3 py-2 text-[10px] font-medium ring-1 transition touch-manipulation min-h-[40px] ${
               activeTab === tab
                 ? `${accent.chip} ring-2`
                 : "bg-black/25 text-white/55 ring-white/10 hover:bg-white/10 hover:text-white/80"
@@ -76,7 +76,7 @@ export function PersonaViewBanner({
           <button
             type="button"
             onClick={onOpenMatching}
-            className="rounded-full bg-amber-500/15 px-2.5 py-1 text-[10px] font-medium text-amber-100 ring-1 ring-amber-400/30 hover:bg-amber-500/25"
+            className="shrink-0 rounded-full bg-amber-500/15 px-3 py-2 text-[10px] font-medium text-amber-100 ring-1 ring-amber-400/30 hover:bg-amber-500/25 min-h-[40px] touch-manipulation"
             data-testid="persona-chip-matching"
           >
             Matching map

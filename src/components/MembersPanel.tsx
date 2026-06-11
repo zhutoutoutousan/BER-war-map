@@ -115,7 +115,7 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-full px-2.5 py-1 text-xs font-medium transition ${
+      className={`rounded-full px-2.5 py-2 text-xs font-medium transition touch-manipulation min-h-[40px] ${
         active
           ? emphasized
             ? "text-white ring-2 ring-white/40"

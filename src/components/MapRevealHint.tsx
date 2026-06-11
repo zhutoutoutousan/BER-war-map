@@ -13,8 +13,8 @@ export function MapRevealHint({ message, onReopenPanel, reopenLabel = "Back to p
 
   return createPortal(
     <div
-      className="pointer-events-auto fixed inset-x-3 z-[48] flex items-center justify-between gap-2 rounded-xl border border-sky-400/35 bg-ink-900/95 px-3 py-2.5 shadow-lg backdrop-blur-md md:hidden"
-      style={{ bottom: "calc(3.85rem + env(safe-area-inset-bottom))" }}
+      className="pointer-events-auto fixed inset-x-3 z-[48] flex min-h-[44px] items-center justify-between gap-2 rounded-xl border border-sky-400/35 bg-ink-900/95 px-3 py-2.5 shadow-lg backdrop-blur-md md:hidden"
+      style={{ bottom: "var(--mobile-tour-dock-offset, calc(3.85rem + env(safe-area-inset-bottom)))" }}
       role="status"
       aria-live="polite"
       data-testid="map-reveal-hint"

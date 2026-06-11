@@ -16,10 +16,12 @@ const STARTERS = [
 
 export function BerPlusChatbot({
   memberId,
-  mobileNavOffset = false
+  mobileNavOffset = false,
+  tourDockOpen = false
 }: {
   memberId: string | null;
   mobileNavOffset?: boolean;
+  tourDockOpen?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -92,9 +94,11 @@ export function BerPlusChatbot({
 
   return (
     <div
-      className={`pointer-events-none fixed z-[60] ${
+      className={`pointer-events-none fixed z-[60] ber-chatbot-mobile ${
         mobileNavOffset
-          ? "bottom-[calc(3.75rem+env(safe-area-inset-bottom))] right-2"
+          ? tourDockOpen
+            ? "bottom-[calc(var(--mobile-nav-height)+min(38dvh,280px)+0.5rem)] right-2"
+            : "bottom-[var(--mobile-nav-height)] right-2"
           : "bottom-20 right-3 sm:bottom-24 sm:right-4"
       }`}
     >

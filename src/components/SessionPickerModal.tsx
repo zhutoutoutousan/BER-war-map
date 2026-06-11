@@ -56,7 +56,7 @@ export function SessionPickerModal() {
 
     >
 
-      <div className="war-room-scroll max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-t-2xl border border-white/10 bg-ink-900/95 p-5 shadow-2xl shadow-black/50 sm:max-h-[92vh] sm:rounded-2xl sm:p-6 safe-bottom">
+      <div className="war-room-scroll mobile-safe-x max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-t-2xl border border-white/10 bg-ink-900/95 p-4 shadow-2xl shadow-black/50 sm:max-h-[92vh] sm:rounded-2xl sm:p-6 safe-bottom">
 
         <header className="text-center">
 

@@ -407,5 +407,79 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
 .mobile-nav-bar {
   @apply fixed inset-x-0 bottom-0 z-[50] flex items-stretch justify-around border-t border-white/10 bg-ink-950/95 backdrop-blur-md;
   padding-bottom: env(safe-area-inset-bottom);
+  min-height: var(--mobile-nav-height);
+}
+
+/* Mobile layout tokens */
+:root {
+  --mobile-nav-height: calc(3.75rem + env(safe-area-inset-bottom));
+  --mobile-tour-dock-offset: calc(var(--mobile-nav-height) + 0.5rem);
+}
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+.mobile-scroll-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x;
+}
+
+.mobile-scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-safe-x {
+  padding-left: max(0.5rem, env(safe-area-inset-left));
+  padding-right: max(0.5rem, env(safe-area-inset-right));
+}
+
+@media (max-width: 767px) {
+  .guided-tour-mobile-dock {
+    position: fixed;
+    left: max(0.5rem, env(safe-area-inset-left));
+    right: max(0.5rem, env(safe-area-inset-right));
+    bottom: var(--mobile-tour-dock-offset);
+    z-index: 55;
+    max-height: min(46dvh, 360px);
+  }
+
+  .guided-tour-mobile-dock .guided-tour-panel {
+    max-height: min(46dvh, 360px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .guided-tour-mobile-dock .guided-tour-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  html[data-guided-tour-open="true"] .mobile-sheet {
+    padding-bottom: calc(var(--mobile-nav-height) + min(38dvh, 280px));
+  }
+
+  html[data-guided-tour-open="true"] .ber-chatbot-mobile {
+    bottom: calc(var(--mobile-nav-height) + min(38dvh, 280px) + 0.5rem);
+  }
+
+  .maplibregl-popup-content {
+    max-width: min(calc(100vw - 2rem), 280px);
+    font-size: 12px;
+  }
+
+  [data-testid="programme-phase-banner"] {
+    top: calc(3.5rem + env(safe-area-inset-top)) !important;
+  }
+
+  html[data-guided-tour-open="true"] [data-testid="map-reveal-hint"] {
+    bottom: calc(var(--mobile-nav-height) + min(38dvh, 280px) + 0.5rem);
+  }
 }
 

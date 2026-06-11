@@ -824,29 +824,21 @@ function MapWorkspaceContent({
         </nav>
       ) : null}
 
-      {isMobile && boardRoomUnlocked && showGuidedTour ? (
-        <div className="pointer-events-none absolute inset-x-0 bottom-[calc(3.75rem+env(safe-area-inset-bottom))] z-[25] px-2 md:hidden">
-          <GuidedTourOverlay
-            key={tourReplayKey}
-            onComplete={completeGuidedTour}
-            onSkip={skipGuidedTour}
-            embedded
-          />
-        </div>
+      {boardRoomUnlocked && showGuidedTour ? (
+        <GuidedTourOverlay
+          key={tourReplayKey}
+          onComplete={completeGuidedTour}
+          onSkip={skipGuidedTour}
+          embedded
+          sheetOpen={mobileSheet !== null}
+        />
       ) : null}
 
-      {!isMobile && boardRoomUnlocked && showGuidedTour ? (
-        <div className="pointer-events-none absolute bottom-3 left-3 z-[25] hidden max-w-[min(100%,22rem)] md:block">
-          <GuidedTourOverlay
-            key={tourReplayKey}
-            onComplete={completeGuidedTour}
-            onSkip={skipGuidedTour}
-            embedded
-          />
-        </div>
-      ) : null}
-
-      <BerPlusChatbot memberId={loggedInMemberId} mobileNavOffset={isMobile} />
+      <BerPlusChatbot
+        memberId={loggedInMemberId}
+        mobileNavOffset={isMobile}
+        tourDockOpen={isMobile && showGuidedTour}
+      />
     </div>
     </GuidedTourProvider>
   );

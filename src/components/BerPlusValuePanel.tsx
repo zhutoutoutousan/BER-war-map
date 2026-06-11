@@ -100,7 +100,7 @@ export function BerPlusValuePanel({
 
   return (
 
-    <div className="war-room-scroll flex max-h-[min(70vh,520px)] flex-col gap-4 overflow-y-auto pr-1" data-testid="panel-ber-paths">
+    <div className="war-room-scroll flex max-h-none flex-col gap-4 overflow-y-auto pr-1 md:max-h-[min(70vh,520px)]" data-testid="panel-ber-paths">
 
       <header className="rounded-lg border border-sky-500/25 bg-sky-950/30 px-3 py-2.5">
 

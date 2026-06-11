@@ -32,7 +32,7 @@ export function PersonaTabBar({ leftTab, onSelect, guestPersona, showForYou }: P
 
   return (
     <div className="mb-3 space-y-1.5" data-testid="persona-tab-bar">
-      <div className="flex flex-wrap gap-1 rounded-lg bg-white/5 p-1">
+      <div className="mobile-scroll-x -mx-1 flex gap-1 rounded-lg bg-white/5 p-1">
         {showForYou ? (
           <TabBtn
             testId="map-tab-foryou"
@@ -114,7 +114,7 @@ function TabBtn({
       type="button"
       data-testid={testId}
       onClick={onClick}
-      className={`relative min-h-[40px] flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition touch-manipulation ${
+      className={`relative min-h-[44px] shrink-0 rounded-md px-3 py-2 text-xs font-medium transition touch-manipulation ${
         active
           ? highlighted
             ? "bg-sky-500/22 text-white ring-1 ring-sky-400/45"
