@@ -98,14 +98,16 @@ export function GuidedTourOverlay({ onComplete, onSkip, embedded = true, sheetOp
 
   const inner = (
     <div
-      className={isMobile ? "guided-tour-mobile-dock" : "guided-tour-desktop-dock"}
+      className={`pointer-events-auto ${isMobile ? "guided-tour-mobile-dock" : "guided-tour-desktop-dock"}`}
       data-testid="guided-tour-overlay"
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
     >
       {panel}
     </div>
   );
 
-  if (isMobile && typeof document !== "undefined") {
+  if (typeof document !== "undefined") {
     return createPortal(inner, document.body);
   }
 
@@ -125,7 +127,7 @@ function MobileTourChip({
     <button
       type="button"
       onClick={onExpand}
-      className="guided-tour-mobile-chip floating-panel inline-flex min-h-[44px] items-center gap-2 rounded-full px-3 py-2 text-left touch-manipulation hover:bg-white/5"
+      className="guided-tour-mobile-chip floating-panel pointer-events-auto inline-flex min-h-[44px] items-center gap-2 rounded-full px-3 py-2 text-left touch-manipulation hover:bg-white/5"
       data-testid="guided-tour-expand"
       aria-label={`Open demo walkthrough step ${index + 1} of ${total}`}
     >
@@ -155,7 +157,7 @@ function MinimizedCoach({
     <button
       type="button"
       onClick={onExpand}
-      className="floating-panel flex w-full min-h-[44px] items-center gap-2 px-3 py-2 text-left touch-manipulation hover:bg-white/5"
+      className="floating-panel pointer-events-auto flex w-full min-h-[44px] items-center gap-2 px-3 py-2 text-left touch-manipulation hover:bg-white/5"
       data-testid="guided-tour-expand"
     >
       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-500/25 text-[10px] font-bold text-sky-200">
@@ -194,9 +196,11 @@ function ExpandedCoach({
 }) {
   return (
     <div
-      className="guided-tour-panel floating-panel overflow-hidden border-sky-500/30 shadow-lg shadow-black/40"
+      className="guided-tour-panel floating-panel pointer-events-auto isolate overflow-hidden border-sky-500/30 shadow-lg shadow-black/40"
       role="region"
       aria-label="Live walkthrough"
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
     >
       <div className="flex shrink-0 items-start justify-between gap-2 border-b border-white/10 bg-sky-950/40 px-3 py-2">
         {compactHeader ? (
