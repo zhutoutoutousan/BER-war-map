@@ -34,6 +34,10 @@ export function GuidedTourOverlay({ onComplete, onSkip, embedded = true, sheetOp
   const isLast = index >= steps.length - 1;
   const progress = ((index + 1) / steps.length) * 100;
   const expanded = !minimized;
+  const needsLayeredDock =
+    isMobile &&
+    !minimized &&
+    (sheetOpen || step.action.viewMode === "matching" || step.action.openLeftPanel === true);
 
   useTourSpotlight(expanded ? step.spotlight : undefined);
 
@@ -42,21 +46,22 @@ export function GuidedTourOverlay({ onComplete, onSkip, embedded = true, sheetOp
   }, [step.id, applyTourAction]);
 
   useEffect(() => {
-    if (isMobile) setMinimized(true);
-  }, [isMobile, index]);
-
-  useEffect(() => {
-    if (isMobile && sheetOpen && expanded) setMinimized(true);
-  }, [isMobile, sheetOpen, expanded]);
+    if (!isMobile) return;
+    if (sheetOpen || step.action.viewMode === "matching" || step.action.openLeftPanel === true) {
+      setMinimized(false);
+    }
+  }, [isMobile, sheetOpen, index, step.action.viewMode, step.action.openLeftPanel]);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.documentElement.dataset.guidedTourOpen =
       isMobile && expanded && !minimized ? "true" : "false";
+    document.documentElement.dataset.guidedTourLayered = needsLayeredDock ? "true" : "false";
     return () => {
       delete document.documentElement.dataset.guidedTourOpen;
+      delete document.documentElement.dataset.guidedTourLayered;
     };
-  }, [expanded, minimized, isMobile]);
+  }, [expanded, minimized, isMobile, needsLayeredDock]);
 
   const advance = () => {
     if (isLast) {
@@ -98,8 +103,9 @@ export function GuidedTourOverlay({ onComplete, onSkip, embedded = true, sheetOp
 
   const inner = (
     <div
-      className={`pointer-events-auto ${isMobile ? "guided-tour-mobile-dock" : "guided-tour-desktop-dock"}`}
+      className={`pointer-events-auto ${isMobile ? "guided-tour-mobile-dock" : "guided-tour-desktop-dock"}${needsLayeredDock ? " guided-tour-mobile-dock--above-sheet" : ""}`}
       data-testid="guided-tour-overlay"
+      data-guided-tour-layered={needsLayeredDock ? "true" : undefined}
       onPointerDown={(e) => e.stopPropagation()}
       onClick={(e) => e.stopPropagation()}
     >
