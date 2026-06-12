@@ -15,5 +15,6 @@ export const PROJECT_CREDITS = {
   institution: "XU University of Applied Sciences",
   institutionLogo: "/xu-university-logo.png",
   courseLabel: "IDI S26",
-  probeLabel: "BER+ Flughafenregion probe"
+  probeLabel: "BER+ Flughafenregion probe",
+  liveDemoUrl: "https://ber-board-room.vercel.app/"
 } as const;
