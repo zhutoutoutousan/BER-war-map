@@ -3,7 +3,7 @@ export const BRAND = {
   name: "BER+ Board Room",
   shortName: "Board Room",
   mapLabel: "Board Room map",
-  tagline: "Matching · visibility · corridor intelligence",
+  tagline: "Data-driven transparency · matching · corridor intelligence",
   region: "Flughafenregion Berlin Brandenburg",
   subtitle: "Ecosystem coordination — one briefing surface",
   sessionPrompt: "Who is using the board room?",
@@ -12,15 +12,19 @@ export const BRAND = {
 
 /** Bilingual business framing — welcome / presentation */
 export const BOARD_ROOM_EXPLAINER = {
+  storyHook: {
+    en: "The story is data-driven — more transparency.",
+    de: "Die Story ist datengetrieben — mehr Transparenz."
+  },
   en: {
     label: "What is the Board Room?",
     body:
-      "A neutral briefing platform hosted by BER+ for the Flughafenregion corridor. One executive view of land, assets, programme milestones, and partnership opportunities — for companies, investors, municipalities, and members before site visits and contracts."
+      "A neutral BER+ briefing platform that turns corridor intelligence into evidence on one map — land, assets, programme milestones, and matches, with labelled sources everyone can challenge. Transparency for companies, investors, municipalities, and members before site visits and contracts."
   },
   de: {
     label: "Was ist der Board Room?",
     body:
-      "Eine neutrale Briefing-Plattform von BER+ für den Flughafenregion-Korridor. Ein gemeinsamer Management-Blick auf Flächen, Assets, Programm-Meilensteine und Kooperationschancen — für Unternehmen, Investoren, Kommunen und Mitglieder, bevor Standortbesuche und Verträge anstehen."
+      "Eine neutrale BER+ Briefing-Plattform, die Korridor-Intelligence als Belege auf einer Karte bündelt — Flächen, Assets, Programm-Meilensteine und Matches, mit gekennzeichneten Quellen, die alle prüfen können. Mehr Transparenz für Unternehmen, Investoren, Kommunen und Mitglieder, bevor Standortbesuche und Verträge anstehen."
   }
 } as const;
 
