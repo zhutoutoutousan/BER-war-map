@@ -6,7 +6,7 @@ import { CATEGORY_COLORS, CATEGORY_LABELS, type Mitglied } from "@/data/mitglied
 
 import { listMembersForPicker } from "@/lib/member-recommendations";
 
-import { BRAND, PROJECT_CREDITS } from "@/lib/brand";
+import { BOARD_ROOM_EXPLAINER, BRAND, PROJECT_CREDITS } from "@/lib/brand";
 import { GUEST_PERSONAS, type GuestPersona } from "@/lib/guest-personas";
 
 import { useUserSession } from "@/context/UserSessionContext";
@@ -108,11 +108,44 @@ export function SessionPickerModal() {
 
             {BRAND.name}
           </div>
-          <h1 id="session-picker-title" className="mt-2 text-xl font-semibold text-white sm:text-2xl">
+
+          <div
+            className="mx-auto mt-3 max-w-2xl rounded-xl border border-white/10 bg-black/25 px-3 py-3 text-left sm:px-4"
+            data-testid="board-room-explainer"
+          >
+            <p className="border-b border-white/8 pb-3 text-center text-[11px] font-semibold leading-snug text-sky-200/95 sm:text-xs">
+              <span lang="en">{BOARD_ROOM_EXPLAINER.storyHook.en}</span>
+              <span className="mx-2 text-white/25" aria-hidden>
+                ·
+              </span>
+              <span lang="de">{BOARD_ROOM_EXPLAINER.storyHook.de}</span>
+            </p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-4">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-sky-300/75">
+                  {BOARD_ROOM_EXPLAINER.en.label}
+                </p>
+                <p className="mt-1.5 text-[12px] leading-relaxed text-white/72">
+                  {BOARD_ROOM_EXPLAINER.en.body}
+                </p>
+              </div>
+              <div className="border-t border-white/8 pt-3 sm:border-l sm:border-t-0 sm:pl-4 sm:pt-0">
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-sky-300/75">
+                  {BOARD_ROOM_EXPLAINER.de.label}
+                </p>
+                <p className="mt-1.5 text-[12px] leading-relaxed text-white/72">
+                  {BOARD_ROOM_EXPLAINER.de.body}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h1 id="session-picker-title" className="mt-4 text-xl font-semibold text-white sm:text-2xl">
             {BRAND.sessionPrompt}
           </h1>
           <p className="mx-auto mt-2 max-w-lg text-sm text-white/65">
-            Why it matters · who benefits · what BER+ must run — then a guided tour of the Board Room.
+            Data-driven transparency · who benefits · what BER+ must run — then a guided tour of the Board
+            Room.
           </p>
 
         </header>
