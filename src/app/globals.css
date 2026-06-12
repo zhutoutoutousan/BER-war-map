@@ -439,19 +439,15 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
   padding-right: max(0.5rem, env(safe-area-inset-right));
 }
 
-/* Guided tour — desktop dock (panel clickable; rest passes through to map) */
+/* Guided tour — dock is panel-sized only; capture all pointer events inside */
 .guided-tour-desktop-dock {
   position: fixed;
   bottom: 0.75rem;
   left: 0.75rem;
-  z-index: 55;
+  z-index: 100;
   width: min(22rem, calc(100vw - 2rem));
-  pointer-events: none;
-}
-
-.guided-tour-desktop-dock .guided-tour-panel,
-.guided-tour-desktop-dock [data-testid="guided-tour-expand"] {
   pointer-events: auto;
+  isolation: isolate;
 }
 
 @media (max-width: 767px) {
@@ -460,15 +456,10 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
     left: max(0.5rem, env(safe-area-inset-left));
     right: max(0.5rem, env(safe-area-inset-right));
     bottom: var(--mobile-tour-dock-offset);
-    z-index: 55;
+    z-index: 100;
     max-height: min(46dvh, 360px);
-    pointer-events: none;
-  }
-
-  .guided-tour-mobile-dock .guided-tour-panel,
-  .guided-tour-mobile-dock .guided-tour-mobile-chip,
-  .guided-tour-mobile-dock [data-testid="guided-tour-expand"] {
     pointer-events: auto;
+    isolation: isolate;
   }
 
   .guided-tour-mobile-dock:not(:has(.guided-tour-panel)) {
