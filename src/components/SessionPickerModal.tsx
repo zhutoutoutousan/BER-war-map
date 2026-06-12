@@ -58,7 +58,51 @@ export function SessionPickerModal() {
 
       <div className="war-room-scroll mobile-safe-x max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-t-2xl border border-white/10 bg-ink-900/95 p-4 shadow-2xl shadow-black/50 sm:max-h-[92vh] sm:rounded-2xl sm:p-6 safe-bottom">
 
-        <header className="text-center">
+        <section
+          className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
+          data-testid="session-picker-team"
+          aria-label="Project team"
+        >
+          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+            {PROJECT_CREDITS.courseLabel} · Team
+          </div>
+          <div className="mt-3 flex items-center gap-3">
+            <img
+              src={PROJECT_CREDITS.institutionLogo}
+              alt=""
+              width={52}
+              height={52}
+              className="h-[52px] w-[52px] shrink-0 object-contain"
+              aria-hidden
+            />
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-white/90">
+                {PROJECT_CREDITS.authors.join(" · ")}
+              </p>
+              <p className="mt-0.5 text-[11px] text-white/50">{PROJECT_CREDITS.institution}</p>
+            </div>
+          </div>
+        </section>
+
+        <a
+          href={PROJECT_CREDITS.liveDemoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 flex flex-col gap-1 rounded-xl border border-sky-500/35 bg-sky-950/35 px-4 py-3 transition hover:border-sky-400/50 hover:bg-sky-950/50"
+          data-testid="session-picker-live-demo"
+        >
+          <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-sky-300/90">
+            Audience — open the live demo
+          </span>
+          <span className="text-sm font-semibold text-sky-100 underline decoration-sky-400/40 underline-offset-2">
+            {PROJECT_CREDITS.liveDemoUrl}
+          </span>
+          <span className="text-[11px] text-white/45">
+            Phone or laptop · same walkthrough you see on screen
+          </span>
+        </a>
+
+        <header className="mt-5 text-center">
 
           <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-sky-300/80">
 
@@ -222,30 +266,11 @@ export function SessionPickerModal() {
 
 
 
-        <footer className="mt-6 border-t border-white/8 pt-5">
-          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
-            <img
-              src={PROJECT_CREDITS.institutionLogo}
-              alt=""
-              width={48}
-              height={48}
-              className="h-12 w-12 shrink-0 object-contain"
-              aria-hidden
-            />
-            <div className="text-center sm:text-left">
-              <p className="text-[11px] font-medium text-white/55">
-                {PROJECT_CREDITS.authors.join(" · ")}
-              </p>
-              <p className="mt-0.5 text-[10px] text-white/40">{PROJECT_CREDITS.institution}</p>
-            </div>
-          </div>
-          <p className="mt-4 text-center text-[10px] italic text-white/35">
-            {PROJECT_CREDITS.courseLabel} · {PROJECT_CREDITS.probeLabel} — visualize on the map, cite
-            sources in Overview
-            <br />
-            Indicative OSM — not cadastral GIS · Pilot-1 anchor on map
-          </p>
-        </footer>
+        <p className="mt-6 text-center text-[10px] italic text-white/35">
+          {PROJECT_CREDITS.probeLabel} — visualize on the map, cite sources in Overview
+          <br />
+          Indicative OSM — not cadastral GIS · Pilot-1 anchor on map
+        </p>
 
       </div>
 
