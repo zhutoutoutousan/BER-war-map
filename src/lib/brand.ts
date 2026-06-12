@@ -10,6 +10,20 @@ export const BRAND = {
   personaBadge: "Board room for"
 } as const;
 
+/** Bilingual business framing — welcome / presentation */
+export const BOARD_ROOM_EXPLAINER = {
+  en: {
+    label: "What is the Board Room?",
+    body:
+      "A neutral briefing platform hosted by BER+ for the Flughafenregion corridor. One executive view of land, assets, programme milestones, and partnership opportunities — for companies, investors, municipalities, and members before site visits and contracts."
+  },
+  de: {
+    label: "Was ist der Board Room?",
+    body:
+      "Eine neutrale Briefing-Plattform von BER+ für den Flughafenregion-Korridor. Ein gemeinsamer Management-Blick auf Flächen, Assets, Programm-Meilensteine und Kooperationschancen — für Unternehmen, Investoren, Kommunen und Mitglieder, bevor Standortbesuche und Verträge anstehen."
+  }
+} as const;
+
 export const PROJECT_CREDITS = {
   authors: ["Tian Shao", "Yushu Qin", "Yi Li"] as const,
   institution: "XU University of Applied Sciences",
