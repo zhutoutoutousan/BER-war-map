@@ -6,7 +6,7 @@ import { CATEGORY_COLORS, CATEGORY_LABELS, type Mitglied } from "@/data/mitglied
 
 import { listMembersForPicker } from "@/lib/member-recommendations";
 
-import { BRAND } from "@/lib/brand";
+import { BRAND, PROJECT_CREDITS } from "@/lib/brand";
 import { GUEST_PERSONAS, type GuestPersona } from "@/lib/guest-personas";
 
 import { useUserSession } from "@/context/UserSessionContext";
@@ -222,11 +222,30 @@ export function SessionPickerModal() {
 
 
 
-        <p className="mt-6 text-center text-[10px] italic text-white/35">
-          IDI S26 · BER+ Flughafenregion probe — visualize on the map, cite sources in Overview
-          <br />
-          Indicative OSM — not cadastral GIS · Pilot-1 anchor on map
-        </p>
+        <footer className="mt-6 border-t border-white/8 pt-5">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
+            <img
+              src={PROJECT_CREDITS.institutionLogo}
+              alt=""
+              width={48}
+              height={48}
+              className="h-12 w-12 shrink-0 object-contain"
+              aria-hidden
+            />
+            <div className="text-center sm:text-left">
+              <p className="text-[11px] font-medium text-white/55">
+                {PROJECT_CREDITS.authors.join(" · ")}
+              </p>
+              <p className="mt-0.5 text-[10px] text-white/40">{PROJECT_CREDITS.institution}</p>
+            </div>
+          </div>
+          <p className="mt-4 text-center text-[10px] italic text-white/35">
+            {PROJECT_CREDITS.courseLabel} · {PROJECT_CREDITS.probeLabel} — visualize on the map, cite
+            sources in Overview
+            <br />
+            Indicative OSM — not cadastral GIS · Pilot-1 anchor on map
+          </p>
+        </footer>
 
       </div>
 

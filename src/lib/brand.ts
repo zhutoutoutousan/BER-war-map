@@ -9,3 +9,11 @@ export const BRAND = {
   sessionPrompt: "Who is using the board room?",
   personaBadge: "Board room for"
 } as const;
+
+export const PROJECT_CREDITS = {
+  authors: ["Tian Shao", "Yushu Sue", "Yi Li"] as const,
+  institution: "XU University of Applied Sciences",
+  institutionLogo: "/xu-university-logo.png",
+  courseLabel: "IDI S26",
+  probeLabel: "BER+ Flughafenregion probe"
+} as const;
