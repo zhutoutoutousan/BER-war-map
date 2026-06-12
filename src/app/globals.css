@@ -456,10 +456,26 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
     left: max(0.5rem, env(safe-area-inset-left));
     right: max(0.5rem, env(safe-area-inset-right));
     bottom: var(--mobile-tour-dock-offset);
-    z-index: 100;
+    z-index: 120;
     max-height: min(46dvh, 360px);
     pointer-events: auto;
     isolation: isolate;
+  }
+
+  /* Expanded tour floats above bottom sheets + nav during walkthrough */
+  .guided-tour-mobile-dock--above-sheet {
+    top: calc(env(safe-area-inset-top) + 3.25rem);
+    bottom: auto;
+    left: max(0.5rem, env(safe-area-inset-left));
+    right: max(0.5rem, env(safe-area-inset-right));
+    max-height: min(42dvh, 340px);
+  }
+
+  .guided-tour-mobile-dock--above-sheet .guided-tour-panel {
+    max-height: min(42dvh, 340px);
+    box-shadow:
+      0 0 0 1px rgba(56, 189, 248, 0.25),
+      0 16px 48px rgba(0, 0, 0, 0.65);
   }
 
   .guided-tour-mobile-dock:not(:has(.guided-tour-panel)) {
@@ -482,6 +498,10 @@ html[data-capture-layout="right-focus"] [data-testid="capture-vignette"] {
 
   html[data-guided-tour-open="true"] .mobile-sheet {
     padding-bottom: calc(var(--mobile-nav-height) + min(38dvh, 280px));
+  }
+
+  html[data-guided-tour-layered="true"] .mobile-sheet {
+    padding-bottom: calc(3.75rem + env(safe-area-inset-bottom));
   }
 
   html[data-guided-tour-open="true"] .ber-chatbot-mobile {
