@@ -11,7 +11,7 @@ export const BRAND = {
 } as const;
 
 export const PROJECT_CREDITS = {
-  authors: ["Tian Shao", "Yushu Sue", "Yi Li"] as const,
+  authors: ["Tian Shao", "Yushu Qin", "Yi Li"] as const,
   institution: "XU University of Applied Sciences",
   institutionLogo: "/xu-university-logo.png",
   courseLabel: "IDI S26",
