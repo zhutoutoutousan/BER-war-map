@@ -2,12 +2,14 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 
-import { BRAND } from "@/lib/brand";
+import { BRAND, PROJECT_CREDITS } from "@/lib/brand";
 
 export const metadata: Metadata = {
   title: BRAND.name,
   description: `${BRAND.tagline} — ${BRAND.subtitle}`,
-  manifest: "/manifest.webmanifest"
+  manifest: "/manifest.webmanifest",
+  authors: PROJECT_CREDITS.authors.map((name) => ({ name })),
+  creator: PROJECT_CREDITS.institution
 };
 
 export const viewport: Viewport = {
