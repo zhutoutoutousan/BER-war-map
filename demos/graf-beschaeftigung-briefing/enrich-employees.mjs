@@ -96,6 +96,59 @@ function matchBrand(hay, brands) {
   return null;
 }
 
+const RETAIL_OUTLET_RE =
+  /\b(netto|penny|rewe|edeka|e-center|e center|lidl|aldi|kaufland|ikea|bauhaus|mcdonald|fressnapf|hem\b|tankstelle)\b/i;
+const INSURANCE_BRANCH_RE = /\b(versicherung|allianz|barmenia|huk)\b/i;
+
+/** Never assign Konzern-HQ headcount to a single OSM Filiale / depot pin. */
+function normalizeBrandForSite(site, brand) {
+  if (brand.scope !== "group") return brand;
+
+  const corporateEmployees = brand.employees ?? null;
+  const corporateSource = brand.source ?? "corporate registry";
+  const groupCorporate =
+    corporateEmployees != null
+      ? { employees: corporateEmployees, source: corporateSource }
+      : undefined;
+
+  const isRetailOutlet = site.landuse === "retail" || RETAIL_OUTLET_RE.test(site.name);
+  const isInsuranceBranch = INSURANCE_BRANCH_RE.test(site.name);
+
+  if (isRetailOutlet) {
+    const range =
+      site.areaHa != null && site.areaHa > 0.8 ? "12–35" : site.areaHa != null && site.areaHa > 0.4 ? "8–25" : "6–18";
+    return {
+      employees: null,
+      employeesRange: range,
+      scope: "outlet_estimate",
+      source: `Einzelhandelsfiliale — Konzernzahl (${corporateEmployees?.toLocaleString("de-DE") ?? "n/a"} gesamt) nicht als Standortwert`,
+      confidence: "estimate",
+      groupCorporate
+    };
+  }
+
+  if (isInsuranceBranch) {
+    return {
+      employees: null,
+      employeesRange: "3–12",
+      scope: "outlet_estimate",
+      source: `Versicherungsagentur/Zweig — Konzernzahl nicht als Standortwert · ${corporateSource}`,
+      confidence: "estimate",
+      groupCorporate
+    };
+  }
+
+  // Depot, Logistikzentrum, Büro — brand on map ≠ global headcount; route to prediction
+  return {
+    employees: null,
+    employeesRange: null,
+    scope: "brand_present",
+    source: `Marke vor Ort — Konzernzahl nicht übernommen · ${corporateSource}`,
+    confidence: "unknown",
+    groupCorporate
+  };
+}
+
 function inferMicroEmployer(site) {
   const lu = site.landuse ?? "";
   const micro = new Set([
@@ -200,7 +253,7 @@ async function main() {
     const hay = `${site.name} ${site.operator ?? ""}`;
     const brand = matchBrand(hay, brandDb.brands);
     if (brand) {
-      Object.assign(record, brand);
+      Object.assign(record, normalizeBrandForSite(site, brand));
       enriched.push(record);
       continue;
     }
@@ -213,9 +266,12 @@ async function main() {
   const withExact = named.filter((r) => r.employees != null);
   const withRange = named.filter((r) => r.employeesRange);
   const verified = named.filter((r) => ["registry", "member_cited", "osm_tag"].includes(r.confidence));
-  const groupLevel = named.filter((r) => r.scope === "group" && r.employees != null);
+  const groupLevel = named.filter((r) => r.groupCorporate != null);
   const siteLevel = named.filter(
-    (r) => ["site", "entity", "osm_site", "osm_nearby"].includes(r.scope) && r.employees != null
+    (r) =>
+      ["site", "entity", "osm_site", "osm_nearby"].includes(r.scope) &&
+      r.employees != null &&
+      r.confidence !== "group"
   );
 
   const seenEntity = new Set();
@@ -238,6 +294,8 @@ async function main() {
       verifiedSources: verified.length,
       groupLevelMatches: groupLevel.length,
       siteLevelMatches: siteLevel.length,
+      outletEstimates: named.filter((r) => r.scope === "outlet_estimate").length,
+      brandsPresentUnmodelled: named.filter((r) => r.scope === "brand_present").length,
       sumSiteLevelEmployees: sumSiteLevel,
       disclaimer:
         "Cannot obtain all 215 site-level counts from public data alone — BER+ member validation pass required for Graf's leasing question."

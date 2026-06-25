@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-25T17:04:17.003Z",
-  "count": 102,
-  "sumEmployees": 4075,
+  "generatedAt": "2026-06-25T17:33:19.819Z",
+  "count": 129,
+  "sumEmployees": 5409,
   "predictions": [
     {
       "id": "way/37011030",
@@ -14,10 +14,30 @@
       "p75": 402
     },
     {
+      "id": "node/11778876726",
+      "name": "DFS Deutsche Flugsicherung GmbH",
+      "landuse": "company",
+      "employees": 205,
+      "employeesRange": "46–207",
+      "p25": 46,
+      "p50": 103,
+      "p75": 207
+    },
+    {
       "id": "way/991179992",
       "name": "Logistikzentrum Airport Park Berlin",
       "landuse": "commercial",
       "employees": 192,
+      "employeesRange": "69–253",
+      "p25": 69,
+      "p50": 138,
+      "p75": 253
+    },
+    {
+      "id": "way/677415519",
+      "name": "Logistikzentrum Amazon",
+      "landuse": "industrial",
+      "employees": 174,
       "employeesRange": "69–253",
       "p25": 69,
       "p50": 138,
@@ -54,6 +74,16 @@
       "p75": 207
     },
     {
+      "id": "way/39321586",
+      "name": "MEWA Textil-Service AG & Co. Groß Kienitz oHG",
+      "landuse": "commercial",
+      "employees": 147,
+      "employeesRange": "52–207",
+      "p25": 52,
+      "p50": 109,
+      "p75": 207
+    },
+    {
       "id": "way/126897223",
       "name": "Berlin ExpoCenter Airport",
       "landuse": "commercial",
@@ -62,6 +92,16 @@
       "p25": 29,
       "p50": 75,
       "p75": 161
+    },
+    {
+      "id": "way/334286869",
+      "name": "Dachser Logistikzentrum Berlin Brandenburg",
+      "landuse": "office",
+      "employees": 121,
+      "employeesRange": "69–253",
+      "p25": 69,
+      "p50": 138,
+      "p75": 253
     },
     {
       "id": "node/4481308097",
@@ -124,6 +164,16 @@
       "p75": 126
     },
     {
+      "id": "node/5832034218",
+      "name": "DSV",
+      "landuse": "logistics",
+      "employees": 78,
+      "employeesRange": "21–109",
+      "p25": 21,
+      "p50": 48,
+      "p75": 109
+    },
+    {
       "id": "way/129671589",
       "name": "BER Geb. Y024",
       "landuse": "industrial",
@@ -132,6 +182,26 @@
       "p25": 17,
       "p50": 46,
       "p75": 98
+    },
+    {
+      "id": "way/815473127",
+      "name": "DHL",
+      "landuse": "commercial",
+      "employees": 69,
+      "employeesRange": "32–150",
+      "p25": 32,
+      "p50": 71,
+      "p75": 150
+    },
+    {
+      "id": "node/5832034228",
+      "name": "Fastenal",
+      "landuse": "logistics",
+      "employees": 68,
+      "employeesRange": "21–109",
+      "p25": 21,
+      "p50": 48,
+      "p75": 109
     },
     {
       "id": "way/24057088",
@@ -174,6 +244,16 @@
       "p75": 75
     },
     {
+      "id": "way/69121321",
+      "name": "DFS-Technik",
+      "landuse": "office",
+      "employees": 62,
+      "employeesRange": "46–207",
+      "p25": 46,
+      "p50": 103,
+      "p75": 207
+    },
+    {
       "id": "node/5832034217",
       "name": "Riedel Bau",
       "landuse": "construction_company",
@@ -192,6 +272,16 @@
       "p25": 17,
       "p50": 37,
       "p75": 75
+    },
+    {
+      "id": "way/1434388569",
+      "name": "Coolblue GmbH - Depot Schönefeld",
+      "landuse": "industrial",
+      "employees": 58,
+      "employeesRange": "17–81",
+      "p25": 17,
+      "p50": 40,
+      "p75": 81
     },
     {
       "id": "way/157968768",
@@ -264,6 +354,16 @@
       "p75": 48
     },
     {
+      "id": "node/5832034225",
+      "name": "SEW Eurodrive",
+      "landuse": "engineering",
+      "employees": 44,
+      "employeesRange": "12–63",
+      "p25": 12,
+      "p50": 29,
+      "p75": 63
+    },
+    {
       "id": "way/39321655",
       "name": "Paul Hildebrandt AG",
       "landuse": "industrial",
@@ -292,6 +392,16 @@
       "p25": 9,
       "p50": 21,
       "p75": 44
+    },
+    {
+      "id": "way/274931124",
+      "name": "E.ON",
+      "landuse": "industrial",
+      "employees": 42,
+      "employeesRange": "7–49",
+      "p25": 7,
+      "p50": 21,
+      "p75": 49
     },
     {
       "id": "way/158167884",
@@ -424,6 +534,26 @@
       "p75": 126
     },
     {
+      "id": "node/5832034231",
+      "name": "Carl Stahl",
+      "landuse": "company",
+      "employees": 30,
+      "employeesRange": "6–32",
+      "p25": 6,
+      "p50": 14,
+      "p75": 32
+    },
+    {
+      "id": "node/5832034242",
+      "name": "Securitas",
+      "landuse": "security",
+      "employees": 30,
+      "employeesRange": "6–32",
+      "p25": 6,
+      "p50": 14,
+      "p75": 32
+    },
+    {
       "id": "node/10839971521",
       "name": "Stahlbau & Bauschlosserei Nimsz",
       "landuse": "company",
@@ -444,6 +574,26 @@
       "p75": 35
     },
     {
+      "id": "node/13246661937",
+      "name": "Belfor DeHaDE GmbH",
+      "landuse": "engineer",
+      "employees": 29,
+      "employeesRange": "6–32",
+      "p25": 6,
+      "p50": 14,
+      "p75": 32
+    },
+    {
+      "id": "node/5188063356",
+      "name": "Ridi Leuchten",
+      "landuse": "company",
+      "employees": 28,
+      "employeesRange": "5–30",
+      "p25": 5,
+      "p50": 13,
+      "p75": 30
+    },
+    {
       "id": "way/193019571",
       "name": "Y085",
       "landuse": "office",
@@ -462,6 +612,16 @@
       "p25": 9,
       "p50": 21,
       "p75": 44
+    },
+    {
+      "id": "node/5832034216",
+      "name": "Emo Trans",
+      "landuse": "logistics",
+      "employees": 27,
+      "employeesRange": "21–109",
+      "p25": 21,
+      "p50": 48,
+      "p75": 109
     },
     {
       "id": "way/1110963057",
@@ -512,6 +672,16 @@
       "p25": 14,
       "p50": 32,
       "p75": 63
+    },
+    {
+      "id": "way/336361562",
+      "name": "Lufthansa Aviation Training Berlin",
+      "landuse": "commercial",
+      "employees": 26,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
     },
     {
       "id": "node/5832034238",
@@ -724,6 +894,36 @@
       "p75": 25
     },
     {
+      "id": "node/5832034237",
+      "name": "Interseroh",
+      "landuse": "recycling_company",
+      "employees": 17,
+      "employeesRange": "6–32",
+      "p25": 6,
+      "p50": 14,
+      "p75": 32
+    },
+    {
+      "id": "node/6043694256",
+      "name": "SAP SE",
+      "landuse": "company",
+      "employees": 17,
+      "employeesRange": "6–32",
+      "p25": 6,
+      "p50": 14,
+      "p75": 32
+    },
+    {
+      "id": "way/193667377",
+      "name": "Segro Airport Park Berlin",
+      "landuse": "commercial",
+      "employees": 16,
+      "employeesRange": "5–25",
+      "p25": 5,
+      "p50": 12,
+      "p75": 25
+    },
+    {
       "id": "way/320036669",
       "name": "Georg-Elser-Werkstatt",
       "landuse": "commercial",
@@ -894,6 +1094,16 @@
       "p75": 18
     },
     {
+      "id": "way/295066497",
+      "name": "Dachser",
+      "landuse": "commercial",
+      "employees": 10,
+      "employeesRange": "2–13",
+      "p25": 2,
+      "p50": 6,
+      "p75": 13
+    },
+    {
       "id": "node/3512838254",
       "name": "TFC Käufer",
       "landuse": "educational_institution",
@@ -902,6 +1112,16 @@
       "p25": 9,
       "p50": 21,
       "p75": 40
+    },
+    {
+      "id": "way/157807227",
+      "name": "E.ON",
+      "landuse": "industrial",
+      "employees": 9,
+      "employeesRange": "7–49",
+      "p25": 7,
+      "p50": 21,
+      "p75": 49
     },
     {
       "id": "node/10926361570",
@@ -924,6 +1144,16 @@
       "p75": 25
     },
     {
+      "id": "way/621518211",
+      "name": "BELFOR",
+      "landuse": "commercial",
+      "employees": 8,
+      "employeesRange": "2–13",
+      "p25": 2,
+      "p50": 6,
+      "p75": 13
+    },
+    {
       "id": "way/24250357",
       "name": "KFZ-Werkstatt Kaross GmbH",
       "landuse": "commercial",
@@ -942,6 +1172,16 @@
       "p25": 6,
       "p50": 13,
       "p75": 25
+    },
+    {
+      "id": "way/26933550",
+      "name": "Storopack",
+      "landuse": "commercial",
+      "employees": 6,
+      "employeesRange": "4–24",
+      "p25": 4,
+      "p50": 11,
+      "p75": 24
     },
     {
       "id": "way/35473015",
@@ -974,6 +1214,16 @@
       "p75": 7
     },
     {
+      "id": "node/13246661936",
+      "name": "BELFOR",
+      "landuse": "engineer",
+      "employees": 5,
+      "employeesRange": "3–16",
+      "p25": 3,
+      "p50": 7,
+      "p75": 16
+    },
+    {
       "id": "way/691453463",
       "name": "Pumpwerk Grünau",
       "landuse": "industrial",
@@ -994,6 +1244,16 @@
       "p75": 6
     },
     {
+      "id": "way/988585126",
+      "name": "MAN Truck & Bus TopUsed Center",
+      "landuse": "commercial",
+      "employees": 5,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
       "id": "way/599440344",
       "name": "McParking",
       "landuse": "commercial",
@@ -1012,6 +1272,16 @@
       "p25": 1,
       "p50": 2,
       "p75": 5
+    },
+    {
+      "id": "way/37035168",
+      "name": "Dachser",
+      "landuse": "commercial",
+      "employees": 3,
+      "employeesRange": "2–13",
+      "p25": 2,
+      "p50": 6,
+      "p75": 13
     },
     {
       "id": "way/311931079",

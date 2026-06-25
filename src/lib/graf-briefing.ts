@@ -22,7 +22,7 @@ export const GRAF_BRIEFING = {
     },
     {
       title: "Public cross-reference",
-      body: "Geschäftsberichte, member news (BB Hub), registry excerpts (FBB), Wikidata / press for brand-level hints."
+      body: "Geschäftsberichte, member news (BB Hub), registry excerpts (FBB). Konzern totals (REWE, EDEKA, DHL global) are reference only — never copied onto a single Filiale pin."
     },
     {
       title: "SME heuristics",
@@ -117,6 +117,7 @@ export type GrafEmployeeRecord = {
   source: string | null;
   confidence: string;
   prediction?: GrafPredictionMeta;
+  groupCorporate?: { employees: number; source: string };
 };
 
 export type GrafCrossrefPayload = {
@@ -146,3 +147,13 @@ export type GrafCorridorSnapshot = {
   summary: { totalElements: number; namedSites: number };
   sites: { id: string; lat: number; lon: number; named?: boolean; name?: string | null }[];
 };
+
+/** Planning weight for heatmap / bubble size (never uses Konzern ref alone). */
+export function employmentWeight(r: GrafEmployeeRecord): number {
+  if (r.employees != null && r.employees > 0) return r.employees;
+  if (r.employeesRange) {
+    const m = r.employeesRange.match(/(\d+)[–-](\d+)/);
+    if (m) return Math.round((Number(m[1]) + Number(m[2])) / 2);
+  }
+  return 4;
+}
