@@ -2,6 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { hideDevOverlay, registerHideDevOverlayInit } from "../scripts/hide-dev-overlay.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SHOTS = path.join(__dirname, "screenshots");
@@ -69,6 +70,7 @@ async function ensureLeftPanelOpen(page: Page) {
 }
 
 async function clearSession(page: Page) {
+  await registerHideDevOverlayInit(page);
   await page.addInitScript(() => {
     localStorage.removeItem("ber-war-map-session-v1");
     localStorage.removeItem("ber-war-map-cameo-v1");
@@ -76,7 +78,26 @@ async function clearSession(page: Page) {
   });
 }
 
-async function shot(page: Page, subdir: string, name: string) {
+async function waitForMapReady(page: Page) {
+  const map = page.locator('[data-testid="showcase-map"], [data-testid="showcase-map-embedded"]').first();
+  await map.waitFor({ state: "visible", timeout: 30_000 });
+  await page
+    .waitForFunction(
+      () => {
+        const canvas = document.querySelector(
+          '[data-testid="showcase-map"] canvas, [data-testid="showcase-map-embedded"] canvas'
+        ) as HTMLCanvasElement | null;
+        return Boolean(canvas && canvas.width > 64 && canvas.height > 64);
+      },
+      { timeout: 30_000 }
+    )
+    .catch(() => undefined);
+  await page.waitForTimeout(2000);
+}
+
+async function shot(page: Page, subdir: string, name: string, waitMap = false) {
+  if (waitMap) await waitForMapReady(page);
+  await hideDevOverlay(page);
   const dir = path.join(SHOTS, subdir);
   fs.mkdirSync(dir, { recursive: true });
   await page.screenshot({ path: path.join(dir, `${name}.png`), fullPage: false });
@@ -85,11 +106,12 @@ async function shot(page: Page, subdir: string, name: string) {
 test.describe.configure({ timeout: 60_000 });
 
 test.describe("Stakeholder UX — session & board room", () => {
-  test("session picker — screenshot", async ({ page }) => {
+  test("session picker — screenshot", async ({ page }, testInfo) => {
+    const isMobile = testInfo.project.name === "mobile";
     await clearSession(page);
     await page.goto("/");
     await expect(page.getByTestId("session-picker-modal")).toBeVisible({ timeout: 30_000 });
-    await shot(page, "_shared", "00-session-picker");
+    await shot(page, "_shared", isMobile ? "00-session-picker-mobile" : "00-session-picker");
   });
 
   for (const persona of PERSONAS) {
@@ -117,7 +139,7 @@ test.describe("Stakeholder UX — session & board room", () => {
       expect(scene).toContain(persona.defaultTab);
       if (persona.demoMember) expect(scene).toContain(persona.demoMember);
 
-      await shot(page, prefix, "01-after-role-select");
+      await shot(page, prefix, "01-after-role-select", true);
 
       if (!isMobile && (persona.id === "investor" || persona.id === "company")) {
         await ensureLeftPanelOpen(page);
@@ -125,7 +147,7 @@ test.describe("Stakeholder UX — session & board room", () => {
         await expect(page.getByTestId("members-persona-filter-hint")).toBeVisible();
       }
 
-      await shot(page, prefix, "02-default-view");
+      await shot(page, prefix, "02-default-view", true);
 
       if (!isMobile) {
         await ensureLeftPanelOpen(page);
@@ -146,11 +168,11 @@ test.describe("Stakeholder UX — session & board room", () => {
         if (await osmReady.isVisible({ timeout: 30_000 }).catch(() => false)) {
           await expect(leftPanel.getByTestId("asset-inventory-summary")).toBeVisible();
         }
-        await shot(page, prefix, "03-assets-osm");
+        await shot(page, prefix, "03-assets-osm", true);
 
         await goToTab(page, "members");
         await page.waitForTimeout(500);
-        await shot(page, prefix, "04-mitglieder");
+        await shot(page, prefix, "04-mitglieder", true);
 
         await page.getByTestId("view-mode-matching").click();
         await page.waitForTimeout(1500);

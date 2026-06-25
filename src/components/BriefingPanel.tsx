@@ -10,6 +10,20 @@ type Props = {
 export function BriefingPanel({ onGoToTab }: Props) {
   return (
     <div className="flex flex-col gap-4" data-testid="panel-briefing">
+      <div className="rounded-lg border border-amber-500/25 bg-amber-950/20 px-3 py-2">
+        <div className="text-xs font-semibold text-amber-200">Beschäftigungstiefe — Schönefeld corridor</div>
+        <p className="mt-1 text-xs text-white/70">
+          Workforce depth near Schönefeld: live OSM employers, public cross-reference, and transparent
+          corridor model (June 2026 stakeholder signal).
+        </p>
+        <Link
+          href="/beschaeftigung"
+          className="mt-2 inline-block rounded-lg bg-amber-400/15 px-3 py-1.5 text-xs font-medium text-amber-100 hover:bg-amber-400/25"
+        >
+          Open workforce briefing →
+        </Link>
+      </div>
+
       <div className="rounded-lg border border-sky-500/20 bg-sky-950/20 px-3 py-2">
         <div className="text-xs font-semibold text-sky-200">Evidence for June 12</div>
         <p className="mt-1 text-xs text-white/70">

@@ -1,0 +1,279 @@
+{
+  "updatedAt": "2026-06-25",
+  "note": "Group/corporate figures unless scope=site|entity. Never sum group figures across rows.",
+  "brands": [
+    {
+      "match": "bb business hub|business hub schönefeld|business hub schoenefeld",
+      "employees": 800,
+      "firms": 50,
+      "scope": "site",
+      "source": "BER+ member news / Alpine Immobilien · Feb 2025",
+      "confidence": "member_cited"
+    },
+    {
+      "match": "flughafen berlin brandenburg|fbb|ausweisdienst flughafen",
+      "employees": 2131,
+      "scope": "entity",
+      "source": "FBB Geschäftsbericht 2023 · Jahresdurchschnitt (Statista / Unternehmensbericht)",
+      "confidence": "registry"
+    },
+    {
+      "match": "\\bdhl\\b",
+      "employees": 480000,
+      "scope": "group",
+      "source": "Wikidata Q489815 · DHL Group (2024)",
+      "confidence": "wikidata"
+    },
+    {
+      "match": "dachser",
+      "employees": 37500,
+      "scope": "group",
+      "source": "Dachser Group press release 2025 · worldwide",
+      "confidence": "press"
+    },
+    {
+      "match": "dfs deutsche flugsicherung|\\bdfs\\b|dfs-technik",
+      "employees": 5800,
+      "scope": "group",
+      "source": "DFS Deutsche Flugsicherung · corporate profile",
+      "confidence": "press"
+    },
+    {
+      "match": "\\bdsv\\b",
+      "employees": 22133,
+      "scope": "group",
+      "source": "Wikidata Q1155771 · DSV A/S",
+      "confidence": "wikidata"
+    },
+    {
+      "match": "\\be\\.on\\b|e\\.on",
+      "employees": 72083,
+      "scope": "group",
+      "source": "Wikidata Q270223 · E.ON SE",
+      "confidence": "wikidata"
+    },
+    {
+      "match": "\\bedeka\\b",
+      "employees": 402000,
+      "scope": "group",
+      "source": "Wikidata Q701755 · EDEKA Zentrale",
+      "confidence": "wikidata"
+    },
+    {
+      "match": "\\baldi\\b",
+      "employees": 112000,
+      "scope": "group",
+      "source": "Aldi Nord + Süd published headcount band · Germany/Europe",
+      "confidence": "press"
+    },
+    {
+      "match": "bauhaus",
+      "employees": 33000,
+      "scope": "group",
+      "source": "Bauhaus AG · corporate reporting",
+      "confidence": "press"
+    },
+    {
+      "match": "allianz|barmenia versicherung|huk coburg",
+      "employees": null,
+      "employeesByBrand": {
+        "allianz": { "employees": 140253, "source": "Wikidata Q487292 · Allianz SE" },
+        "barmenia": { "employees": 4500, "source": "Barmenia Gruppe · annual report band" },
+        "huk": { "employees": 13000, "source": "HUK-COBURG · corporate site" }
+      },
+      "scope": "group",
+      "source": "Insurer branch on map ≠ group headcount; brand-level corporate data",
+      "confidence": "wikidata"
+    },
+    {
+      "match": "ikea",
+      "employees": 225000,
+      "scope": "group",
+      "source": "Inter IKEA Group · annual summary",
+      "confidence": "press"
+    },
+    {
+      "match": "kaufland",
+      "employees": 150000,
+      "scope": "group",
+      "source": "Schwarz Gruppe / Kaufland · corporate",
+      "confidence": "press"
+    },
+    {
+      "match": "\\blidl\\b",
+      "employees": 376000,
+      "scope": "group",
+      "source": "Schwarz Gruppe · Lidl corporate",
+      "confidence": "press"
+    },
+    {
+      "match": "\\brewe\\b",
+      "employees": 390000,
+      "scope": "group",
+      "source": "REWE Group · annual report",
+      "confidence": "press"
+    },
+    {
+      "match": "netto marken-discount|penny|fressnapf",
+      "employees": null,
+      "employeesByBrand": {
+        "netto": { "employees": 402000, "source": "EDEKA Group (Netto)" },
+        "penny": { "employees": 390000, "source": "REWE Group (Penny)" },
+        "fressnapf": { "employees": 15000, "source": "Fressnapf Holding SE" }
+      },
+      "scope": "group",
+      "confidence": "press"
+    },
+    {
+      "match": "\\bsap se\\b|\\bsap\\b",
+      "employees": 109000,
+      "scope": "group",
+      "source": "SAP SE · annual report 2024",
+      "confidence": "registry"
+    },
+    {
+      "match": "amazon|logistikzentrum amazon",
+      "employees": 1500000,
+      "scope": "group",
+      "source": "Amazon.com Inc · global; Berlin-Brandenburg FC site headcount not disclosed",
+      "confidence": "press"
+    },
+    {
+      "match": "lufthansa",
+      "employees": 100000,
+      "scope": "group",
+      "source": "Lufthansa Group · annual report band",
+      "confidence": "press"
+    },
+    {
+      "match": "securitas",
+      "employees": 358000,
+      "scope": "group",
+      "source": "Securitas AB · global",
+      "confidence": "press"
+    },
+    {
+      "match": "sew eurodrive|sew-eurodrive",
+      "employees": 21000,
+      "scope": "group",
+      "source": "SEW-EURODRIVE GmbH & Co KG · corporate",
+      "confidence": "press"
+    },
+    {
+      "match": "fastenal",
+      "employees": 22000,
+      "scope": "group",
+      "source": "Fastenal Company · SEC 10-K 2024",
+      "confidence": "registry"
+    },
+    {
+      "match": "carl stahl",
+      "employees": 1800,
+      "scope": "group",
+      "source": "Carl Stahl Group · corporate",
+      "confidence": "press"
+    },
+    {
+      "match": "emo trans",
+      "employees": 1200,
+      "scope": "group",
+      "source": "Emo Trans · corporate logistics network",
+      "confidence": "press"
+    },
+    {
+      "match": "ridi leuchten",
+      "employees": 350,
+      "scope": "group",
+      "source": "RIDI Group · company profile",
+      "confidence": "press"
+    },
+    {
+      "match": "\\bsegro\\b",
+      "employees": 1800,
+      "scope": "group",
+      "source": "SEGRO plc · employees (UK-listed)",
+      "confidence": "registry"
+    },
+    {
+      "match": "belfor",
+      "employees": 11000,
+      "scope": "group",
+      "source": "BELFOR Europe / BELFOR Group",
+      "confidence": "press"
+    },
+    {
+      "match": "mewa textil",
+      "employees": 5100,
+      "scope": "group",
+      "source": "MEWA Textil-Service · corporate",
+      "confidence": "press"
+    },
+    {
+      "match": "interseroh",
+      "employees": 9000,
+      "scope": "group",
+      "source": "Interseroh+ (ALBA Group)",
+      "confidence": "press"
+    },
+    {
+      "match": "storopack",
+      "employees": 7000,
+      "scope": "group",
+      "source": "Storopack · corporate",
+      "confidence": "press"
+    },
+    {
+      "match": "coolblue",
+      "employees": 20000,
+      "scope": "group",
+      "source": "Coolblue · corporate (NL)",
+      "confidence": "press"
+    },
+    {
+      "match": "mcdonald",
+      "employees": 150000,
+      "scope": "group",
+      "source": "McDonald's Deutschland / global franchise model",
+      "confidence": "press"
+    },
+    {
+      "match": "mercedes-benz|man truck",
+      "employees": null,
+      "employeesByBrand": {
+        "mercedes": { "employees": 166000, "source": "Mercedes-Benz Group AG" },
+        "man": { "employees": 35000, "source": "MAN Truck & Bus SE" }
+      },
+      "scope": "group",
+      "confidence": "press"
+    },
+    {
+      "match": "nbb netzgesellschaft",
+      "employees": 1900,
+      "scope": "entity",
+      "source": "NBB Netzgesellschaft Berlin-Brandenburg · Jahresabschluss band",
+      "confidence": "registry"
+    },
+    {
+      "match": "luftfahrt-bundesamt",
+      "employees": 1200,
+      "scope": "entity",
+      "source": "Bundesbehörde · Bundeshaushalt / Dienststellengröße",
+      "confidence": "press"
+    },
+    {
+      "match": "\\bgo!\\b",
+      "employees": 2500,
+      "scope": "group",
+      "source": "GO! Express & Logistics · network",
+      "confidence": "press"
+    },
+    {
+      "match": "geis air|mimberg spedition|roadline berlin|h\\.z\\. logistics|bro logistik",
+      "employees": null,
+      "employeesRange": "50–500",
+      "scope": "sme_logistics",
+      "source": "Mittelstand logistics — site headcount not in public registry; typical SME band",
+      "confidence": "estimate"
+    }
+  ]
+}

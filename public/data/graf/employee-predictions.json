@@ -1,0 +1,1027 @@
+{
+  "generatedAt": "2026-06-25T17:04:17.003Z",
+  "count": 102,
+  "sumEmployees": 4075,
+  "predictions": [
+    {
+      "id": "way/37011030",
+      "name": "Gewerbepark Schönefeld",
+      "landuse": "commercial",
+      "employees": 357,
+      "employeesRange": "92–402",
+      "p25": 92,
+      "p50": 207,
+      "p75": 402
+    },
+    {
+      "id": "way/991179992",
+      "name": "Logistikzentrum Airport Park Berlin",
+      "landuse": "commercial",
+      "employees": 192,
+      "employeesRange": "69–253",
+      "p25": 69,
+      "p50": 138,
+      "p75": 253
+    },
+    {
+      "id": "way/23558195",
+      "name": "Briefzentrum 12/Logistikzentrum Berlin Südost",
+      "landuse": "industrial",
+      "employees": 171,
+      "employeesRange": "69–253",
+      "p25": 69,
+      "p50": 138,
+      "p75": 253
+    },
+    {
+      "id": "way/219822391",
+      "name": "Gewerbepark Wildau",
+      "landuse": "commercial",
+      "employees": 157,
+      "employeesRange": "86–378",
+      "p25": 86,
+      "p50": 194,
+      "p75": 378
+    },
+    {
+      "id": "way/129671540",
+      "name": "gatelands Infocenter",
+      "landuse": "office",
+      "employees": 154,
+      "employeesRange": "46–207",
+      "p25": 46,
+      "p50": 103,
+      "p75": 207
+    },
+    {
+      "id": "way/126897223",
+      "name": "Berlin ExpoCenter Airport",
+      "landuse": "commercial",
+      "employees": 123,
+      "employeesRange": "29–161",
+      "p25": 29,
+      "p50": 75,
+      "p75": 161
+    },
+    {
+      "id": "node/4481308097",
+      "name": "Rohrleitungs- und Anlagenbau Königs Wusterhausen GmbH & Co. KG",
+      "landuse": "company",
+      "employees": 107,
+      "employeesRange": "30–119",
+      "p25": 30,
+      "p50": 59,
+      "p75": 119
+    },
+    {
+      "id": "node/5832034235",
+      "name": "M&M Air Sea Cargo",
+      "landuse": "logistics",
+      "employees": 106,
+      "employeesRange": "25–109",
+      "p25": 25,
+      "p50": 55,
+      "p75": 109
+    },
+    {
+      "id": "way/39321608",
+      "name": "Roadline",
+      "landuse": "industrial",
+      "employees": 96,
+      "employeesRange": "29–109",
+      "p25": 29,
+      "p50": 60,
+      "p75": 109
+    },
+    {
+      "id": "way/1290587616",
+      "name": "BMW RIller & Schnauck",
+      "landuse": "commercial",
+      "employees": 86,
+      "employeesRange": "29–109",
+      "p25": 29,
+      "p50": 63,
+      "p75": 109
+    },
+    {
+      "id": "node/12146838731",
+      "name": "Retouching de Luxe GmbH & Co.KG",
+      "landuse": "company",
+      "employees": 85,
+      "employeesRange": "21–98",
+      "p25": 21,
+      "p50": 48,
+      "p75": 98
+    },
+    {
+      "id": "way/28273460",
+      "name": "Bauhof Tiefbauamt Treptow-Köpenick",
+      "landuse": "industrial",
+      "employees": 81,
+      "employeesRange": "32–126",
+      "p25": 32,
+      "p50": 63,
+      "p75": 126
+    },
+    {
+      "id": "way/129671589",
+      "name": "BER Geb. Y024",
+      "landuse": "industrial",
+      "employees": 69,
+      "employeesRange": "17–98",
+      "p25": 17,
+      "p50": 46,
+      "p75": 98
+    },
+    {
+      "id": "way/24057088",
+      "name": "Y013",
+      "landuse": "commercial",
+      "employees": 67,
+      "employeesRange": "17–98",
+      "p25": 17,
+      "p50": 46,
+      "p75": 98
+    },
+    {
+      "id": "way/129647069",
+      "name": "AMK Logistik GmbH",
+      "landuse": "commercial",
+      "employees": 67,
+      "employeesRange": "25–109",
+      "p25": 25,
+      "p50": 55,
+      "p75": 109
+    },
+    {
+      "id": "way/24257917",
+      "name": "Höffner Lager",
+      "landuse": "commercial",
+      "employees": 66,
+      "employeesRange": "17–81",
+      "p25": 17,
+      "p50": 40,
+      "p75": 81
+    },
+    {
+      "id": "node/5832034215",
+      "name": "GO!",
+      "landuse": "logistics",
+      "employees": 65,
+      "employeesRange": "17–75",
+      "p25": 17,
+      "p50": 40,
+      "p75": 75
+    },
+    {
+      "id": "node/5832034217",
+      "name": "Riedel Bau",
+      "landuse": "construction_company",
+      "employees": 61,
+      "employeesRange": "32–126",
+      "p25": 32,
+      "p50": 63,
+      "p75": 126
+    },
+    {
+      "id": "way/39321590",
+      "name": "KONSTRUKTA",
+      "landuse": "industrial",
+      "employees": 61,
+      "employeesRange": "17–75",
+      "p25": 17,
+      "p50": 37,
+      "p75": 75
+    },
+    {
+      "id": "way/157968768",
+      "name": "BER-FOC - Flight Operation Center",
+      "landuse": "commercial",
+      "employees": 53,
+      "employeesRange": "46–207",
+      "p25": 46,
+      "p50": 103,
+      "p75": 207
+    },
+    {
+      "id": "way/37077971",
+      "name": "Gebäude Y035, Zentraler Einkauf",
+      "landuse": "industrial",
+      "employees": 52,
+      "employeesRange": "17–98",
+      "p25": 17,
+      "p50": 46,
+      "p75": 98
+    },
+    {
+      "id": "way/39321661",
+      "name": "RUWE | Betriebshof Süd-Ost",
+      "landuse": "commercial",
+      "employees": 51,
+      "employeesRange": "23–103",
+      "p25": 23,
+      "p50": 52,
+      "p75": 103
+    },
+    {
+      "id": "way/284593262",
+      "name": "c+s Metallbau GmbH",
+      "landuse": "commercial",
+      "employees": 50,
+      "employeesRange": "30–119",
+      "p25": 30,
+      "p50": 59,
+      "p75": 119
+    },
+    {
+      "id": "node/9916993742",
+      "name": "DNS:NET Internet Service GmbH",
+      "landuse": "telecommunication",
+      "employees": 48,
+      "employeesRange": "23–103",
+      "p25": 23,
+      "p50": 52,
+      "p75": 103
+    },
+    {
+      "id": "way/686911956",
+      "name": "AKS Automations-und Klimasysteme GmbH",
+      "landuse": "commercial",
+      "employees": 47,
+      "employeesRange": "11–49",
+      "p25": 11,
+      "p50": 24,
+      "p75": 49
+    },
+    {
+      "id": "way/906399043",
+      "name": "Gröner-Schulze GmbH",
+      "landuse": "commercial",
+      "employees": 45,
+      "employeesRange": "12–48",
+      "p25": 12,
+      "p50": 25,
+      "p75": 48
+    },
+    {
+      "id": "way/39321655",
+      "name": "Paul Hildebrandt AG",
+      "landuse": "industrial",
+      "employees": 43,
+      "employeesRange": "32–126",
+      "p25": 32,
+      "p50": 63,
+      "p75": 126
+    },
+    {
+      "id": "way/175704423",
+      "name": "Energiezentrale Ost",
+      "landuse": "industrial",
+      "employees": 43,
+      "employeesRange": "12–52",
+      "p25": 12,
+      "p50": 25,
+      "p75": 52
+    },
+    {
+      "id": "way/1065166304",
+      "name": "navtec",
+      "landuse": "commercial",
+      "employees": 43,
+      "employeesRange": "9–44",
+      "p25": 9,
+      "p50": 21,
+      "p75": 44
+    },
+    {
+      "id": "way/158167884",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "employees": 38,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "way/749560829",
+      "name": "Innotech Versorgungstechnik",
+      "landuse": "industrial",
+      "employees": 38,
+      "employeesRange": "12–52",
+      "p25": 12,
+      "p50": 25,
+      "p75": 52
+    },
+    {
+      "id": "way/136089839",
+      "name": "Feuer- und Rettungswache Schönefeld",
+      "landuse": "commercial",
+      "employees": 36,
+      "employeesRange": "21–55",
+      "p25": 21,
+      "p50": 37,
+      "p75": 55
+    },
+    {
+      "id": "way/226114017",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "employees": 36,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "way/226114020",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "employees": 36,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "way/906399042",
+      "name": "HOCO ONLINE GmbH",
+      "landuse": "commercial",
+      "employees": 36,
+      "employeesRange": "23–103",
+      "p25": 23,
+      "p50": 52,
+      "p75": 103
+    },
+    {
+      "id": "node/7637817130",
+      "name": "Monteurzimmer Schönefeld",
+      "landuse": "company",
+      "employees": 35,
+      "employeesRange": "13–59",
+      "p25": 13,
+      "p50": 30,
+      "p75": 59
+    },
+    {
+      "id": "way/374324809",
+      "name": "Anlieferung 2",
+      "landuse": "commercial",
+      "employees": 35,
+      "employeesRange": "17–98",
+      "p25": 17,
+      "p50": 46,
+      "p75": 98
+    },
+    {
+      "id": "node/5832034222",
+      "name": "Wine & Harmony",
+      "landuse": "company",
+      "employees": 34,
+      "employeesRange": "7–35",
+      "p25": 7,
+      "p50": 16,
+      "p75": 35
+    },
+    {
+      "id": "way/22984244",
+      "name": "railway",
+      "landuse": "industrial",
+      "employees": 32,
+      "employeesRange": "9–49",
+      "p25": 9,
+      "p50": 22,
+      "p75": 49
+    },
+    {
+      "id": "way/37551330",
+      "name": "Kompostieranlage Wildau",
+      "landuse": "industrial",
+      "employees": 32,
+      "employeesRange": "11–49",
+      "p25": 11,
+      "p50": 24,
+      "p75": 49
+    },
+    {
+      "id": "way/157937040",
+      "name": "BER- BAW Abfallwirtschaft",
+      "landuse": "commercial",
+      "employees": 32,
+      "employeesRange": "12–52",
+      "p25": 12,
+      "p50": 25,
+      "p75": 52
+    },
+    {
+      "id": "node/11732161489",
+      "name": "AMS Airport Service",
+      "landuse": "yes",
+      "employees": 31,
+      "employeesRange": "29–126",
+      "p25": 29,
+      "p50": 63,
+      "p75": 126
+    },
+    {
+      "id": "node/10839971521",
+      "name": "Stahlbau & Bauschlosserei Nimsz",
+      "landuse": "company",
+      "employees": 30,
+      "employeesRange": "30–119",
+      "p25": 30,
+      "p50": 59,
+      "p75": 119
+    },
+    {
+      "id": "node/5832034229",
+      "name": "Veneo",
+      "landuse": "construction_company",
+      "employees": 29,
+      "employeesRange": "7–35",
+      "p25": 7,
+      "p50": 16,
+      "p75": 35
+    },
+    {
+      "id": "way/193019571",
+      "name": "Y085",
+      "landuse": "office",
+      "employees": 28,
+      "employeesRange": "17–98",
+      "p25": 17,
+      "p50": 46,
+      "p75": 98
+    },
+    {
+      "id": "way/1072592629",
+      "name": "the Unique",
+      "landuse": "office",
+      "employees": 28,
+      "employeesRange": "9–44",
+      "p25": 9,
+      "p50": 21,
+      "p75": 44
+    },
+    {
+      "id": "way/1110963057",
+      "name": "Omnibusgesellschaft Hartmann \"Der Südender\"",
+      "landuse": "industrial",
+      "employees": 27,
+      "employeesRange": "17–81",
+      "p25": 17,
+      "p50": 40,
+      "p75": 81
+    },
+    {
+      "id": "node/4481308098",
+      "name": "Storoackl",
+      "landuse": "company",
+      "employees": 26,
+      "employeesRange": "6–32",
+      "p25": 6,
+      "p50": 15,
+      "p75": 32
+    },
+    {
+      "id": "node/5832034221",
+      "name": "Sky Fox",
+      "landuse": "company",
+      "employees": 26,
+      "employeesRange": "7–35",
+      "p25": 7,
+      "p50": 16,
+      "p75": 35
+    },
+    {
+      "id": "node/5832034243",
+      "name": "Bonack",
+      "landuse": "company",
+      "employees": 26,
+      "employeesRange": "7–35",
+      "p25": 7,
+      "p50": 16,
+      "p75": 35
+    },
+    {
+      "id": "way/39321630",
+      "name": "Getränke Hoffmann",
+      "landuse": "industrial",
+      "employees": 26,
+      "employeesRange": "14–63",
+      "p25": 14,
+      "p50": 32,
+      "p75": 63
+    },
+    {
+      "id": "node/5832034238",
+      "name": "Stahl + Verbundbau",
+      "landuse": "engineering",
+      "employees": 25,
+      "employeesRange": "12–63",
+      "p25": 12,
+      "p50": 29,
+      "p75": 63
+    },
+    {
+      "id": "node/5832034214",
+      "name": "Zeros",
+      "landuse": "company",
+      "employees": 24,
+      "employeesRange": "7–35",
+      "p25": 7,
+      "p50": 16,
+      "p75": 35
+    },
+    {
+      "id": "way/36943679",
+      "name": "Kfz-Sachverständige Both & Lorenz GbR",
+      "landuse": "commercial",
+      "employees": 24,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/906399045",
+      "name": "Migrasys GmbH",
+      "landuse": "commercial",
+      "employees": 23,
+      "employeesRange": "9–44",
+      "p25": 9,
+      "p50": 21,
+      "p75": 44
+    },
+    {
+      "id": "way/39321598",
+      "name": "Motorenzentrum Wilhelm Schmidt GmbH",
+      "landuse": "commercial",
+      "employees": 22,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/273732561",
+      "name": "Bundesautobahn A 113 Tunnel Altglienicke Betriebsgebäude",
+      "landuse": "industrial",
+      "employees": 22,
+      "employeesRange": "7–32",
+      "p25": 7,
+      "p50": 16,
+      "p75": 32
+    },
+    {
+      "id": "way/157807233",
+      "name": "BVD Werkstatt",
+      "landuse": "commercial",
+      "employees": 21,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/226114019",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "employees": 21,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "way/298739073",
+      "name": "Ninos",
+      "landuse": "commercial",
+      "employees": 21,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/1042973533",
+      "name": "Moxy Berlin Airport",
+      "landuse": "commercial",
+      "employees": 21,
+      "employeesRange": "14–63",
+      "p25": 14,
+      "p50": 32,
+      "p75": 63
+    },
+    {
+      "id": "way/80261784",
+      "name": "gatelands",
+      "landuse": "commercial",
+      "employees": 20,
+      "employeesRange": "9–44",
+      "p25": 9,
+      "p50": 21,
+      "p75": 44
+    },
+    {
+      "id": "way/94504619",
+      "name": "LTV Berlin",
+      "landuse": "office",
+      "employees": 20,
+      "employeesRange": "4–21",
+      "p25": 4,
+      "p50": 10,
+      "p75": 21
+    },
+    {
+      "id": "way/502324698",
+      "name": "Wasserwerk",
+      "landuse": "commercial",
+      "employees": 20,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
+      "id": "way/524172568",
+      "name": "Instandhaltungswerk Grünau",
+      "landuse": "industrial",
+      "employees": 20,
+      "employeesRange": "13–59",
+      "p25": 13,
+      "p50": 30,
+      "p75": 59
+    },
+    {
+      "id": "node/8231757913",
+      "name": "KosmosLAB",
+      "landuse": "educational_institution",
+      "employees": 19,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "node/10795097539",
+      "name": "svt Schadensanierung",
+      "landuse": "company",
+      "employees": 19,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "node/10839971520",
+      "name": "Jens Löwe Wasseraufbereitung und Reinigungssysteme",
+      "landuse": "company",
+      "employees": 19,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
+      "id": "way/108654684",
+      "name": "Kompostierungsanlage",
+      "landuse": "industrial",
+      "employees": 19,
+      "employeesRange": "12–52",
+      "p25": 12,
+      "p50": 25,
+      "p75": 52
+    },
+    {
+      "id": "way/157807990",
+      "name": "TI Technische Instandhaltung",
+      "landuse": "commercial",
+      "employees": 19,
+      "employeesRange": "14–63",
+      "p25": 14,
+      "p50": 32,
+      "p75": 63
+    },
+    {
+      "id": "way/1022212870",
+      "name": "Kfz.-Werkstatt Dietmar Zupke",
+      "landuse": "commercial",
+      "employees": 19,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
+      "id": "way/28273877",
+      "name": "Schlösser Trucking",
+      "landuse": "industrial",
+      "employees": 18,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/320036669",
+      "name": "Georg-Elser-Werkstatt",
+      "landuse": "commercial",
+      "employees": 16,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
+      "id": "way/771111974",
+      "name": "Pension Schwalbenweg",
+      "landuse": "commercial",
+      "employees": 16,
+      "employeesRange": "14–63",
+      "p25": 14,
+      "p50": 32,
+      "p75": 63
+    },
+    {
+      "id": "way/339833820",
+      "name": "LTV Berlin",
+      "landuse": "commercial",
+      "employees": 15,
+      "employeesRange": "4–21",
+      "p25": 4,
+      "p50": 10,
+      "p75": 21
+    },
+    {
+      "id": "way/807385135",
+      "name": "Pumpwerk Altglienicke",
+      "landuse": "industrial",
+      "employees": 15,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "node/1432484182",
+      "name": "EquiConn Industriebedarf",
+      "landuse": "company",
+      "employees": 14,
+      "employeesRange": "6–32",
+      "p25": 6,
+      "p50": 15,
+      "p75": 32
+    },
+    {
+      "id": "way/226114018",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "employees": 14,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "node/5832034223",
+      "name": "Cross Jeans",
+      "landuse": "company",
+      "employees": 13,
+      "employeesRange": "7–35",
+      "p25": 7,
+      "p50": 16,
+      "p75": 35
+    },
+    {
+      "id": "node/5832034224",
+      "name": "Solaris Werkstatt",
+      "landuse": "energy_supplier",
+      "employees": 13,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/295211280",
+      "name": "HEM Tankstelle",
+      "landuse": "commercial",
+      "employees": 13,
+      "employeesRange": "5–13",
+      "p25": 5,
+      "p50": 8,
+      "p75": 13
+    },
+    {
+      "id": "way/807385134",
+      "name": "Bundesautobahn A 113 Tunnel Rudower Höhe Betriebsgebäude",
+      "landuse": "industrial",
+      "employees": 13,
+      "employeesRange": "7–32",
+      "p25": 7,
+      "p50": 16,
+      "p75": 32
+    },
+    {
+      "id": "way/226114021",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "employees": 12,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "way/335787467",
+      "name": "Sushi Yana",
+      "landuse": "commercial",
+      "employees": 12,
+      "employeesRange": "5–16",
+      "p25": 5,
+      "p50": 9,
+      "p75": 16
+    },
+    {
+      "id": "node/5832034220",
+      "name": "Medico",
+      "landuse": "medical",
+      "employees": 11,
+      "employeesRange": "5–18",
+      "p25": 5,
+      "p50": 9,
+      "p75": 18
+    },
+    {
+      "id": "node/5832034227",
+      "name": "Roto",
+      "landuse": "company",
+      "employees": 11,
+      "employeesRange": "7–35",
+      "p25": 7,
+      "p50": 16,
+      "p75": 35
+    },
+    {
+      "id": "node/5832034234",
+      "name": "Brandident",
+      "landuse": "logistics",
+      "employees": 11,
+      "employeesRange": "6–29",
+      "p25": 6,
+      "p50": 14,
+      "p75": 29
+    },
+    {
+      "id": "way/553479702",
+      "name": "Westgate",
+      "landuse": "commercial",
+      "employees": 11,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "node/5832034233",
+      "name": "SF Medical",
+      "landuse": "medical",
+      "employees": 10,
+      "employeesRange": "5–18",
+      "p25": 5,
+      "p50": 9,
+      "p75": 18
+    },
+    {
+      "id": "node/3512838254",
+      "name": "TFC Käufer",
+      "landuse": "educational_institution",
+      "employees": 9,
+      "employeesRange": "9–40",
+      "p25": 9,
+      "p50": 21,
+      "p75": 40
+    },
+    {
+      "id": "node/10926361570",
+      "name": "DAZ Diktiertechnik",
+      "landuse": "company",
+      "employees": 8,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
+      "id": "way/400539938",
+      "name": "Die Berliner Tischler",
+      "landuse": "commercial",
+      "employees": 8,
+      "employeesRange": "7–25",
+      "p25": 7,
+      "p50": 14,
+      "p75": 25
+    },
+    {
+      "id": "way/24250357",
+      "name": "KFZ-Werkstatt Kaross GmbH",
+      "landuse": "commercial",
+      "employees": 7,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/501034402",
+      "name": "Global Automobile",
+      "landuse": "commercial",
+      "employees": 7,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/35473015",
+      "name": "Kfz-Meisterbetrieb Meyer",
+      "landuse": "commercial",
+      "employees": 6,
+      "employeesRange": "6–25",
+      "p25": 6,
+      "p50": 13,
+      "p75": 25
+    },
+    {
+      "id": "way/339830950",
+      "name": "Villa Rada",
+      "landuse": "commercial",
+      "employees": 6,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
+      "id": "node/4783932721",
+      "name": "McParking",
+      "landuse": "company",
+      "employees": 5,
+      "employeesRange": "2–7",
+      "p25": 2,
+      "p50": 3,
+      "p75": 7
+    },
+    {
+      "id": "way/691453463",
+      "name": "Pumpwerk Grünau",
+      "landuse": "industrial",
+      "employees": 5,
+      "employeesRange": "5–24",
+      "p25": 5,
+      "p50": 12,
+      "p75": 24
+    },
+    {
+      "id": "way/736296685",
+      "name": "Samosaea Reitverein",
+      "landuse": "commercial",
+      "employees": 5,
+      "employeesRange": "1–6",
+      "p25": 1,
+      "p50": 2,
+      "p75": 6
+    },
+    {
+      "id": "way/599440344",
+      "name": "McParking",
+      "landuse": "commercial",
+      "employees": 4,
+      "employeesRange": "2–7",
+      "p25": 2,
+      "p50": 3,
+      "p75": 7
+    },
+    {
+      "id": "node/9781228467",
+      "name": "Berlin Dragonboat Company",
+      "landuse": "association",
+      "employees": 3,
+      "employeesRange": "1–5",
+      "p25": 1,
+      "p50": 2,
+      "p75": 5
+    },
+    {
+      "id": "way/311931079",
+      "name": "Hundeschule",
+      "landuse": "commercial",
+      "employees": 3,
+      "employeesRange": "1–5",
+      "p25": 1,
+      "p50": 2,
+      "p75": 5
+    }
+  ]
+}

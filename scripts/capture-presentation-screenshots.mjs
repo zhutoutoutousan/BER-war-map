@@ -5,6 +5,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { hideDevOverlay, registerHideDevOverlayInit } from "./hide-dev-overlay.mjs";
 
 const PORT = Number(process.env.BER_WAR_MAP_PORT ?? process.env.PORT ?? 3001);
 const BASE = `http://localhost:${PORT}`;
@@ -79,6 +80,7 @@ async function waitScene(page, scene) {
 /** Full viewport */
 /** @param {import('playwright').Page} page */
 async function snapFull(page, file) {
+  await hideDevOverlay(page);
   await page.screenshot({ path: path.join(outDir, file), animations: "disabled", timeout: 120000 });
 }
 
@@ -90,6 +92,7 @@ async function snapLeftShowcase(page, file) {
   const box = await panel.boundingBox();
   if (!box) throw new Error("left panel box missing");
   const pad = 12;
+  await hideDevOverlay(page);
   await page.screenshot({
     path: path.join(outDir, file),
     animations: "disabled",
@@ -108,6 +111,7 @@ async function snapLeftShowcase(page, file) {
 async function snapMapShowcase(page, file) {
   await page.locator('[data-testid="showcase-map"]').waitFor({ state: "visible" });
   await page.waitForTimeout(500);
+  await hideDevOverlay(page);
   await page.screenshot({ path: path.join(outDir, file), animations: "disabled", timeout: 120000 });
 }
 
@@ -120,6 +124,7 @@ async function snapRightShowcase(page, file) {
   const box = await panel.boundingBox();
   if (!box) throw new Error("right panel box missing");
   const pad = 12;
+  await hideDevOverlay(page);
   await page.screenshot({
     path: path.join(outDir, file),
     animations: "disabled",
@@ -281,6 +286,7 @@ async function main() {
   const { chromium } = await import("playwright");
   const browser = await chromium.launch({ args: ["--disable-dev-shm-usage"] });
   const desktop = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+  await registerHideDevOverlayInit(desktop);
   desktop.setDefaultTimeout(120000);
 
   for (const shot of desktopShots) {
@@ -305,6 +311,7 @@ async function main() {
     isMobile: true,
     hasTouch: true
   });
+  await registerHideDevOverlayInit(mobile);
   mobile.setDefaultTimeout(120000);
   for (const shot of mobileOnly) {
     console.log(`→ ${shot.file} (mobile)`);

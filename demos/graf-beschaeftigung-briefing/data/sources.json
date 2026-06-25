@@ -1,0 +1,31 @@
+{
+  "stakeholder": {
+    "name": "Thomas Graf",
+    "role": "Geschäftsführer, Alpine Immobilien GmbH",
+    "berRole": "BER+ 2. Vorsitzender",
+    "project": "BB Business Hub, Schönefeld"
+  },
+  "bbBusinessHub": {
+    "firms": 50,
+    "employees": 800,
+    "source": "BER+ member news / Alpine campus reporting",
+    "sourceDate": "Feb 2025",
+    "note": "Member-cited proof point — not a public GIS registry"
+  },
+  "labourStudy": {
+    "title": "Arbeitsmarktstudie Flughafenregion Berlin Brandenburg 2025",
+    "publishers": ["FBB", "WFBB", "IHK"],
+    "topChallenge": "Fachkräftegewinnung",
+    "employmentTrend": "strong growth in airport region",
+    "sourceUrl": "https://wfb-brandenburg.de/"
+  },
+  "catchment": {
+    "populationM": 6.0,
+    "label": "Berlin–Brandenburg labour catchment (indicative)"
+  },
+  "pilot": {
+    "anchors": ["Alpine Immobilien", "SEGRO", "BUWOG", "WFG Dahme-Spreewald", "Sector Seven"],
+    "horizonDays": 90,
+    "deliverable": "Member-validated Beschäftigtenzahlen on the Board Room map"
+  }
+}

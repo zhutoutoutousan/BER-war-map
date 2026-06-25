@@ -106,6 +106,7 @@ function MapWorkspaceInner() {
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
   const memberParam = searchParams.get("member");
+  const panelParam = searchParams.get("panel");
   const { session, sessionReady, isMember, memberId: sessionMemberId, switchUser, guestPersona, boardRoomUnlocked } = useUserSession();
 
   const initialTab: LeftTab =
@@ -171,6 +172,7 @@ function MapWorkspaceInner() {
         session={session}
         guestPersona={guestPersona}
         switchUser={switchUser}
+        initialPanelOpen={panelParam === "open"}
       />
     </MapActionsProvider>
   );
@@ -189,7 +191,8 @@ function MapWorkspaceContent({
   loggedInMemberId,
   session,
   guestPersona,
-  switchUser
+  switchUser,
+  initialPanelOpen = false
 }: {
   leftTab: LeftTab;
   setLeftTab: (t: LeftTab) => void;
@@ -204,6 +207,7 @@ function MapWorkspaceContent({
   session: ReturnType<typeof useUserSession>["session"];
   guestPersona: ReturnType<typeof useUserSession>["guestPersona"];
   switchUser: () => void;
+  initialPanelOpen?: boolean;
 }) {
   const { boardRoomUnlocked, showGuidedTour, completeGuidedTour, skipGuidedTour, replayGuidedTour, tourReplayKey } =
     useUserSession();
@@ -227,7 +231,7 @@ function MapWorkspaceContent({
   const [timelineChromeOpen, setTimelineChromeOpen] = useState(false);
   const [mapLegendOpen, setMapLegendOpen] = useState(false);
   const [teleportBarOpen, setTeleportBarOpen] = useState(false);
-  const [leftPanelOpen, setLeftPanelOpen] = useState(false);
+  const [leftPanelOpen, setLeftPanelOpen] = useState(initialPanelOpen);
   const { stats: collabStats } = useCollaborativeInventory();
   const isMobile = useIsMobile();
   const [mobileSheet, setMobileSheet] = useState<MobileSheet>(null);
@@ -741,6 +745,7 @@ function MapWorkspaceContent({
           <div className="absolute bottom-0 right-0 z-20 flex max-w-[min(420px,calc(100vw-1rem))] flex-col items-end gap-2">
             <IntelligenceTV />
             <div className="floating-panel pointer-events-auto flex flex-wrap gap-1.5 p-1.5">
+              <NavLink href="/beschaeftigung">Workforce</NavLink>
               <NavLink href="/briefing">Briefing</NavLink>
               <NavLink href="/mitglieder">Mitglieder</NavLink>
               <NavLink href="/programme">Programme</NavLink>
