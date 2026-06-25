@@ -1,0 +1,4047 @@
+{
+  "fetchedAt": "2026-06-25T16:39:22.963Z",
+  "bbox": {
+    "south": 52.32,
+    "west": 13.42,
+    "north": 52.42,
+    "east": 13.62
+  },
+  "attribution": "© OpenStreetMap contributors · Overpass API · indicative only",
+  "summary": {
+    "totalElements": 643,
+    "mappedSites": 643,
+    "namedSites": 215,
+    "byLanduse": {
+      "company": 22,
+      "reception": 1,
+      "security": 2,
+      "insurance": 6,
+      "lawyer": 4,
+      "educational_institution": 2,
+      "logistics": 7,
+      "construction_company": 2,
+      "medical": 2,
+      "energy_supplier": 1,
+      "engineering": 2,
+      "design": 1,
+      "advertising_agency": 2,
+      "recycling_company": 1,
+      "religion": 1,
+      "government": 1,
+      "tax_advisor": 3,
+      "travel_agent": 1,
+      "moving_company": 1,
+      "association": 1,
+      "telecommunication": 1,
+      "yes": 1,
+      "estate_agent": 1,
+      "engineer": 2,
+      "industrial": 103,
+      "retail": 147,
+      "commercial": 299,
+      "office": 26
+    }
+  },
+  "sites": [
+    {
+      "id": "node/1432484182",
+      "name": "EquiConn Industriebedarf",
+      "landuse": "company",
+      "lat": 52.4042053,
+      "lon": 13.5847662,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/1672300730",
+      "name": "Rezeption Pension Schwalbenweg",
+      "landuse": "reception",
+      "lat": 52.397416,
+      "lon": 13.5344258,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/1921401345",
+      "name": "Ausweisdienst Flughafen Berlin Brandenburg",
+      "landuse": "security",
+      "lat": 52.3648143,
+      "lon": 13.5226222,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/2644179192",
+      "name": "Allianz",
+      "landuse": "insurance",
+      "lat": 52.4182881,
+      "lon": 13.579533,
+      "areaHa": null,
+      "operator": "Allianz Versicherung",
+      "named": true
+    },
+    {
+      "id": "node/2821383761",
+      "name": "Rechtsanwältin Carmen Suhr",
+      "landuse": "lawyer",
+      "lat": 52.4016193,
+      "lon": 13.5009707,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/2864985071",
+      "name": "Allianz Versicherung",
+      "landuse": "insurance",
+      "lat": 52.4068623,
+      "lon": 13.4394813,
+      "areaHa": null,
+      "operator": "Allianz SE",
+      "named": true
+    },
+    {
+      "id": "node/3512838254",
+      "name": "TFC Käufer",
+      "landuse": "educational_institution",
+      "lat": 52.3663291,
+      "lon": 13.5607273,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/4369659349",
+      "name": "Carsten Howe HUK Coburg",
+      "landuse": "insurance",
+      "lat": 52.4160009,
+      "lon": 13.4981886,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/4481308097",
+      "name": "Rohrleitungs- und Anlagenbau Königs Wusterhausen GmbH & Co. KG",
+      "landuse": "company",
+      "lat": 52.3209117,
+      "lon": 13.5915556,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/4481308098",
+      "name": "Storoackl",
+      "landuse": "company",
+      "lat": 52.3211855,
+      "lon": 13.5937845,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/4783932721",
+      "name": "McParking",
+      "landuse": "company",
+      "lat": 52.3899159,
+      "lon": 13.5375206,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5188063356",
+      "name": "Ridi Leuchten",
+      "landuse": "company",
+      "lat": 52.3450306,
+      "lon": 13.6161079,
+      "areaHa": null,
+      "operator": "RIDI Leuchten GmbH",
+      "named": true
+    },
+    {
+      "id": "node/5832034214",
+      "name": "Zeros",
+      "landuse": "company",
+      "lat": 52.3932571,
+      "lon": 13.541565,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034215",
+      "name": "GO!",
+      "landuse": "logistics",
+      "lat": 52.3934918,
+      "lon": 13.5422024,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034216",
+      "name": "Emo Trans",
+      "landuse": "logistics",
+      "lat": 52.3936112,
+      "lon": 13.542521,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034217",
+      "name": "Riedel Bau",
+      "landuse": "construction_company",
+      "lat": 52.3936725,
+      "lon": 13.5427011,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034218",
+      "name": "DSV",
+      "landuse": "logistics",
+      "lat": 52.3937572,
+      "lon": 13.5429353,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034220",
+      "name": "Medico",
+      "landuse": "medical",
+      "lat": 52.3936436,
+      "lon": 13.5434085,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034221",
+      "name": "Sky Fox",
+      "landuse": "company",
+      "lat": 52.393585,
+      "lon": 13.5432284,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034222",
+      "name": "Wine & Harmony",
+      "landuse": "company",
+      "lat": 52.3934308,
+      "lon": 13.5428034,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034223",
+      "name": "Cross Jeans",
+      "landuse": "company",
+      "lat": 52.3932258,
+      "lon": 13.5422901,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034224",
+      "name": "Solaris Werkstatt",
+      "landuse": "energy_supplier",
+      "lat": 52.3930658,
+      "lon": 13.5418325,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034225",
+      "name": "SEW Eurodrive",
+      "landuse": "engineering",
+      "lat": 52.3932964,
+      "lon": 13.5437732,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034227",
+      "name": "Roto",
+      "landuse": "company",
+      "lat": 52.3931545,
+      "lon": 13.5433698,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034228",
+      "name": "Fastenal",
+      "landuse": "logistics",
+      "lat": 52.3930687,
+      "lon": 13.5431576,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034229",
+      "name": "Veneo",
+      "landuse": "construction_company",
+      "lat": 52.3929477,
+      "lon": 13.5428193,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034230",
+      "name": "Weinreich + Heinrich",
+      "landuse": "design",
+      "lat": 52.3928728,
+      "lon": 13.5426177,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034231",
+      "name": "Carl Stahl",
+      "landuse": "company",
+      "lat": 52.3927033,
+      "lon": 13.5421516,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034232",
+      "name": "Fontline",
+      "landuse": "advertising_agency",
+      "lat": 52.3929589,
+      "lon": 13.5436154,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034233",
+      "name": "SF Medical",
+      "landuse": "medical",
+      "lat": 52.3929446,
+      "lon": 13.5442017,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034234",
+      "name": "Brandident",
+      "landuse": "logistics",
+      "lat": 52.3926234,
+      "lon": 13.5440038,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034235",
+      "name": "M&M Air Sea Cargo",
+      "landuse": "logistics",
+      "lat": 52.3925153,
+      "lon": 13.5431254,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034237",
+      "name": "Interseroh",
+      "landuse": "recycling_company",
+      "lat": 52.3921426,
+      "lon": 13.5427284,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034238",
+      "name": "Stahl + Verbundbau",
+      "landuse": "engineering",
+      "lat": 52.3919051,
+      "lon": 13.5428964,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034240",
+      "name": "H.Z. Logistics",
+      "landuse": "logistics",
+      "lat": 52.3921101,
+      "lon": 13.54347,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034241",
+      "name": "JFC Deutschland",
+      "landuse": "religion",
+      "lat": 52.3922927,
+      "lon": 13.5439609,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034242",
+      "name": "Securitas",
+      "landuse": "security",
+      "lat": 52.3924493,
+      "lon": 13.5443617,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/5832034243",
+      "name": "Bonack",
+      "landuse": "company",
+      "lat": 52.392641,
+      "lon": 13.5448842,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/6043694256",
+      "name": "SAP SE",
+      "landuse": "company",
+      "lat": 52.3884419,
+      "lon": 13.5090891,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/7258102168",
+      "name": "JGS Rechtsanwaltsgesellschaft mbH",
+      "landuse": "lawyer",
+      "lat": 52.3888806,
+      "lon": 13.5105088,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/7344438230",
+      "name": "Luftfahrt-Bundesamt Außenstelle Berlin",
+      "landuse": "government",
+      "lat": 52.3963685,
+      "lon": 13.5368434,
+      "areaHa": null,
+      "operator": "Bundesministeriums für Verkehr und digitale Infrastruktur",
+      "named": true
+    },
+    {
+      "id": "node/7477156208",
+      "name": "Versicherungsagentur Ivo Lehmann",
+      "landuse": "insurance",
+      "lat": 52.4014697,
+      "lon": 13.5617369,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/7637817130",
+      "name": "Monteurzimmer Schönefeld",
+      "landuse": "company",
+      "lat": 52.3481365,
+      "lon": 13.6057572,
+      "areaHa": null,
+      "operator": "Pack N Park GmbH",
+      "named": true
+    },
+    {
+      "id": "node/7869578941",
+      "name": "SAHU MEDIA",
+      "landuse": "advertising_agency",
+      "lat": 52.4195365,
+      "lon": 13.4926881,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/7902898333",
+      "name": "Uwe Brüning Steuerberater",
+      "landuse": "tax_advisor",
+      "lat": 52.4191196,
+      "lon": 13.4933215,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/7902903994",
+      "name": "Steuerberatung Annette Schmidt",
+      "landuse": "tax_advisor",
+      "lat": 52.4181196,
+      "lon": 13.494564,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/7902939270",
+      "name": "B&L",
+      "landuse": "tax_advisor",
+      "lat": 52.4168712,
+      "lon": 13.4961604,
+      "areaHa": null,
+      "operator": "Carsten Bechert & Stephan Lüdecke",
+      "named": true
+    },
+    {
+      "id": "node/7902939271",
+      "name": "Rechtsanwaltkanzlerei Melanie Rittger",
+      "landuse": "lawyer",
+      "lat": 52.4168835,
+      "lon": 13.4961874,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/7942839828",
+      "name": "Reisebüro Schöne",
+      "landuse": "travel_agent",
+      "lat": 52.4171528,
+      "lon": 13.4966131,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/8231757913",
+      "name": "KosmosLAB",
+      "landuse": "educational_institution",
+      "lat": 52.4029766,
+      "lon": 13.5264159,
+      "areaHa": null,
+      "operator": "WeTeK Berlin gGmbH",
+      "named": true
+    },
+    {
+      "id": "node/8423049424",
+      "name": "BRO LOGISTIK GmbH",
+      "landuse": "company",
+      "lat": 52.3550506,
+      "lon": 13.5972,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/8766255538",
+      "name": "Regatta-Umzüge",
+      "landuse": "moving_company",
+      "lat": 52.4178692,
+      "lon": 13.5799186,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/9781228467",
+      "name": "Berlin Dragonboat Company",
+      "landuse": "association",
+      "lat": 52.4089961,
+      "lon": 13.6038543,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/9916993742",
+      "name": "DNS:NET Internet Service GmbH",
+      "landuse": "telecommunication",
+      "lat": 52.3669274,
+      "lon": 13.5594565,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/10680801441",
+      "name": "Goldenstein Rechtsanwälte Rechtsanwaltsgesellschaft mbH",
+      "landuse": "lawyer",
+      "lat": 52.3753065,
+      "lon": 13.5426167,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/10795097539",
+      "name": "svt Schadensanierung",
+      "landuse": "company",
+      "lat": 52.3936179,
+      "lon": 13.5412746,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/10839971520",
+      "name": "Jens Löwe Wasseraufbereitung und Reinigungssysteme",
+      "landuse": "company",
+      "lat": 52.4012825,
+      "lon": 13.5832464,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/10839971521",
+      "name": "Stahlbau & Bauschlosserei Nimsz",
+      "landuse": "company",
+      "lat": 52.4007938,
+      "lon": 13.5832412,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/10926361570",
+      "name": "DAZ Diktiertechnik",
+      "landuse": "company",
+      "lat": 52.410586,
+      "lon": 13.5729416,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/11690700057",
+      "name": "Barmenia Versicherung - Luca Cappello",
+      "landuse": "insurance",
+      "lat": 52.4138602,
+      "lon": 13.4783628,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/11732161489",
+      "name": "AMS Airport Service",
+      "landuse": "yes",
+      "lat": 52.3706534,
+      "lon": 13.5245851,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/11778876726",
+      "name": "DFS Deutsche Flugsicherung GmbH",
+      "landuse": "company",
+      "lat": 52.3883969,
+      "lon": 13.5091271,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/12011988222",
+      "name": "Mimberg Spedition & Baustoffe GmbH & Co. KG",
+      "landuse": "company",
+      "lat": 52.3783789,
+      "lon": 13.5449299,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/12146838731",
+      "name": "Retouching de Luxe GmbH & Co.KG",
+      "landuse": "company",
+      "lat": 52.4049983,
+      "lon": 13.5606175,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/12164188964",
+      "name": "Engel & Völkers",
+      "landuse": "estate_agent",
+      "lat": 52.3734714,
+      "lon": 13.6190812,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/12536519221",
+      "name": "Barmenia Versicherung",
+      "landuse": "insurance",
+      "lat": 52.4013775,
+      "lon": 13.4525234,
+      "areaHa": null,
+      "operator": "Roman-Marcus Potempa",
+      "named": true
+    },
+    {
+      "id": "node/13246661936",
+      "name": "BELFOR",
+      "landuse": "engineer",
+      "lat": 52.3884131,
+      "lon": 13.4955581,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "node/13246661937",
+      "name": "Belfor DeHaDE GmbH",
+      "landuse": "engineer",
+      "lat": 52.3886898,
+      "lon": 13.4954817,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/22984244",
+      "name": "railway",
+      "landuse": "industrial",
+      "lat": 52.4053497,
+      "lon": 13.5854615,
+      "areaHa": null,
+      "operator": "railway",
+      "named": true
+    },
+    {
+      "id": "way/23492662",
+      "name": "IKEA",
+      "landuse": "retail",
+      "lat": 52.3669312,
+      "lon": 13.5557262,
+      "areaHa": null,
+      "operator": "IKEA Deutschland GmbH & Co. KG Niederlassung Waltersdorf",
+      "named": true
+    },
+    {
+      "id": "way/23492669",
+      "name": "Kibek",
+      "landuse": "retail",
+      "lat": 52.3682876,
+      "lon": 13.5564977,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/23558195",
+      "name": "Briefzentrum 12/Logistikzentrum Berlin Südost",
+      "landuse": "industrial",
+      "lat": 52.3848416,
+      "lon": 13.4900163,
+      "areaHa": null,
+      "operator": "Deutsche Post",
+      "named": true
+    },
+    {
+      "id": "way/24057088",
+      "name": "Y013",
+      "landuse": "commercial",
+      "lat": 52.3714298,
+      "lon": 13.5236123,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/24233901",
+      "name": "Flughafen Berlin Brandenburg GmbH",
+      "landuse": "office",
+      "lat": 52.3863409,
+      "lon": 13.5125269,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/24250357",
+      "name": "KFZ-Werkstatt Kaross GmbH",
+      "landuse": "commercial",
+      "lat": 52.4042395,
+      "lon": 13.4429806,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/24257917",
+      "name": "Höffner Lager",
+      "landuse": "commercial",
+      "lat": 52.3728782,
+      "lon": 13.562933,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/24273712",
+      "name": "Fachmarktzentrum Waltersdorf",
+      "landuse": "retail",
+      "lat": 52.3713973,
+      "lon": 13.5599158,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/24273822",
+      "name": "Lilienthal-Park",
+      "landuse": "retail",
+      "lat": 52.3666827,
+      "lon": 13.5612517,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/26933550",
+      "name": "Storopack",
+      "landuse": "commercial",
+      "lat": 52.321145,
+      "lon": 13.5945879,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/28273460",
+      "name": "Bauhof Tiefbauamt Treptow-Köpenick",
+      "landuse": "industrial",
+      "lat": 52.398045,
+      "lon": 13.5538024,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/28273877",
+      "name": "Schlösser Trucking",
+      "landuse": "industrial",
+      "lat": 52.397974,
+      "lon": 13.5482521,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/32471327",
+      "name": "Dorfzentrum",
+      "landuse": "retail",
+      "lat": 52.3644168,
+      "lon": 13.5931324,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/33542710",
+      "name": "Bauhaus",
+      "landuse": "retail",
+      "lat": 52.3580764,
+      "lon": 13.4363963,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/33542954",
+      "name": "McDonald's",
+      "landuse": "commercial",
+      "lat": 52.3585112,
+      "lon": 13.433027,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/35473015",
+      "name": "Kfz-Meisterbetrieb Meyer",
+      "landuse": "commercial",
+      "lat": 52.3912924,
+      "lon": 13.561806,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/36943679",
+      "name": "Kfz-Sachverständige Both & Lorenz GbR",
+      "landuse": "commercial",
+      "lat": 52.3746623,
+      "lon": 13.5791603,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/37011030",
+      "name": "Gewerbepark Schönefeld",
+      "landuse": "commercial",
+      "lat": 52.3691397,
+      "lon": 13.4709572,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/37035168",
+      "name": "Dachser",
+      "landuse": "commercial",
+      "lat": 52.3856173,
+      "lon": 13.492419,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/37077971",
+      "name": "Gebäude Y035, Zentraler Einkauf",
+      "landuse": "industrial",
+      "lat": 52.3694742,
+      "lon": 13.5233397,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/37121182",
+      "name": "Gaspumpstation",
+      "landuse": "industrial",
+      "lat": 52.3775147,
+      "lon": 13.5646854,
+      "areaHa": null,
+      "operator": "NBB Netzgesellschaft Berlin-Brandenburg",
+      "named": true
+    },
+    {
+      "id": "way/37551330",
+      "name": "Kompostieranlage Wildau",
+      "landuse": "industrial",
+      "lat": 52.3218207,
+      "lon": 13.6091725,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/38341365",
+      "name": "Rinn Beton- und Naturstein",
+      "landuse": "retail",
+      "lat": 52.3818539,
+      "lon": 13.4444738,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/38341402",
+      "name": "IM InterMobil",
+      "landuse": "retail",
+      "lat": 52.3935182,
+      "lon": 13.4421739,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/38915511",
+      "name": "Aldi",
+      "landuse": "retail",
+      "lat": 52.4056953,
+      "lon": 13.5235393,
+      "areaHa": null,
+      "operator": "ALDI Nord",
+      "named": true
+    },
+    {
+      "id": "way/39321586",
+      "name": "MEWA Textil-Service AG & Co. Groß Kienitz oHG",
+      "landuse": "commercial",
+      "lat": 52.3226242,
+      "lon": 13.4720694,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39321590",
+      "name": "KONSTRUKTA",
+      "landuse": "industrial",
+      "lat": 52.322882,
+      "lon": 13.4713069,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39321598",
+      "name": "Motorenzentrum Wilhelm Schmidt GmbH",
+      "landuse": "commercial",
+      "lat": 52.3234523,
+      "lon": 13.4714548,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39321608",
+      "name": "Roadline",
+      "landuse": "industrial",
+      "lat": 52.3201146,
+      "lon": 13.4750429,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39321615",
+      "name": "Roadline Berlin Internationale Spedition GmbH",
+      "landuse": "commercial",
+      "lat": 52.3204545,
+      "lon": 13.4744366,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39321630",
+      "name": "Getränke Hoffmann",
+      "landuse": "industrial",
+      "lat": 52.3202176,
+      "lon": 13.4712692,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39321655",
+      "name": "Paul Hildebrandt AG",
+      "landuse": "industrial",
+      "lat": 52.3210897,
+      "lon": 13.4705579,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39321661",
+      "name": "RUWE | Betriebshof Süd-Ost",
+      "landuse": "commercial",
+      "lat": 52.3208931,
+      "lon": 13.4724709,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/39488893",
+      "name": "Aldi",
+      "landuse": "retail",
+      "lat": 52.3681151,
+      "lon": 13.5623859,
+      "areaHa": null,
+      "operator": "Aldi Nord",
+      "named": true
+    },
+    {
+      "id": "way/52728882",
+      "name": "Kaufland",
+      "landuse": "retail",
+      "lat": 52.3571758,
+      "lon": 13.4324086,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/58621245",
+      "name": "Lidl",
+      "landuse": "retail",
+      "lat": 52.3225475,
+      "lon": 13.6155238,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/69121321",
+      "name": "DFS-Technik",
+      "landuse": "office",
+      "lat": 52.3623744,
+      "lon": 13.499118,
+      "areaHa": null,
+      "operator": "Deutsche Flugsicherung",
+      "named": true
+    },
+    {
+      "id": "way/77391057",
+      "name": "Das RADhaus Rudow",
+      "landuse": "retail",
+      "lat": 52.4165182,
+      "lon": 13.4974388,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/77391123",
+      "name": "EDEKA",
+      "landuse": "retail",
+      "lat": 52.4162634,
+      "lon": 13.4965888,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/80261784",
+      "name": "gatelands",
+      "landuse": "commercial",
+      "lat": 52.3760718,
+      "lon": 13.5414494,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/81414463",
+      "name": "NP",
+      "landuse": "retail",
+      "lat": 52.4187486,
+      "lon": 13.5051195,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/94504619",
+      "name": "LTV Berlin",
+      "landuse": "office",
+      "lat": 52.4159465,
+      "lon": 13.5820702,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/101184451",
+      "name": "Aldi",
+      "landuse": "retail",
+      "lat": 52.4189605,
+      "lon": 13.4220974,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/108654684",
+      "name": "Kompostierungsanlage",
+      "landuse": "industrial",
+      "lat": 52.3932075,
+      "lon": 13.4815271,
+      "areaHa": null,
+      "operator": "EBK GmbH",
+      "named": true
+    },
+    {
+      "id": "way/126897223",
+      "name": "Berlin ExpoCenter Airport",
+      "landuse": "commercial",
+      "lat": 52.3517419,
+      "lon": 13.4737646,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/129647069",
+      "name": "AMK Logistik GmbH",
+      "landuse": "commercial",
+      "lat": 52.3708578,
+      "lon": 13.4801825,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/129671540",
+      "name": "gatelands Infocenter",
+      "landuse": "office",
+      "lat": 52.3756169,
+      "lon": 13.5416138,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/129671589",
+      "name": "BER Geb. Y024",
+      "landuse": "industrial",
+      "lat": 52.3707134,
+      "lon": 13.5247029,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/136089839",
+      "name": "Feuer- und Rettungswache Schönefeld",
+      "landuse": "commercial",
+      "lat": 52.3921479,
+      "lon": 13.5059573,
+      "areaHa": null,
+      "operator": "Gemeinde Schönefeld",
+      "named": true
+    },
+    {
+      "id": "way/143705155",
+      "name": "Netto Marken-Discount",
+      "landuse": "retail",
+      "lat": 52.4180689,
+      "lon": 13.5810839,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/152177691",
+      "name": "Taut Passage",
+      "landuse": "retail",
+      "lat": 52.4124323,
+      "lon": 13.5719082,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/152708912",
+      "name": "Netto Marken-Discount",
+      "landuse": "retail",
+      "lat": 52.4058127,
+      "lon": 13.5326619,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/152892267",
+      "name": "Penny",
+      "landuse": "retail",
+      "lat": 52.405233,
+      "lon": 13.5281452,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/152892469",
+      "name": "E-Center",
+      "landuse": "retail",
+      "lat": 52.4022744,
+      "lon": 13.5246229,
+      "areaHa": null,
+      "operator": "EDEKA Center Amthor",
+      "named": true
+    },
+    {
+      "id": "way/154558319",
+      "name": "KFZ-Reperaturwerstatt René Hagedorn",
+      "landuse": "retail",
+      "lat": 52.4138333,
+      "lon": 13.5520841,
+      "areaHa": null,
+      "operator": "KFZ-Reperaturwerstatt René Hagedorn GmbH",
+      "named": true
+    },
+    {
+      "id": "way/154850108",
+      "name": "Auto-Center Altglienicke",
+      "landuse": "retail",
+      "lat": 52.4186851,
+      "lon": 13.5443583,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/154850116",
+      "name": "Vogel-Automobile",
+      "landuse": "retail",
+      "lat": 52.4192983,
+      "lon": 13.5408947,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/156066252",
+      "name": "Frank Bugs & Ingo Treder GbR",
+      "landuse": "retail",
+      "lat": 52.4191767,
+      "lon": 13.5454448,
+      "areaHa": null,
+      "operator": "Frank Bugs & Ingo Treder GbR",
+      "named": true
+    },
+    {
+      "id": "way/157807227",
+      "name": "E.ON",
+      "landuse": "industrial",
+      "lat": 52.3659103,
+      "lon": 13.5278368,
+      "areaHa": null,
+      "operator": "E.ON",
+      "named": true
+    },
+    {
+      "id": "way/157807233",
+      "name": "BVD Werkstatt",
+      "landuse": "commercial",
+      "lat": 52.3622455,
+      "lon": 13.5242563,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/157807990",
+      "name": "TI Technische Instandhaltung",
+      "landuse": "commercial",
+      "lat": 52.3643272,
+      "lon": 13.5280911,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/157937040",
+      "name": "BER- BAW Abfallwirtschaft",
+      "landuse": "commercial",
+      "lat": 52.3673978,
+      "lon": 13.5296868,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/157937385",
+      "name": "Flughafen Berlin Brandenburg GmbH",
+      "landuse": "office",
+      "lat": 52.3570117,
+      "lon": 13.4793277,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/157968768",
+      "name": "BER-FOC - Flight Operation Center",
+      "landuse": "commercial",
+      "lat": 52.3650363,
+      "lon": 13.5294152,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/158167884",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "lat": 52.3633687,
+      "lon": 13.5222909,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/175704423",
+      "name": "Energiezentrale Ost",
+      "landuse": "industrial",
+      "lat": 52.3656588,
+      "lon": 13.5277343,
+      "areaHa": null,
+      "operator": "E.DIS",
+      "named": true
+    },
+    {
+      "id": "way/193019571",
+      "name": "Y085",
+      "landuse": "office",
+      "lat": 52.3697834,
+      "lon": 13.5214489,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/193667377",
+      "name": "Segro Airport Park Berlin",
+      "landuse": "commercial",
+      "lat": 52.3931534,
+      "lon": 13.5426691,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/198652542",
+      "name": "Dachser, PAREXEL",
+      "landuse": "retail",
+      "lat": 52.3863044,
+      "lon": 13.49667,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/215393211",
+      "name": "Flughafen Berlin Brandenburg GmbH",
+      "landuse": "office",
+      "lat": 52.3866505,
+      "lon": 13.5099913,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/215393217",
+      "name": "Flughafen Berlin Brandenburg GmbH",
+      "landuse": "office",
+      "lat": 52.3868221,
+      "lon": 13.511271,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/219822391",
+      "name": "Gewerbepark Wildau",
+      "landuse": "commercial",
+      "lat": 52.3203743,
+      "lon": 13.59621,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/224215288",
+      "name": "Fressnapf",
+      "landuse": "retail",
+      "lat": 52.358928,
+      "lon": 13.4336122,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/224215289",
+      "name": "Getränke Hoffmann",
+      "landuse": "retail",
+      "lat": 52.3588302,
+      "lon": 13.4338537,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/226114017",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "lat": 52.3632436,
+      "lon": 13.5224764,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/226114018",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "lat": 52.3631724,
+      "lon": 13.5223046,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/226114019",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "lat": 52.3631743,
+      "lon": 13.5221945,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/226114020",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "lat": 52.3630405,
+      "lon": 13.5224427,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/226114021",
+      "name": "BER - Enteisung",
+      "landuse": "industrial",
+      "lat": 52.3630405,
+      "lon": 13.5222794,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/240916413",
+      "name": "Mercedes-Benz AirportCenter",
+      "landuse": "retail",
+      "lat": 52.3958143,
+      "lon": 13.5173885,
+      "areaHa": null,
+      "operator": "Mercedes-Benz Airport-Center",
+      "named": true
+    },
+    {
+      "id": "way/258653646",
+      "name": "Dedukt Beratung",
+      "landuse": "retail",
+      "lat": 52.4102391,
+      "lon": 13.4813719,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/262838683",
+      "name": "Netto Marken-Discount",
+      "landuse": "retail",
+      "lat": 52.3995257,
+      "lon": 13.5407617,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/273732561",
+      "name": "Bundesautobahn A 113 Tunnel Altglienicke Betriebsgebäude",
+      "landuse": "industrial",
+      "lat": 52.4056585,
+      "lon": 13.5220826,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/274931124",
+      "name": "E.ON",
+      "landuse": "industrial",
+      "lat": 52.3656828,
+      "lon": 13.527143,
+      "areaHa": null,
+      "operator": "E.ON",
+      "named": true
+    },
+    {
+      "id": "way/282557283",
+      "name": "Lindenblatt Passage",
+      "landuse": "retail",
+      "lat": 52.4072293,
+      "lon": 13.4394988,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/282573847",
+      "name": "M.C.F. Motor Company Fahrzeugvertriebsges. mbH",
+      "landuse": "retail",
+      "lat": 52.4069982,
+      "lon": 13.4412655,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/284593262",
+      "name": "c+s Metallbau GmbH",
+      "landuse": "commercial",
+      "lat": 52.4189741,
+      "lon": 13.4784818,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/295066497",
+      "name": "Dachser",
+      "landuse": "commercial",
+      "lat": 52.384468,
+      "lon": 13.4941758,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/295211280",
+      "name": "HEM Tankstelle",
+      "landuse": "commercial",
+      "lat": 52.3994902,
+      "lon": 13.5162953,
+      "areaHa": null,
+      "operator": "HEM",
+      "named": true
+    },
+    {
+      "id": "way/296142623",
+      "name": "Segro;Unitax Pharma Logistik",
+      "landuse": "retail",
+      "lat": 52.3832594,
+      "lon": 13.4915574,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/298739073",
+      "name": "Ninos",
+      "landuse": "commercial",
+      "lat": 52.4052558,
+      "lon": 13.5062546,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/311931079",
+      "name": "Hundeschule",
+      "landuse": "commercial",
+      "lat": 52.3769049,
+      "lon": 13.608621,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/320036669",
+      "name": "Georg-Elser-Werkstatt",
+      "landuse": "commercial",
+      "lat": 52.4100473,
+      "lon": 13.5711966,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/334286869",
+      "name": "Dachser Logistikzentrum Berlin Brandenburg",
+      "landuse": "office",
+      "lat": 52.3855071,
+      "lon": 13.4939849,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/335787467",
+      "name": "Sushi Yana",
+      "landuse": "commercial",
+      "lat": 52.4132661,
+      "lon": 13.4906117,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/336361562",
+      "name": "Lufthansa Aviation Training Berlin",
+      "landuse": "commercial",
+      "lat": 52.3960228,
+      "lon": 13.5356568,
+      "areaHa": null,
+      "operator": "Lufthansa Aviaton Training Operations Germany",
+      "named": true
+    },
+    {
+      "id": "way/339830950",
+      "name": "Villa Rada",
+      "landuse": "commercial",
+      "lat": 52.416389,
+      "lon": 13.5821782,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/339833820",
+      "name": "LTV Berlin",
+      "landuse": "commercial",
+      "lat": 52.4160745,
+      "lon": 13.5823247,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/374324809",
+      "name": "Anlieferung 2",
+      "landuse": "commercial",
+      "lat": 52.3584933,
+      "lon": 13.4364204,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/400539938",
+      "name": "Die Berliner Tischler",
+      "landuse": "commercial",
+      "lat": 52.3608803,
+      "lon": 13.4401405,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/439362293",
+      "name": "Flemming & Klingbeil",
+      "landuse": "retail",
+      "lat": 52.4192777,
+      "lon": 13.4932414,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/501034402",
+      "name": "Global Automobile",
+      "landuse": "commercial",
+      "lat": 52.3266088,
+      "lon": 13.4661912,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/502324698",
+      "name": "Wasserwerk",
+      "landuse": "commercial",
+      "lat": 52.3208006,
+      "lon": 13.6160345,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/524172568",
+      "name": "Instandhaltungswerk Grünau",
+      "landuse": "industrial",
+      "lat": 52.4046666,
+      "lon": 13.5863546,
+      "areaHa": null,
+      "operator": "S-Bahn Berlin GmbH",
+      "named": true
+    },
+    {
+      "id": "way/553479702",
+      "name": "Westgate",
+      "landuse": "commercial",
+      "lat": 52.3574827,
+      "lon": 13.4781995,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/559177111",
+      "name": "REWE",
+      "landuse": "retail",
+      "lat": 52.4128468,
+      "lon": 13.493213,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/589071889",
+      "name": "Netto Marken-Discount",
+      "landuse": "retail",
+      "lat": 52.4190527,
+      "lon": 13.5374614,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/599440344",
+      "name": "McParking",
+      "landuse": "commercial",
+      "lat": 52.3897816,
+      "lon": 13.5360121,
+      "areaHa": null,
+      "operator": "McParking",
+      "named": true
+    },
+    {
+      "id": "way/619548887",
+      "name": "Arztpraxis Schulzendorf – Peggy von Niederhäusern",
+      "landuse": "retail",
+      "lat": 52.3622935,
+      "lon": 13.5899681,
+      "areaHa": null,
+      "operator": "Peggy von Niederhäusern",
+      "named": true
+    },
+    {
+      "id": "way/621518211",
+      "name": "BELFOR",
+      "landuse": "commercial",
+      "lat": 52.3886306,
+      "lon": 13.4962396,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/677415519",
+      "name": "Logistikzentrum Amazon",
+      "landuse": "industrial",
+      "lat": 52.3396964,
+      "lon": 13.5582114,
+      "areaHa": null,
+      "operator": "Amazon",
+      "named": true
+    },
+    {
+      "id": "way/686911954",
+      "name": "Autoglück",
+      "landuse": "retail",
+      "lat": 52.4175195,
+      "lon": 13.4247712,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/686911955",
+      "name": "Autocenter-Buckow",
+      "landuse": "retail",
+      "lat": 52.4168962,
+      "lon": 13.4244887,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/686911956",
+      "name": "AKS Automations-und Klimasysteme GmbH",
+      "landuse": "commercial",
+      "lat": 52.4171877,
+      "lon": 13.4247166,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/686912098",
+      "name": "Autokraft Buckow",
+      "landuse": "retail",
+      "lat": 52.4167187,
+      "lon": 13.4239072,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/691453463",
+      "name": "Pumpwerk Grünau",
+      "landuse": "industrial",
+      "lat": 52.4163099,
+      "lon": 13.5768048,
+      "areaHa": null,
+      "operator": "Berliner Wasserbetriebe",
+      "named": true
+    },
+    {
+      "id": "way/729314681",
+      "name": "NBB Netzgesellschaft Berlin-Brandenburg",
+      "landuse": "industrial",
+      "lat": 52.3995771,
+      "lon": 13.6024647,
+      "areaHa": null,
+      "operator": "NBB Netzgesellschaft Berlin-Brandenburg",
+      "named": true
+    },
+    {
+      "id": "way/729314682",
+      "name": "NBB Netzgesellschaft Berlin-Brandenburg",
+      "landuse": "industrial",
+      "lat": 52.4036126,
+      "lon": 13.5930524,
+      "areaHa": null,
+      "operator": "NBB Netzgesellschaft Berlin-Brandenburg",
+      "named": true
+    },
+    {
+      "id": "way/736296685",
+      "name": "Samosaea Reitverein",
+      "landuse": "commercial",
+      "lat": 52.3970288,
+      "lon": 13.4511305,
+      "areaHa": null,
+      "operator": "SAMOSEA Reitverein für therapeutisches Reiten und Breitensport Großziethen e.V.",
+      "named": true
+    },
+    {
+      "id": "way/736296990",
+      "name": "Autohaus Blickpunkt GmbH",
+      "landuse": "retail",
+      "lat": 52.3945605,
+      "lon": 13.442348,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/736334804",
+      "name": "Koster - Bäder | Heizung | Solar | Service",
+      "landuse": "retail",
+      "lat": 52.3989316,
+      "lon": 13.4530329,
+      "areaHa": null,
+      "operator": "Koster GmbH",
+      "named": true
+    },
+    {
+      "id": "way/749560829",
+      "name": "Innotech Versorgungstechnik",
+      "landuse": "industrial",
+      "lat": 52.3588517,
+      "lon": 13.4381704,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/770733556",
+      "name": "Autohaus Altglienicke",
+      "landuse": "retail",
+      "lat": 52.4137443,
+      "lon": 13.529967,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/771111974",
+      "name": "Pension Schwalbenweg",
+      "landuse": "commercial",
+      "lat": 52.397537,
+      "lon": 13.5339646,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/771875106",
+      "name": "Autohaus Schönefeld",
+      "landuse": "retail",
+      "lat": 52.3804431,
+      "lon": 13.4452066,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/806373867",
+      "name": "REWE",
+      "landuse": "retail",
+      "lat": 52.3947502,
+      "lon": 13.4407656,
+      "areaHa": null,
+      "operator": "REWE Sebastian Schäfer oHG",
+      "named": true
+    },
+    {
+      "id": "way/807385134",
+      "name": "Bundesautobahn A 113 Tunnel Rudower Höhe Betriebsgebäude",
+      "landuse": "industrial",
+      "lat": 52.4133211,
+      "lon": 13.524477,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/807385135",
+      "name": "Pumpwerk Altglienicke",
+      "landuse": "industrial",
+      "lat": 52.4064018,
+      "lon": 13.5231487,
+      "areaHa": null,
+      "operator": "Berliner Wasserbetriebe",
+      "named": true
+    },
+    {
+      "id": "way/815473127",
+      "name": "DHL",
+      "landuse": "commercial",
+      "lat": 52.3912301,
+      "lon": 13.5357544,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/906399042",
+      "name": "HOCO ONLINE GmbH",
+      "landuse": "commercial",
+      "lat": 52.3916185,
+      "lon": 13.4917605,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/906399043",
+      "name": "Gröner-Schulze GmbH",
+      "landuse": "commercial",
+      "lat": 52.3918693,
+      "lon": 13.4906099,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/906399044",
+      "name": "Geis Air & Sea GmbH",
+      "landuse": "commercial",
+      "lat": 52.3914794,
+      "lon": 13.4888193,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/906399045",
+      "name": "Migrasys GmbH",
+      "landuse": "commercial",
+      "lat": 52.3921995,
+      "lon": 13.4891798,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/963569572",
+      "name": "Cafe & Hofladen Sauerwald",
+      "landuse": "retail",
+      "lat": 52.3635837,
+      "lon": 13.4723494,
+      "areaHa": null,
+      "operator": "Cafe & Hofladen Sauerwald",
+      "named": true
+    },
+    {
+      "id": "way/988585126",
+      "name": "MAN Truck & Bus TopUsed Center",
+      "landuse": "commercial",
+      "lat": 52.320031,
+      "lon": 13.5940198,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/991179992",
+      "name": "Logistikzentrum Airport Park Berlin",
+      "landuse": "commercial",
+      "lat": 52.3936012,
+      "lon": 13.5487677,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1022212870",
+      "name": "Kfz.-Werkstatt Dietmar Zupke",
+      "landuse": "commercial",
+      "lat": 52.3569564,
+      "lon": 13.5978548,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1042973533",
+      "name": "Moxy Berlin Airport",
+      "landuse": "commercial",
+      "lat": 52.3754764,
+      "lon": 13.5436518,
+      "areaHa": null,
+      "operator": "Marriott",
+      "named": true
+    },
+    {
+      "id": "way/1057214326",
+      "name": "Hermann & Langer",
+      "landuse": "retail",
+      "lat": 52.3197664,
+      "lon": 13.5975996,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1065166304",
+      "name": "navtec",
+      "landuse": "commercial",
+      "lat": 52.3714573,
+      "lon": 13.5194493,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1072592629",
+      "name": "the Unique",
+      "landuse": "office",
+      "lat": 52.3760893,
+      "lon": 13.5406544,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1110963057",
+      "name": "Omnibusgesellschaft Hartmann \"Der Südender\"",
+      "landuse": "industrial",
+      "lat": 52.3596297,
+      "lon": 13.4400332,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1162985005",
+      "name": "Pflanzenmarkt Rudow",
+      "landuse": "retail",
+      "lat": 52.4130485,
+      "lon": 13.4903152,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1196386660",
+      "name": "Klaus Piontek",
+      "landuse": "retail",
+      "lat": 52.414587,
+      "lon": 13.4983956,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1290587616",
+      "name": "BMW RIller & Schnauck",
+      "landuse": "commercial",
+      "lat": 52.4038601,
+      "lon": 13.44297,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/1434388569",
+      "name": "Coolblue GmbH - Depot Schönefeld",
+      "landuse": "industrial",
+      "lat": 52.3707052,
+      "lon": 13.5560352,
+      "areaHa": null,
+      "operator": null,
+      "named": true
+    },
+    {
+      "id": "way/23964649",
+      "name": "commercial · OSM 23964649",
+      "landuse": "commercial",
+      "lat": 52.408598,
+      "lon": 13.6069652,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/23971772",
+      "name": "retail · OSM 23971772",
+      "landuse": "retail",
+      "lat": 52.4125524,
+      "lon": 13.5709441,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/23971826",
+      "name": "retail · OSM 23971826",
+      "landuse": "retail",
+      "lat": 52.4089039,
+      "lon": 13.5720433,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/23971894",
+      "name": "commercial · OSM 23971894",
+      "landuse": "commercial",
+      "lat": 52.4003277,
+      "lon": 13.5804946,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/23971916",
+      "name": "commercial · OSM 23971916",
+      "landuse": "commercial",
+      "lat": 52.399614,
+      "lon": 13.5796969,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/23971924",
+      "name": "commercial · OSM 23971924",
+      "landuse": "commercial",
+      "lat": 52.3976359,
+      "lon": 13.5742178,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/23988003",
+      "name": "retail · OSM 23988003",
+      "landuse": "retail",
+      "lat": 52.4039636,
+      "lon": 13.5593926,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/23988598",
+      "name": "commercial · OSM 23988598",
+      "landuse": "commercial",
+      "lat": 52.4087472,
+      "lon": 13.605524,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24055628",
+      "name": "commercial · OSM 24055628",
+      "landuse": "commercial",
+      "lat": 52.411632,
+      "lon": 13.5741706,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24056262",
+      "name": "commercial · OSM 24056262",
+      "landuse": "commercial",
+      "lat": 52.4044156,
+      "lon": 13.5843142,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24058421",
+      "name": "retail · OSM 24058421",
+      "landuse": "retail",
+      "lat": 52.3891002,
+      "lon": 13.5185498,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24065829",
+      "name": "industrial · OSM 24065829",
+      "landuse": "industrial",
+      "lat": 52.4034589,
+      "lon": 13.5881747,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24234872",
+      "name": "office · OSM 24234872",
+      "landuse": "office",
+      "lat": 52.3858695,
+      "lon": 13.4892908,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24236094",
+      "name": "industrial · OSM 24236094",
+      "landuse": "industrial",
+      "lat": 52.3832449,
+      "lon": 13.5007947,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24250432",
+      "name": "retail · OSM 24250432",
+      "landuse": "retail",
+      "lat": 52.4079792,
+      "lon": 13.4409726,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24261286",
+      "name": "industrial · OSM 24261286",
+      "landuse": "industrial",
+      "lat": 52.394262,
+      "lon": 13.4259196,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24279686",
+      "name": "industrial · OSM 24279686",
+      "landuse": "industrial",
+      "lat": 52.3656642,
+      "lon": 13.6199286,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24279691",
+      "name": "retail · OSM 24279691",
+      "landuse": "retail",
+      "lat": 52.3666138,
+      "lon": 13.6194851,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24279707",
+      "name": "retail · OSM 24279707",
+      "landuse": "retail",
+      "lat": 52.3736145,
+      "lon": 13.6176118,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24280495",
+      "name": "retail · OSM 24280495",
+      "landuse": "retail",
+      "lat": 52.3699232,
+      "lon": 13.6080862,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24280497",
+      "name": "retail · OSM 24280497",
+      "landuse": "retail",
+      "lat": 52.3699468,
+      "lon": 13.6081246,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24498972",
+      "name": "industrial · OSM 24498972",
+      "landuse": "industrial",
+      "lat": 52.3545485,
+      "lon": 13.5947755,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/24498973",
+      "name": "retail · OSM 24498973",
+      "landuse": "retail",
+      "lat": 52.3551721,
+      "lon": 13.5940578,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/26933581",
+      "name": "commercial · OSM 26933581",
+      "landuse": "commercial",
+      "lat": 52.3214818,
+      "lon": 13.597515,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/26933584",
+      "name": "commercial · OSM 26933584",
+      "landuse": "commercial",
+      "lat": 52.3209775,
+      "lon": 13.5908686,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/26933586",
+      "name": "industrial · OSM 26933586",
+      "landuse": "industrial",
+      "lat": 52.3210435,
+      "lon": 13.5915603,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/26933596",
+      "name": "commercial · OSM 26933596",
+      "landuse": "commercial",
+      "lat": 52.3196906,
+      "lon": 13.5955706,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/26961435",
+      "name": "commercial · OSM 26961435",
+      "landuse": "commercial",
+      "lat": 52.3205118,
+      "lon": 13.5972323,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/27150239",
+      "name": "commercial · OSM 27150239",
+      "landuse": "commercial",
+      "lat": 52.3846609,
+      "lon": 13.5083161,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/27150251",
+      "name": "office · OSM 27150251",
+      "landuse": "office",
+      "lat": 52.383259,
+      "lon": 13.5100614,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/27426504",
+      "name": "commercial · OSM 27426504",
+      "landuse": "commercial",
+      "lat": 52.3647546,
+      "lon": 13.5550596,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/27426526",
+      "name": "industrial · OSM 27426526",
+      "landuse": "industrial",
+      "lat": 52.364607,
+      "lon": 13.5554362,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/28273576",
+      "name": "retail · OSM 28273576",
+      "landuse": "retail",
+      "lat": 52.3972119,
+      "lon": 13.5450894,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/28273925",
+      "name": "commercial · OSM 28273925",
+      "landuse": "commercial",
+      "lat": 52.4036311,
+      "lon": 13.556602,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/28319554",
+      "name": "retail · OSM 28319554",
+      "landuse": "retail",
+      "lat": 52.4153425,
+      "lon": 13.4303003,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/28330251",
+      "name": "retail · OSM 28330251",
+      "landuse": "retail",
+      "lat": 52.3997962,
+      "lon": 13.5213599,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/28338575",
+      "name": "commercial · OSM 28338575",
+      "landuse": "commercial",
+      "lat": 52.3889866,
+      "lon": 13.4990886,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/30648582",
+      "name": "retail · OSM 30648582",
+      "landuse": "retail",
+      "lat": 52.339884,
+      "lon": 13.6083981,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/32441968",
+      "name": "industrial · OSM 32441968",
+      "landuse": "industrial",
+      "lat": 52.4148534,
+      "lon": 13.428672,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/33539244",
+      "name": "commercial · OSM 33539244",
+      "landuse": "commercial",
+      "lat": 52.4009334,
+      "lon": 13.5552328,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/33542759",
+      "name": "retail · OSM 33542759",
+      "landuse": "retail",
+      "lat": 52.3578994,
+      "lon": 13.4359226,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/33542773",
+      "name": "commercial · OSM 33542773",
+      "landuse": "commercial",
+      "lat": 52.360822,
+      "lon": 13.4368923,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/33542808",
+      "name": "commercial · OSM 33542808",
+      "landuse": "commercial",
+      "lat": 52.3592187,
+      "lon": 13.4390104,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/33542810",
+      "name": "commercial · OSM 33542810",
+      "landuse": "commercial",
+      "lat": 52.3588045,
+      "lon": 13.4381231,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/33545792",
+      "name": "commercial · OSM 33545792",
+      "landuse": "commercial",
+      "lat": 52.3595184,
+      "lon": 13.4399752,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/34251302",
+      "name": "commercial · OSM 34251302",
+      "landuse": "commercial",
+      "lat": 52.3670499,
+      "lon": 13.594053,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/34605869",
+      "name": "retail · OSM 34605869",
+      "landuse": "retail",
+      "lat": 52.4038472,
+      "lon": 13.5587891,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/35067311",
+      "name": "industrial · OSM 35067311",
+      "landuse": "industrial",
+      "lat": 52.3560427,
+      "lon": 13.5384714,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/36837028",
+      "name": "commercial · OSM 36837028",
+      "landuse": "commercial",
+      "lat": 52.3912595,
+      "lon": 13.5145763,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/36837176",
+      "name": "retail · OSM 36837176",
+      "landuse": "retail",
+      "lat": 52.3887996,
+      "lon": 13.5081854,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/36837285",
+      "name": "retail · OSM 36837285",
+      "landuse": "retail",
+      "lat": 52.3872331,
+      "lon": 13.5045953,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/36837324",
+      "name": "retail · OSM 36837324",
+      "landuse": "retail",
+      "lat": 52.3857208,
+      "lon": 13.5012983,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37036944",
+      "name": "industrial · OSM 37036944",
+      "landuse": "industrial",
+      "lat": 52.3536703,
+      "lon": 13.4769186,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37042070",
+      "name": "commercial · OSM 37042070",
+      "landuse": "commercial",
+      "lat": 52.3855962,
+      "lon": 13.5010151,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37043340",
+      "name": "commercial · OSM 37043340",
+      "landuse": "commercial",
+      "lat": 52.388387,
+      "lon": 13.5049766,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37057186",
+      "name": "industrial · OSM 37057186",
+      "landuse": "industrial",
+      "lat": 52.3741913,
+      "lon": 13.4666825,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37077977",
+      "name": "industrial · OSM 37077977",
+      "landuse": "industrial",
+      "lat": 52.36971,
+      "lon": 13.5239338,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37077992",
+      "name": "industrial · OSM 37077992",
+      "landuse": "industrial",
+      "lat": 52.3698342,
+      "lon": 13.5230499,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37078880",
+      "name": "commercial · OSM 37078880",
+      "landuse": "commercial",
+      "lat": 52.3826742,
+      "lon": 13.5078707,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37088674",
+      "name": "industrial · OSM 37088674",
+      "landuse": "industrial",
+      "lat": 52.3803259,
+      "lon": 13.4480452,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37111869",
+      "name": "industrial · OSM 37111869",
+      "landuse": "industrial",
+      "lat": 52.3865559,
+      "lon": 13.5285782,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37112050",
+      "name": "commercial · OSM 37112050",
+      "landuse": "commercial",
+      "lat": 52.3886058,
+      "lon": 13.5106104,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37329981",
+      "name": "retail · OSM 37329981",
+      "landuse": "retail",
+      "lat": 52.3722615,
+      "lon": 13.6160561,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37343020",
+      "name": "industrial · OSM 37343020",
+      "landuse": "industrial",
+      "lat": 52.3215232,
+      "lon": 13.4740773,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37343078",
+      "name": "industrial · OSM 37343078",
+      "landuse": "industrial",
+      "lat": 52.3212721,
+      "lon": 13.4688168,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37350360",
+      "name": "commercial · OSM 37350360",
+      "landuse": "commercial",
+      "lat": 52.3604889,
+      "lon": 13.5590199,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37415779",
+      "name": "commercial · OSM 37415779",
+      "landuse": "commercial",
+      "lat": 52.4003203,
+      "lon": 13.5798115,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37498003",
+      "name": "industrial · OSM 37498003",
+      "landuse": "industrial",
+      "lat": 52.3794798,
+      "lon": 13.5494286,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37522721",
+      "name": "retail · OSM 37522721",
+      "landuse": "retail",
+      "lat": 52.354876,
+      "lon": 13.594308,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/37802764",
+      "name": "retail · OSM 37802764",
+      "landuse": "retail",
+      "lat": 52.3978243,
+      "lon": 13.5444587,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/39321464",
+      "name": "commercial · OSM 39321464",
+      "landuse": "commercial",
+      "lat": 52.3243594,
+      "lon": 13.473396,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/39321595",
+      "name": "industrial · OSM 39321595",
+      "landuse": "industrial",
+      "lat": 52.3230439,
+      "lon": 13.4708195,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/40906203",
+      "name": "retail · OSM 40906203",
+      "landuse": "retail",
+      "lat": 52.3438767,
+      "lon": 13.4354429,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/48867528",
+      "name": "commercial · OSM 48867528",
+      "landuse": "commercial",
+      "lat": 52.4098478,
+      "lon": 13.5192569,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/50942917",
+      "name": "office · OSM 50942917",
+      "landuse": "office",
+      "lat": 52.3967295,
+      "lon": 13.5330638,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/52728881",
+      "name": "retail · OSM 52728881",
+      "landuse": "retail",
+      "lat": 52.3571867,
+      "lon": 13.4324857,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/52910518",
+      "name": "commercial · OSM 52910518",
+      "landuse": "commercial",
+      "lat": 52.3646495,
+      "lon": 13.5944049,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/80883582",
+      "name": "industrial · OSM 80883582",
+      "landuse": "industrial",
+      "lat": 52.3371331,
+      "lon": 13.5382345,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/84176529",
+      "name": "commercial · OSM 84176529",
+      "landuse": "commercial",
+      "lat": 52.3726397,
+      "lon": 13.53107,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/90452112",
+      "name": "commercial · OSM 90452112",
+      "landuse": "commercial",
+      "lat": 52.4178397,
+      "lon": 13.582022,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/94504574",
+      "name": "commercial · OSM 94504574",
+      "landuse": "commercial",
+      "lat": 52.4163018,
+      "lon": 13.5818432,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/98845132",
+      "name": "commercial · OSM 98845132",
+      "landuse": "commercial",
+      "lat": 52.4020575,
+      "lon": 13.4194523,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/109733255",
+      "name": "retail · OSM 109733255",
+      "landuse": "retail",
+      "lat": 52.3878371,
+      "lon": 13.4885808,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/113503954",
+      "name": "retail · OSM 113503954",
+      "landuse": "retail",
+      "lat": 52.4200529,
+      "lon": 13.4376583,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/116644412",
+      "name": "office · OSM 116644412",
+      "landuse": "office",
+      "lat": 52.418164,
+      "lon": 13.5408438,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/129645958",
+      "name": "industrial · OSM 129645958",
+      "landuse": "industrial",
+      "lat": 52.3738987,
+      "lon": 13.4667057,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/129671578",
+      "name": "industrial · OSM 129671578",
+      "landuse": "industrial",
+      "lat": 52.3699109,
+      "lon": 13.5226911,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/129671588",
+      "name": "industrial · OSM 129671588",
+      "landuse": "industrial",
+      "lat": 52.3699565,
+      "lon": 13.5223101,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/129671596",
+      "name": "industrial · OSM 129671596",
+      "landuse": "industrial",
+      "lat": 52.3702229,
+      "lon": 13.5232728,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/129671600",
+      "name": "industrial · OSM 129671600",
+      "landuse": "industrial",
+      "lat": 52.3717967,
+      "lon": 13.5257984,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/129778072",
+      "name": "industrial · OSM 129778072",
+      "landuse": "industrial",
+      "lat": 52.4167313,
+      "lon": 13.4977097,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/136089840",
+      "name": "commercial · OSM 136089840",
+      "landuse": "commercial",
+      "lat": 52.3916625,
+      "lon": 13.5004431,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/147330462",
+      "name": "industrial · OSM 147330462",
+      "landuse": "industrial",
+      "lat": 52.4009142,
+      "lon": 13.5817916,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152177666",
+      "name": "retail · OSM 152177666",
+      "landuse": "retail",
+      "lat": 52.4095021,
+      "lon": 13.5720798,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152177670",
+      "name": "retail · OSM 152177670",
+      "landuse": "retail",
+      "lat": 52.4130196,
+      "lon": 13.5706512,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152177676",
+      "name": "commercial · OSM 152177676",
+      "landuse": "commercial",
+      "lat": 52.4119103,
+      "lon": 13.5737459,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152863310",
+      "name": "industrial · OSM 152863310",
+      "landuse": "industrial",
+      "lat": 52.4028332,
+      "lon": 13.5570465,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152872797",
+      "name": "commercial · OSM 152872797",
+      "landuse": "commercial",
+      "lat": 52.4016217,
+      "lon": 13.5616951,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152872799",
+      "name": "retail · OSM 152872799",
+      "landuse": "retail",
+      "lat": 52.4010284,
+      "lon": 13.5618918,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152892332",
+      "name": "commercial · OSM 152892332",
+      "landuse": "commercial",
+      "lat": 52.4030438,
+      "lon": 13.5263608,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152892546",
+      "name": "industrial · OSM 152892546",
+      "landuse": "industrial",
+      "lat": 52.4094621,
+      "lon": 13.5395555,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152892622",
+      "name": "retail · OSM 152892622",
+      "landuse": "retail",
+      "lat": 52.4024317,
+      "lon": 13.5261021,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/152892632",
+      "name": "commercial · OSM 152892632",
+      "landuse": "commercial",
+      "lat": 52.4025348,
+      "lon": 13.5258721,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/154734862",
+      "name": "retail · OSM 154734862",
+      "landuse": "retail",
+      "lat": 52.3979764,
+      "lon": 13.5447084,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/154862716",
+      "name": "retail · OSM 154862716",
+      "landuse": "retail",
+      "lat": 52.4091561,
+      "lon": 13.5724504,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/154937125",
+      "name": "retail · OSM 154937125",
+      "landuse": "retail",
+      "lat": 52.4033493,
+      "lon": 13.5791835,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/155037611",
+      "name": "commercial · OSM 155037611",
+      "landuse": "commercial",
+      "lat": 52.35795,
+      "lon": 13.5721915,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/157807247",
+      "name": "industrial · OSM 157807247",
+      "landuse": "industrial",
+      "lat": 52.3655866,
+      "lon": 13.5282665,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/157807251",
+      "name": "industrial · OSM 157807251",
+      "landuse": "industrial",
+      "lat": 52.3656258,
+      "lon": 13.5285266,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/159627834",
+      "name": "industrial · OSM 159627834",
+      "landuse": "industrial",
+      "lat": 52.3446786,
+      "lon": 13.6164455,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/173992224",
+      "name": "commercial · OSM 173992224",
+      "landuse": "commercial",
+      "lat": 52.4120342,
+      "lon": 13.4913059,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/176728978",
+      "name": "commercial · OSM 176728978",
+      "landuse": "commercial",
+      "lat": 52.3702559,
+      "lon": 13.5271716,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/179323083",
+      "name": "retail · OSM 179323083",
+      "landuse": "retail",
+      "lat": 52.3634952,
+      "lon": 13.4721766,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/192329080",
+      "name": "commercial · OSM 192329080",
+      "landuse": "commercial",
+      "lat": 52.3252246,
+      "lon": 13.4271609,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193019550",
+      "name": "office · OSM 193019550",
+      "landuse": "office",
+      "lat": 52.3623329,
+      "lon": 13.5009167,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193019561",
+      "name": "retail · OSM 193019561",
+      "landuse": "retail",
+      "lat": 52.370483,
+      "lon": 13.5271851,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392033",
+      "name": "commercial · OSM 193392033",
+      "landuse": "commercial",
+      "lat": 52.3939824,
+      "lon": 13.5422526,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392035",
+      "name": "commercial · OSM 193392035",
+      "landuse": "commercial",
+      "lat": 52.3938023,
+      "lon": 13.5417636,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392036",
+      "name": "commercial · OSM 193392036",
+      "landuse": "commercial",
+      "lat": 52.3937836,
+      "lon": 13.5430012,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392037",
+      "name": "commercial · OSM 193392037",
+      "landuse": "commercial",
+      "lat": 52.3938293,
+      "lon": 13.5410452,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392039",
+      "name": "industrial · OSM 193392039",
+      "landuse": "industrial",
+      "lat": 52.3942984,
+      "lon": 13.5423093,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392041",
+      "name": "commercial · OSM 193392041",
+      "landuse": "commercial",
+      "lat": 52.3934535,
+      "lon": 13.5421138,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392043",
+      "name": "commercial · OSM 193392043",
+      "landuse": "commercial",
+      "lat": 52.3936354,
+      "lon": 13.542601,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392045",
+      "name": "commercial · OSM 193392045",
+      "landuse": "commercial",
+      "lat": 52.3936422,
+      "lon": 13.5413351,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392046",
+      "name": "commercial · OSM 193392046",
+      "landuse": "commercial",
+      "lat": 52.3941336,
+      "lon": 13.5426574,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392048",
+      "name": "commercial · OSM 193392048",
+      "landuse": "commercial",
+      "lat": 52.3941606,
+      "lon": 13.5419335,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392051",
+      "name": "commercial · OSM 193392051",
+      "landuse": "commercial",
+      "lat": 52.3938853,
+      "lon": 13.5426294,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392052",
+      "name": "commercial · OSM 193392052",
+      "landuse": "commercial",
+      "lat": 52.3939794,
+      "lon": 13.5414503,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392054",
+      "name": "commercial · OSM 193392054",
+      "landuse": "commercial",
+      "lat": 52.3932951,
+      "lon": 13.5416862,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392056",
+      "name": "commercial · OSM 193392056",
+      "landuse": "commercial",
+      "lat": 52.3940085,
+      "lon": 13.5411405,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193392057",
+      "name": "commercial · OSM 193392057",
+      "landuse": "commercial",
+      "lat": 52.3943574,
+      "lon": 13.5419815,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193721193",
+      "name": "commercial · OSM 193721193",
+      "landuse": "commercial",
+      "lat": 52.393761,
+      "lon": 13.4422725,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/193723432",
+      "name": "commercial · OSM 193723432",
+      "landuse": "commercial",
+      "lat": 52.3602861,
+      "lon": 13.4384717,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/195140440",
+      "name": "commercial · OSM 195140440",
+      "landuse": "commercial",
+      "lat": 52.3682926,
+      "lon": 13.4677741,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/198652541",
+      "name": "retail · OSM 198652541",
+      "landuse": "retail",
+      "lat": 52.3958586,
+      "lon": 13.5173898,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/198652576",
+      "name": "commercial · OSM 198652576",
+      "landuse": "commercial",
+      "lat": 52.3850443,
+      "lon": 13.4939585,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/198652577",
+      "name": "commercial · OSM 198652577",
+      "landuse": "commercial",
+      "lat": 52.3888458,
+      "lon": 13.4884233,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/210754937",
+      "name": "industrial · OSM 210754937",
+      "landuse": "industrial",
+      "lat": 52.4153172,
+      "lon": 13.4984972,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/210921447",
+      "name": "retail · OSM 210921447",
+      "landuse": "retail",
+      "lat": 52.4170006,
+      "lon": 13.495832,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/210921452",
+      "name": "office · OSM 210921452",
+      "landuse": "office",
+      "lat": 52.4188889,
+      "lon": 13.4937144,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/211451623",
+      "name": "industrial · OSM 211451623",
+      "landuse": "industrial",
+      "lat": 52.3917998,
+      "lon": 13.5029865,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/213617152",
+      "name": "retail · OSM 213617152",
+      "landuse": "retail",
+      "lat": 52.4172662,
+      "lon": 13.4966949,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/213617153",
+      "name": "retail · OSM 213617153",
+      "landuse": "retail",
+      "lat": 52.4174,
+      "lon": 13.4963425,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/213619365",
+      "name": "industrial · OSM 213619365",
+      "landuse": "industrial",
+      "lat": 52.415788,
+      "lon": 13.499072,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/213894377",
+      "name": "industrial · OSM 213894377",
+      "landuse": "industrial",
+      "lat": 52.3701978,
+      "lon": 13.524257,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/213894529",
+      "name": "industrial · OSM 213894529",
+      "landuse": "industrial",
+      "lat": 52.3707987,
+      "lon": 13.5246837,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/213894787",
+      "name": "industrial · OSM 213894787",
+      "landuse": "industrial",
+      "lat": 52.3713659,
+      "lon": 13.524349,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/215393260",
+      "name": "office · OSM 215393260",
+      "landuse": "office",
+      "lat": 52.3832495,
+      "lon": 13.5092136,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/219816201",
+      "name": "industrial · OSM 219816201",
+      "landuse": "industrial",
+      "lat": 52.3212194,
+      "lon": 13.5984464,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/220736141",
+      "name": "commercial · OSM 220736141",
+      "landuse": "commercial",
+      "lat": 52.3211578,
+      "lon": 13.6133419,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/220736155",
+      "name": "industrial · OSM 220736155",
+      "landuse": "industrial",
+      "lat": 52.3229855,
+      "lon": 13.6144452,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/220736161",
+      "name": "industrial · OSM 220736161",
+      "landuse": "industrial",
+      "lat": 52.322867,
+      "lon": 13.6146769,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/224215287",
+      "name": "commercial · OSM 224215287",
+      "landuse": "commercial",
+      "lat": 52.3586967,
+      "lon": 13.4334446,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/226959129",
+      "name": "retail · OSM 226959129",
+      "landuse": "retail",
+      "lat": 52.4154115,
+      "lon": 13.6000379,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/226959130",
+      "name": "retail · OSM 226959130",
+      "landuse": "retail",
+      "lat": 52.4151897,
+      "lon": 13.601262,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/226959131",
+      "name": "retail · OSM 226959131",
+      "landuse": "retail",
+      "lat": 52.4153401,
+      "lon": 13.6006617,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/231381315",
+      "name": "commercial · OSM 231381315",
+      "landuse": "commercial",
+      "lat": 52.3740065,
+      "lon": 13.6196051,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/241228124",
+      "name": "retail · OSM 241228124",
+      "landuse": "retail",
+      "lat": 52.3995271,
+      "lon": 13.5404859,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/241233971",
+      "name": "retail · OSM 241233971",
+      "landuse": "retail",
+      "lat": 52.3993676,
+      "lon": 13.5457332,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/241515919",
+      "name": "retail · OSM 241515919",
+      "landuse": "retail",
+      "lat": 52.3946916,
+      "lon": 13.443308,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/244297875",
+      "name": "retail · OSM 244297875",
+      "landuse": "retail",
+      "lat": 52.4086382,
+      "lon": 13.5824053,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/252275840",
+      "name": "commercial · OSM 252275840",
+      "landuse": "commercial",
+      "lat": 52.4046565,
+      "lon": 13.5094552,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/258353404",
+      "name": "retail · OSM 258353404",
+      "landuse": "retail",
+      "lat": 52.418359,
+      "lon": 13.4951156,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/258353498",
+      "name": "commercial · OSM 258353498",
+      "landuse": "commercial",
+      "lat": 52.4199874,
+      "lon": 13.4929369,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/258353545",
+      "name": "retail · OSM 258353545",
+      "landuse": "retail",
+      "lat": 52.4184621,
+      "lon": 13.4950943,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/259450282",
+      "name": "office · OSM 259450282",
+      "landuse": "office",
+      "lat": 52.4146667,
+      "lon": 13.4949289,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/259658856",
+      "name": "retail · OSM 259658856",
+      "landuse": "retail",
+      "lat": 52.4144346,
+      "lon": 13.4987414,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/259659092",
+      "name": "industrial · OSM 259659092",
+      "landuse": "industrial",
+      "lat": 52.4157245,
+      "lon": 13.4988163,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/259659129",
+      "name": "retail · OSM 259659129",
+      "landuse": "retail",
+      "lat": 52.4145715,
+      "lon": 13.4980325,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/259659187",
+      "name": "retail · OSM 259659187",
+      "landuse": "retail",
+      "lat": 52.4145713,
+      "lon": 13.4984543,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/259659189",
+      "name": "retail · OSM 259659189",
+      "landuse": "retail",
+      "lat": 52.4147643,
+      "lon": 13.4982023,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/260621359",
+      "name": "industrial · OSM 260621359",
+      "landuse": "industrial",
+      "lat": 52.4099194,
+      "lon": 13.5063485,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/267649148",
+      "name": "commercial · OSM 267649148",
+      "landuse": "commercial",
+      "lat": 52.4022523,
+      "lon": 13.5781282,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/267649152",
+      "name": "commercial · OSM 267649152",
+      "landuse": "commercial",
+      "lat": 52.4025532,
+      "lon": 13.5789795,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/267649154",
+      "name": "commercial · OSM 267649154",
+      "landuse": "commercial",
+      "lat": 52.4024055,
+      "lon": 13.5789397,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/269355281",
+      "name": "commercial · OSM 269355281",
+      "landuse": "commercial",
+      "lat": 52.393252,
+      "lon": 13.5404807,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/270140348",
+      "name": "industrial · OSM 270140348",
+      "landuse": "industrial",
+      "lat": 52.3884417,
+      "lon": 13.5319802,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/271993849",
+      "name": "retail · OSM 271993849",
+      "landuse": "retail",
+      "lat": 52.4157712,
+      "lon": 13.4954958,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/272769050",
+      "name": "office · OSM 272769050",
+      "landuse": "office",
+      "lat": 52.3783789,
+      "lon": 13.5449299,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/272769078",
+      "name": "industrial · OSM 272769078",
+      "landuse": "industrial",
+      "lat": 52.3786002,
+      "lon": 13.5449855,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/274931126",
+      "name": "industrial · OSM 274931126",
+      "landuse": "industrial",
+      "lat": 52.3715752,
+      "lon": 13.5245505,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/274931146",
+      "name": "industrial · OSM 274931146",
+      "landuse": "industrial",
+      "lat": 52.3717099,
+      "lon": 13.5242961,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/275491187",
+      "name": "industrial · OSM 275491187",
+      "landuse": "industrial",
+      "lat": 52.3492339,
+      "lon": 13.5527249,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/275491189",
+      "name": "industrial · OSM 275491189",
+      "landuse": "industrial",
+      "lat": 52.3502757,
+      "lon": 13.5525465,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    },
+    {
+      "id": "way/282573846",
+      "name": "retail · OSM 282573846",
+      "landuse": "retail",
+      "lat": 52.4068521,
+      "lon": 13.4419727,
+      "areaHa": null,
+      "operator": null,
+      "named": false
+    }
+  ]
+}

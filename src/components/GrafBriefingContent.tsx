@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { BRAND } from "@/lib/brand";
-import { GRAF_BRIEFING, type GrafCrossrefPayload } from "@/lib/graf-briefing";
+import { GRAF_BRIEFING, type GrafCorridorSnapshot, type GrafCrossrefPayload } from "@/lib/graf-briefing";
 import { GrafEmployerMap } from "@/components/GrafEmployerMap";
 
 function Kpi({ value, label, hint }: { value: string | number; label: string; hint?: string }) {
@@ -26,18 +26,27 @@ function confBadge(c: string) {
 
 export function GrafBriefingContent() {
   const [data, setData] = useState<GrafCrossrefPayload | null>(null);
+  const [corridor, setCorridor] = useState<GrafCorridorSnapshot | null>(null);
   const [filter, setFilter] = useState("");
   const [onlyWithData, setOnlyWithData] = useState(false);
+  const [onlyPredicted, setOnlyPredicted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/data/graf/employee-crossref.json")
-      .then((r) => {
+    Promise.all([
+      fetch("/data/graf/employee-crossref.json").then((r) => {
         if (!r.ok) throw new Error(String(r.status));
-        return r.json();
+        return r.json() as Promise<GrafCrossrefPayload>;
+      }),
+      fetch("/data/graf/corridor-snapshot.json")
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null)
+    ])
+      .then(([crossref, snap]) => {
+        setData(crossref);
+        setCorridor(snap);
       })
-      .then(setData)
-      .catch(() => setError("Briefing data missing — run: node scripts/sync-graf-briefing-data.mjs"));
+      .catch(() => setError("Briefing data missing — run: npm run graf:briefing:data"));
   }, []);
 
   const named = useMemo(
@@ -52,13 +61,24 @@ export function GrafBriefingContent() {
     return named
       .filter((r) => {
         if (onlyWithData && !r.employees && !r.employeesRange) return false;
+        if (onlyPredicted && r.confidence !== "predicted") return false;
         if (!q) return true;
-        return `${r.name} ${r.landuse} ${r.source ?? ""}`.toLowerCase().includes(q);
+        return `${r.name} ${r.landuse} ${r.source ?? ""} ${r.prediction?.prior ?? ""}`.toLowerCase().includes(q);
       })
       .sort((a, b) => (b.employees ?? 0) - (a.employees ?? 0) || a.name.localeCompare(b.name));
-  }, [named, filter, onlyWithData]);
+  }, [named, filter, onlyWithData, onlyPredicted]);
+
+  const predictedExamples = useMemo(
+    () =>
+      named
+        .filter((r) => r.confidence === "predicted" && r.prediction)
+        .sort((a, b) => (b.employees ?? 0) - (a.employees ?? 0))
+        .slice(0, 5),
+    [named]
+  );
 
   const s = data?.summary;
+  const pm = GRAF_BRIEFING.predictionModel;
 
   return (
     <div className="mx-auto flex max-w-[1100px] flex-col gap-5 px-4 py-5" data-testid="graf-briefing-page">
@@ -123,15 +143,60 @@ export function GrafBriefingContent() {
       </section>
 
       <section className="panel overflow-hidden p-0" data-section="map">
-        <div className="border-b border-white/10 px-4 py-2 text-xs text-white/55">
-          Live OSM gewerbe layer · gold = modelled · green = matched count
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-4 py-2">
+          <div className="text-xs text-white/55">
+            {corridor?.summary.totalElements ?? 643} OSM gewerbe features · {named.length} named employers on map
+          </div>
+          <div className="flex flex-wrap gap-3 text-[10px] text-white/50">
+            <span>
+              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-slate-600" />
+              all OSM
+            </span>
+            <span>
+              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-amber-400" />
+              predicted †
+            </span>
+            <span>
+              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-emerald-400" />
+              matched count
+            </span>
+            <span>
+              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-amber-500" />
+              BB Hub
+            </span>
+          </div>
         </div>
-        {mapSites.length > 0 ? <GrafEmployerMap sites={mapSites} /> : <div className="p-8 text-center text-white/50">Loading map…</div>}
+        {mapSites.length > 0 ? (
+          <GrafEmployerMap employers={mapSites} backgroundSites={corridor?.sites ?? []} />
+        ) : (
+          <div className="flex h-[min(440px,55vh)] min-h-[280px] items-center justify-center text-sm text-white/50">
+            Loading map…
+          </div>
+        )}
+      </section>
+
+      <section className="panel p-4" data-section="pipeline">
+        <h2 className="text-sm font-semibold text-white">Data pipeline (before prediction)</h2>
+        <p className="mt-1 text-xs text-white/55">Three layers that feed the corridor model — public data first.</p>
+        <ol className="mt-3 space-y-2">
+          {GRAF_BRIEFING.dataPipeline.map((step, i) => (
+            <li key={step.title} className="rounded-lg bg-white/[0.03] p-3">
+              <span className="text-[10px] font-bold text-violet-300">0{i + 1}</span>
+              <div className="mt-1 text-sm font-medium text-white">{step.title}</div>
+              <p className="mt-1 text-xs text-white/65">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+        {data?.methodology ? (
+          <p className="mt-3 rounded-lg border border-white/10 bg-black/20 p-2 text-[11px] text-white/55">
+            {data.summary.methodology ?? data.methodology}
+          </p>
+        ) : null}
       </section>
 
       <section className="panel p-4" data-section="model">
         <h2 className="text-sm font-semibold text-white">Corridor employment model</h2>
-        <p className="mt-1 text-xs text-white/55">Three-step logic for sites without public headcount — transparent, not a black box.</p>
+        <p className="mt-1 text-xs text-white/55">Business framing — what we tell the board before any numbers.</p>
         <ol className="mt-3 space-y-3">
           {GRAF_BRIEFING.modelSteps.map((step, i) => (
             <li key={step.title} className="rounded-lg bg-white/[0.03] p-3">
@@ -141,6 +206,80 @@ export function GrafBriefingContent() {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="panel border border-amber-500/25 bg-amber-950/15 p-4" data-section="prediction-model">
+        <h2 className="text-sm font-semibold text-amber-100">{pm.title}</h2>
+        <p className="mt-1 text-xs text-white/65">{pm.intro}</p>
+        <div className="mt-3 rounded-lg border border-amber-400/30 bg-black/30 px-3 py-2 font-mono text-[11px] text-amber-100/90">
+          {pm.formula}
+        </div>
+        <ol className="mt-4 space-y-2">
+          {pm.steps.map((step) => (
+            <li key={step.title} className="rounded-lg bg-white/[0.04] p-3">
+              <div className="text-xs font-semibold text-amber-200">{step.title}</div>
+              <p className="mt-1 text-xs text-white/65">{step.body}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <div>
+            <div className="text-[10px] font-bold uppercase text-white/45">Outputs per site</div>
+            <ul className="mt-2 space-y-1 text-xs text-white/65">
+              {pm.outputs.map((o) => (
+                <li key={o}>· {o}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div className="text-[10px] font-bold uppercase text-white/45">Explicit exclusions</div>
+            <ul className="mt-2 space-y-1 text-xs text-white/65">
+              {pm.exclusions.map((o) => (
+                <li key={o}>· {o}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        {data?.predictionsMeta ? (
+          <div className="mt-4 rounded-lg border border-white/10 bg-black/25 p-3">
+            <div className="text-[10px] font-bold uppercase text-sky-300">{data.predictionsMeta.model}</div>
+            <ul className="mt-2 space-y-0.5 text-[11px] text-white/55">
+              {data.predictionsMeta.references.map((ref) => (
+                <li key={ref}>· {ref}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {predictedExamples.length > 0 ? (
+          <div className="mt-4">
+            <div className="text-[10px] font-bold uppercase text-white/45">Example predictions (top 5 by planning value)</div>
+            <div className="mt-2 overflow-x-auto">
+              <table className="w-full min-w-[520px] text-left text-[11px]">
+                <thead className="text-[10px] uppercase text-white/40">
+                  <tr>
+                    <th className="py-1 pr-2">Site</th>
+                    <th className="py-1 pr-2">Plan</th>
+                    <th className="py-1 pr-2">P25–P75</th>
+                    <th className="py-1">Prior / rule</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {predictedExamples.map((r) => (
+                    <tr key={r.id} className="border-t border-white/5">
+                      <td className="py-1.5 pr-2 text-white/85">{r.name}</td>
+                      <td className="py-1.5 pr-2 font-medium text-amber-200">~{r.employees?.toLocaleString()}</td>
+                      <td className="py-1.5 pr-2 text-white/60">{r.employeesRange}</td>
+                      <td className="py-1.5 text-white/50">
+                        {r.prediction?.prior}
+                        {r.prediction?.corridorUplift ? ` · ${r.prediction.corridorUplift}` : ""}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <section data-section="table">
@@ -157,6 +296,10 @@ export function GrafBriefingContent() {
             <input type="checkbox" checked={onlyWithData} onChange={(e) => setOnlyWithData(e.target.checked)} />
             Only with employee data
           </label>
+          <label className="flex items-center gap-2 text-xs text-white/60">
+            <input type="checkbox" checked={onlyPredicted} onChange={(e) => setOnlyPredicted(e.target.checked)} />
+            Predicted only †
+          </label>
           <span className="text-xs text-white/45">{tableRows.length} rows</span>
         </div>
         <div className="panel max-h-[min(420px,50vh)] overflow-auto p-0">
@@ -166,7 +309,9 @@ export function GrafBriefingContent() {
                 <th className="px-3 py-2">Name</th>
                 <th className="px-3 py-2">Type</th>
                 <th className="px-3 py-2">Employees</th>
+                <th className="px-3 py-2">Range</th>
                 <th className="px-3 py-2">Conf.</th>
+                <th className="px-3 py-2">Source / prior</th>
               </tr>
             </thead>
             <tbody>
@@ -175,10 +320,14 @@ export function GrafBriefingContent() {
                   <td className="px-3 py-2 text-white/90">{r.name}</td>
                   <td className="px-3 py-2 text-white/55">{r.landuse}</td>
                   <td className="px-3 py-2 font-medium text-emerald-200/90">
-                    {r.employees != null ? `~${r.employees.toLocaleString()}${r.confidence === "predicted" ? " †" : ""}` : r.employeesRange ?? "—"}
+                    {r.employees != null ? `~${r.employees.toLocaleString()}${r.confidence === "predicted" ? " †" : ""}` : "—"}
                   </td>
+                  <td className="px-3 py-2 text-white/55">{r.employeesRange ?? "—"}</td>
                   <td className="px-3 py-2">
                     <span className={confBadge(r.confidence)}>{r.confidence}</span>
+                  </td>
+                  <td className="max-w-[200px] truncate px-3 py-2 text-white/45" title={r.source ?? r.prediction?.prior ?? ""}>
+                    {r.confidence === "predicted" ? r.prediction?.prior ?? r.source : r.source ?? "—"}
                   </td>
                 </tr>
               ))}
