@@ -1,0 +1,79 @@
+% Individual Reflection & Recommendation — Yushu Qin
+% IDI 1 — Disruptive Technologies and Innovation Management — S26
+% Compile: pdflatex yushu-qin-reflection.tex (twice)
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{parskip}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\onehalfspacing
+
+\title{Individual Reflection \& Recommendation to BER+\\[0.4em]
+\large IDI S26 — BER+ Board Room Project}
+\author{Yushu Qin\\XU University of Applied Sciences}
+\date{26 June 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1 — Personal Reflection}
+
+\subsection*{What was your role in the project?}
+My contribution centred on \textbf{stakeholder experience and narrative coherence} across the BER+ Board Room prototype. Together with Tian Shao and Yi Li, I helped translate a strategic corridor challenge into something an audience could \textit{use} in under five minutes: a welcome flow that frames the Board Room in business language (English and German), persona-based entry paths for companies, investors, and municipalities, and a guided walkthrough that drives the real map instead of blocking it with lecture slides.
+
+Concretely, I worked on mobile usability (bottom navigation, explore sheets, tour dock stacking), ensuring the demo remained credible on phones during the live BER+ presentation, and on messaging that stresses our core story: \textbf{the corridor narrative is data-driven and aims at more transparency} — evidence on one map, labelled sources, shared visibility before site visits and contracts. I also supported Playwright-based screenshot capture so our final deliverables document the same paths stakeholders would follow in production.
+
+\subsection*{What were your key learnings?}
+Three learnings stand out.
+
+\textbf{First, innovation in ecosystems is as much about legitimacy as about technology.} BER+ cannot ``own'' cadastral truth or planning authority. The prototype's value is hosting a \textit{neutral} briefing surface where members retain data ownership and indicative OSM layers are clearly labelled. That constraint forced us to design for transparency and humility rather than for feature completeness.
+
+\textbf{Second, stakeholder engagement improves when the interface mirrors how people already search.} Companies look for land; investors scan who is active in the corridor; municipalities need programme context and infrastructure layers. Persona tabs and the guided tour encode those mental models. When the map moves during the walkthrough, sceptical audiences shift from ``pretty slide'' to ``I could use this in a board session.''
+
+\textbf{Third, real-world projects reward testable artefacts.} Automated UX screenshots (Playwright) gave us regression confidence before the June presentation and now support the course final submission. Building for demonstrability — live URL, mobile layout, skip/replay tour — was as important as any algorithmic matching rule.
+
+\subsection*{What worked well?}
+The \textbf{problem-first framing} resonated: fragmented PDFs and invisible availability are pains every BER+ stakeholder recognises before we show a single feature. The \textbf{live demo URL} (\url{https://ber-board-room.vercel.app/}) let the room follow on their own devices. \textbf{Bilingual explainer copy} (EN/DE) helped German members and international investors in the same session. The \textbf{guided tour as live demo} — company $\rightarrow$ investor $\rightarrow$ municipality $\rightarrow$ evolution — matched how Prof.\ Halecker described the course objective: exploration and impulses, not a finished strategy.
+
+\subsection*{What would you do differently?}
+I would start \textbf{member validation interviews} two weeks earlier — with Arcadis, WFG, or SEGRO — to tag which OSM links are ``member-confirmed'' versus ``indicative only.'' I would also reduce initial scope on AI chat (Ollama dependency) in favour of a clearer \textbf{Inquiry Ledger} mock-up, because matching follow-through matters more to BER+ operations than conversational UI. Finally, I would document data refresh ownership (who pays for quarterly OSM snapshots) in the UI itself, not only in briefing slides.
+
+\subsection*{Insights on innovation, ecosystems, strategy, and stakeholders}
+\textbf{Innovation} here is incremental and institutional: a map probe that lowers the cost of coordination. \textbf{Ecosystem} theory became practical — airport, developers, utilities, and public bodies will not merge CRMs; they need a host (BER+) with no competitive land position. \textbf{Strategy development} in the course was explicitly non-final: we offered option paths (visibility $\rightarrow$ matching $\rightarrow$ verified inventory) rather than a single roadmap. \textbf{Stakeholder engagement} succeeded when we let each persona ``win'' in the first two minutes of their path (land for companies, Mitglieder density for investors, OSM intel for municipalities).
+
+\section*{Part 2 — Recommendation to BER+ Management}
+
+\subsection*{Which strategic direction would you recommend pursuing?}
+I recommend BER+ \textbf{adopt the Board Room as a hosted briefing platform} for the Flughafenregion corridor — not as a product sale, but as an association capability. Strategic direction: \textit{data-driven transparency first, matching second, verified asset registry third.} Phase I should anchor on Pilot-1 (SEGRO / Schönefeld Nord) with quarterly OSM refresh and 3--5 member--asset links validated in workshops.
+
+\subsection*{Which ideas should be explored further?}
+\begin{itemize}
+  \item \textbf{Neutral Board Room sessions} — quarterly leadership briefings where decisions are recorded against programme milestones on the map.
+  \item \textbf{Verified link pilot} — explicit member confirmation workflow for OSM highlights and land anchors (visible ``verified'' badge in UI).
+  \item \textbf{Inquiry Ledger operations} — operationalise ``Save'' on the matching map into a lightweight introduction queue BER+ staff can chair.
+  \item \textbf{Benchmark teleport} — continue peer region comparisons (Schiphol, Flanders) in investor packs; strengthens the ``regional story'' without claiming cadastral accuracy.
+  \item \textbf{Mobile-first access} — many site visits start on phones; maintain the bottom-nav + explore sheet pattern for field briefings.
+\end{itemize}
+
+\subsection*{Which ideas should be deprioritized or discarded?}
+\begin{itemize}
+  \item \textbf{Replacing planning authority or cadastral GIS} — outside BER+ mandate; keep layers indicative.
+  \item \textbf{Single-member branded portals} inside the association map — undermines neutrality.
+  \item \textbf{Publishing unverified asset claims} as if authoritative — reputational risk; use draft/verified states only.
+  \item \textbf{Heavy AI assistant} before basic data governance — invest in refresh cadence and member validation first.
+  \item \textbf{``Finished platform'' narrative} — the course prototype is a probe; overselling would damage trust built in April--June 2026.
+\end{itemize}
+
+\subsection*{Suggested next step for BER+}
+Within 90 days: (1) board resolution to \textbf{host} the Board Room URL under BER+ branding with a simple MOU on data liability; (2) nominate \textbf{three pilot Mitglieder} for verified map links; (3) schedule one \textbf{recorded briefing} where leadership marks a Pilot-1 decision on the shared map. That step is small enough to execute, measurable enough to grade success, and faithful to what our prototype already demonstrates live.
+
+\vspace{1em}
+\noindent\textit{Prototype:} \url{https://ber-board-room.vercel.app/} \quad
+\textit{Team:} Tian Shao, Yushu Qin, Yi Li — XU University of Applied Sciences, IDI S26.
+
+\end{document}

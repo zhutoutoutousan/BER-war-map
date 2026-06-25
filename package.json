@@ -24,6 +24,10 @@
     "test:e2e": "playwright test",
     "test:ux": "playwright test e2e/stakeholder-ux.spec.ts",
     "test:ux:fresh": "npm run clean && playwright test e2e/stakeholder-ux.spec.ts",
+    "submission:figures": "node docs/presentation/final-submission/copy-figures.mjs",
+    "submission:pdf": "npm run submission:figures && cd docs/presentation/final-submission && pdflatex -interaction=nonstopmode idi-s26-final-submission.tex && pdflatex -interaction=nonstopmode idi-s26-final-submission.tex",
+    "graf:briefing:data": "node scripts/sync-graf-briefing-data.mjs && node demos/graf-beschaeftigung-briefing/enrich-employees.mjs && node demos/graf-beschaeftigung-briefing/predict-employees.mjs && node scripts/sync-graf-briefing-data.mjs",
+    "graf:report": "node demos/graf-beschaeftigung-briefing/build-report.mjs",
     "video:all": "node scripts/presentation-video/generate-all.mjs"
   },
   "dependencies": {

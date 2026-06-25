@@ -200,6 +200,13 @@ html::-webkit-scrollbar-corner,
   color: rgba(125, 211, 252, 0.85);
 }
 
+/* Hide Next.js dev issue badge during Playwright / presentation captures */
+html[data-capture-screenshot="true"] nextjs-portal {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* Presentation screenshot layouts (set via documentElement.dataset.captureLayout) */
 html[data-capture-layout="left-focus"] [data-testid="showcase-panel-right"],
 html[data-capture-layout="left-focus"] [data-testid="capture-chrome"] {

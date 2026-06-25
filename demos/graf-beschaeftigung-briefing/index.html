@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BER+ · Beschäftigungstiefe Briefing · Thomas Graf</title>
+    <meta
+      name="description"
+      content="Dedicated briefing addressing Thomas Graf's workforce question — live OSM gewerbe data, BB Business Hub proof point, Board Room pilot proposal."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grid-bg" aria-hidden="true"></div>
+
+    <div class="shell">
+      <header class="top-bar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">BER+</div>
+          <div class="brand-text">
+            <strong>Board Room</strong>
+            <span>Beschäftigungstiefe probe</span>
+          </div>
+        </div>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" data-lang="en" class="active">EN</button>
+          <button type="button" data-lang="de">DE</button>
+        </div>
+      </header>
+
+      <div id="loading" class="loading">Loading corridor data…</div>
+
+      <main id="content" hidden>
+        <section class="hero" data-section="hero">
+          <div class="signal-badge" data-i18n="signal">Stakeholder signal · June 2026</div>
+          <h1 data-i18n="title">Is there enough manpower near Schönefeld?</h1>
+          <p class="lead" data-i18n="lead">
+            A dedicated briefing for Thomas Graf's question — reframed as Beschäftigungstiefe, backed by live OpenStreetMap gewerbe data and member-cited campus proof.
+          </p>
+          <figure class="quote-card">
+            <blockquote data-i18n="quote">
+              Do firms near Schönefeld employ enough people — will a new Büro/Gewerbe project find tenants and Fachkräfte?
+            </blockquote>
+            <cite data-i18n="cite">Thomas Graf · Alpine Immobilien · BER+ 2. Vorsitzender</cite>
+          </figure>
+        </section>
+
+        <section data-section="reframe">
+          <div class="section-label" data-i18n="reframe">Reframe the question</div>
+          <h2 class="en-only">Not construction labour — Beschäftigungstiefe</h2>
+          <h2 class="de-only">Nicht Bauarbeiter — Beschäftigungstiefe</h2>
+          <div class="reframe-grid">
+            <div class="reframe-card no">
+              <h3 data-i18n="notThis">Not primarily</h3>
+              <p data-i18n="notBody">Construction or factory labour on site.</p>
+            </div>
+            <div class="reframe-card yes">
+              <h3 data-i18n="rather">Rather — Beschäftigungstiefe</h3>
+              <p data-i18n="ratherBody">Firms, jobs, tenant depth, Fachkräfte recruitment.</p>
+            </div>
+          </div>
+        </section>
+
+        <section data-section="evidence">
+          <div class="section-label" data-i18n="evidence">Evidence dashboard</div>
+          <h2 class="en-only">Live data &amp; member proof</h2>
+          <h2 class="de-only">Live-Daten &amp; Mitglieder-Beleg</h2>
+          <p style="color: var(--muted); font-size: 0.88rem; margin: -0.5rem 0 1rem" data-i18n="evidenceSub">
+            Live OSM gewerbe layer · member-validated anchor · labour-market context
+          </p>
+          <div id="crossref-banner" class="crossref-banner"></div>
+          <div id="kpi-grid" class="kpi-grid"></div>
+        </section>
+
+        <section data-section="map">
+          <div class="section-label">Map</div>
+          <h2 data-i18n="mapTitle">Corridor gewerbe density (live OSM)</h2>
+          <div class="map-panel">
+            <div class="map-toolbar">
+              <span id="map-meta">—</span>
+              <div class="map-legend">
+                <span class="legend-item"><span class="legend-dot" style="background: #f59e0b"></span> industrial</span>
+                <span class="legend-item"><span class="legend-dot" style="background: #38bdf8"></span> commercial</span>
+                <span class="legend-item"><span class="legend-dot" style="background: #a78bfa"></span> office</span>
+                <span class="legend-item"><span class="legend-dot" style="background: #f59e0b; box-shadow: 0 0 8px #f59e0b"></span> BB Business Hub</span>
+              </div>
+            </div>
+            <div id="map" role="img" aria-label="Map of gewerbe sites near Schönefeld"></div>
+          </div>
+        </section>
+
+        <section data-section="table">
+          <h2 data-i18n="tableTitle">Named employers &amp; gewerbe (OSM)</h2>
+          <div class="table-wrap">
+            <div class="table-toolbar">
+              <input id="site-search" type="search" data-i18n-placeholder="search" placeholder="Filter by name…" />
+              <label class="filter-check">
+                <input id="filter-employees" type="checkbox" />
+                <span data-i18n="filterHasData">Only with employee data</span>
+              </label>
+              <span id="table-count" class="table-count"></span>
+            </div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="colName">Name</th>
+                    <th data-i18n="colType">Type</th>
+                    <th data-i18n="colEmployees">Employees</th>
+                    <th data-i18n="colScope">Scope</th>
+                    <th>Conf.</th>
+                    <th data-i18n="colSource">Source</th>
+                  </tr>
+                </thead>
+                <tbody id="site-rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-label" data-i18n="answer">Board Room answer</div>
+          <p style="font-size: 1rem; color: #cbd5e1; max-width: 52rem" data-i18n="answerBody">
+            Show Mitglieder, gewerbe layers, and corridor links on one neutral map.
+          </p>
+        </section>
+
+        <section class="pilot-card" data-section="pilot">
+          <div class="section-label" data-i18n="pilot">90-day pilot proposal</div>
+          <div class="pilot-steps">
+            <div class="pilot-step">
+              <div class="num">01</div>
+              <h4 data-i18n="step1t">Map the question</h4>
+              <p data-i18n="step1d">Publish briefing on Board Room.</p>
+            </div>
+            <div class="pilot-step">
+              <div class="num">02</div>
+              <h4 data-i18n="step2t">Validate with members</h4>
+              <p data-i18n="step2d">Confirm headcount ranges.</p>
+            </div>
+            <div class="pilot-step">
+              <div class="num">03</div>
+              <h4 data-i18n="step3t">Brief the board</h4>
+              <p data-i18n="step3d">Recorded corridor session.</p>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.78rem; color: var(--muted)" data-i18n="anchors">Pilot anchor Mitglieder</div>
+          <div id="anchor-chips" class="anchor-chips"></div>
+        </section>
+
+        <footer class="footer">
+          <strong data-i18n="sources">Sources</strong>
+          <p id="footer-sources"></p>
+          <p class="disclaimer" data-i18n="disclaimer">Indicative probe only.</p>
+          <p style="margin-top: 1rem">
+            IDI S26 · Tian Shao · Yushu Qin · Yi Li · XU University of Applied Sciences
+          </p>
+        </footer>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
