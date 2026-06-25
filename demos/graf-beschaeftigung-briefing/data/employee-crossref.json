@@ -1,19 +1,21 @@
 {
-  "generatedAt": "2026-06-25T17:04:17.003Z",
+  "generatedAt": "2026-06-25T17:33:19.819Z",
   "methodology": "Cross-reference pipeline: (1) OSM employees/staff_count tags, (2) brand-employees.json from Geschäftsbericht / Wikidata / press, (3) SME heuristics. Group figures are corporate, not Schönefeld site headcount.",
   "summary": {
     "totalSites": 400,
     "namedSites": 215,
-    "withExactCount": 164,
-    "withRangeEstimate": 51,
-    "verifiedSources": 12,
+    "withExactCount": 138,
+    "withRangeEstimate": 77,
+    "verifiedSources": 8,
     "groupLevelMatches": 53,
     "siteLevelMatches": 9,
+    "outletEstimates": 26,
+    "brandsPresentUnmodelled": 27,
     "sumSiteLevelEmployees": 9262,
     "disclaimer": "Cannot obtain all 215 site-level counts from public data alone — BER+ member validation pass required for Graf's leasing question.",
-    "predictedSites": 102,
-    "sumPredictedEmployees": 4075,
-    "sumCorridorIndicative": 15250,
+    "predictedSites": 129,
+    "sumPredictedEmployees": 5409,
+    "sumCorridorIndicative": 16873.5,
     "methodology": "Cross-reference pipeline: (1) OSM employees/staff_count tags, (2) brand-employees.json from Geschäftsbericht / Wikidata / press, (3) SME heuristics. Group figures are corporate, not Schönefeld site headcount. Predictions for remaining sites: sociological sector priors (tertiary-sector fragmentation, Mittelstand modal ~10–20), statistical P25–P75 intervals, airport-corridor agglomeration uplift."
   },
   "records": [
@@ -75,12 +77,16 @@
       "lat": 52.4182881,
       "lon": 13.579533,
       "named": true,
-      "employees": 140253,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "3–12",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q487292 · Allianz SE",
-      "confidence": "wikidata"
+      "scope": "outlet_estimate",
+      "source": "Versicherungsagentur/Zweig — Konzernzahl nicht als Standortwert · Wikidata Q487292 · Allianz SE",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 140253,
+        "source": "Wikidata Q487292 · Allianz SE"
+      }
     },
     {
       "id": "node/2821383761",
@@ -103,12 +109,16 @@
       "lat": 52.4068623,
       "lon": 13.4394813,
       "named": true,
-      "employees": 140253,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "3–12",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q487292 · Allianz SE",
-      "confidence": "wikidata"
+      "scope": "outlet_estimate",
+      "source": "Versicherungsagentur/Zweig — Konzernzahl nicht als Standortwert · Wikidata Q487292 · Allianz SE",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 140253,
+        "source": "Wikidata Q487292 · Allianz SE"
+      }
     },
     {
       "id": "node/3512838254",
@@ -140,12 +150,16 @@
       "lat": 52.4160009,
       "lon": 13.4981886,
       "named": true,
-      "employees": 13000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "3–12",
       "firms": null,
-      "scope": "group",
-      "source": "HUK-COBURG · corporate site",
-      "confidence": "wikidata"
+      "scope": "outlet_estimate",
+      "source": "Versicherungsagentur/Zweig — Konzernzahl nicht als Standortwert · HUK-COBURG · corporate site",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 13000,
+        "source": "HUK-COBURG · corporate site"
+      }
     },
     {
       "id": "node/4481308097",
@@ -223,12 +237,25 @@
       "lat": 52.3450306,
       "lon": 13.6161079,
       "named": true,
-      "employees": 350,
-      "employeesRange": null,
+      "employees": 28,
+      "employeesRange": "5–30",
       "firms": null,
-      "scope": "group",
-      "source": "RIDI Group · company profile",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · generic Gewerbe/KMU · +8% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 350,
+        "source": "RIDI Group · company profile"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 5,
+        "p50": 13,
+        "p75": 30,
+        "prior": "sector:company",
+        "corridorUplift": "+8% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034214",
@@ -283,12 +310,25 @@
       "lat": 52.3936112,
       "lon": 13.542521,
       "named": true,
-      "employees": 1200,
-      "employeesRange": null,
+      "employees": 27,
+      "employeesRange": "21–109",
       "firms": null,
-      "scope": "group",
-      "source": "Emo Trans · corporate logistics network",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · logistics node · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 1200,
+        "source": "Emo Trans · corporate logistics network"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 21,
+        "p50": 48,
+        "p75": 109,
+        "prior": "sector:logistics",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034217",
@@ -320,12 +360,25 @@
       "lat": 52.3937572,
       "lon": 13.5429353,
       "named": true,
-      "employees": 22133,
-      "employeesRange": null,
+      "employees": 78,
+      "employeesRange": "21–109",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q1155771 · DSV A/S",
-      "confidence": "wikidata"
+      "scope": "predicted_site",
+      "source": "Predicted · logistics node · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 22133,
+        "source": "Wikidata Q1155771 · DSV A/S"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 21,
+        "p50": 48,
+        "p75": 109,
+        "prior": "sector:logistics",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034220",
@@ -449,12 +502,25 @@
       "lat": 52.3932964,
       "lon": 13.5437732,
       "named": true,
-      "employees": 21000,
-      "employeesRange": null,
+      "employees": 44,
+      "employeesRange": "12–63",
       "firms": null,
-      "scope": "group",
-      "source": "SEW-EURODRIVE GmbH & Co KG · corporate",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · engineering / metal · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 21000,
+        "source": "SEW-EURODRIVE GmbH & Co KG · corporate"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 12,
+        "p50": 29,
+        "p75": 63,
+        "prior": "sector:engineering",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034227",
@@ -486,12 +552,25 @@
       "lat": 52.3930687,
       "lon": 13.5431576,
       "named": true,
-      "employees": 22000,
-      "employeesRange": null,
+      "employees": 68,
+      "employeesRange": "21–109",
       "firms": null,
-      "scope": "group",
-      "source": "Fastenal Company · SEC 10-K 2024",
-      "confidence": "registry"
+      "scope": "predicted_site",
+      "source": "Predicted · logistics node · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 22000,
+        "source": "Fastenal Company · SEC 10-K 2024"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 21,
+        "p50": 48,
+        "p75": 109,
+        "prior": "sector:logistics",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034229",
@@ -537,12 +616,25 @@
       "lat": 52.3927033,
       "lon": 13.5421516,
       "named": true,
-      "employees": 1800,
-      "employeesRange": null,
+      "employees": 30,
+      "employeesRange": "6–32",
       "firms": null,
-      "scope": "group",
-      "source": "Carl Stahl Group · corporate",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · generic Gewerbe/KMU · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 1800,
+        "source": "Carl Stahl Group · corporate"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 6,
+        "p50": 14,
+        "p75": 32,
+        "prior": "sector:company",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034232",
@@ -634,12 +726,25 @@
       "lat": 52.3921426,
       "lon": 13.5427284,
       "named": true,
-      "employees": 9000,
-      "employeesRange": null,
+      "employees": 17,
+      "employeesRange": "6–32",
       "firms": null,
-      "scope": "group",
-      "source": "Interseroh+ (ALBA Group)",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · generic Gewerbe/KMU · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 9000,
+        "source": "Interseroh+ (ALBA Group)"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 6,
+        "p50": 14,
+        "p75": 32,
+        "prior": "sector:recycling_company",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034238",
@@ -699,12 +804,25 @@
       "lat": 52.3924493,
       "lon": 13.5443617,
       "named": true,
-      "employees": 358000,
-      "employeesRange": null,
+      "employees": 30,
+      "employeesRange": "6–32",
       "firms": null,
-      "scope": "group",
-      "source": "Securitas AB · global",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · generic Gewerbe/KMU · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 358000,
+        "source": "Securitas AB · global"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 6,
+        "p50": 14,
+        "p75": 32,
+        "prior": "sector:security",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/5832034243",
@@ -736,12 +854,25 @@
       "lat": 52.3884419,
       "lon": 13.5090891,
       "named": true,
-      "employees": 109000,
-      "employeesRange": null,
+      "employees": 17,
+      "employeesRange": "6–32",
       "firms": null,
-      "scope": "group",
-      "source": "SAP SE · annual report 2024",
-      "confidence": "registry"
+      "scope": "predicted_site",
+      "source": "Predicted · generic Gewerbe/KMU · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 109000,
+        "source": "SAP SE · annual report 2024"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 6,
+        "p50": 14,
+        "p75": 32,
+        "prior": "sector:company",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/7258102168",
@@ -1102,12 +1233,16 @@
       "lat": 52.4138602,
       "lon": 13.4783628,
       "named": true,
-      "employees": 4500,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "3–12",
       "firms": null,
-      "scope": "group",
-      "source": "Barmenia Gruppe · annual report band",
-      "confidence": "wikidata"
+      "scope": "outlet_estimate",
+      "source": "Versicherungsagentur/Zweig — Konzernzahl nicht als Standortwert · Barmenia Gruppe · annual report band",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 4500,
+        "source": "Barmenia Gruppe · annual report band"
+      }
     },
     {
       "id": "node/11732161489",
@@ -1139,12 +1274,25 @@
       "lat": 52.3883969,
       "lon": 13.5091271,
       "named": true,
-      "employees": 5800,
-      "employeesRange": null,
+      "employees": 205,
+      "employeesRange": "46–207",
       "firms": null,
-      "scope": "group",
-      "source": "DFS Deutsche Flugsicherung · corporate profile",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · aviation operations facility · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 5800,
+        "source": "DFS Deutsche Flugsicherung · corporate profile"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 46,
+        "p50": 103,
+        "p75": 207,
+        "prior": "flight operation|foc|tower|dfs",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/12011988222",
@@ -1204,12 +1352,16 @@
       "lat": 52.4013775,
       "lon": 13.4525234,
       "named": true,
-      "employees": 4500,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "3–12",
       "firms": null,
-      "scope": "group",
-      "source": "Barmenia Gruppe · annual report band",
-      "confidence": "wikidata"
+      "scope": "outlet_estimate",
+      "source": "Versicherungsagentur/Zweig — Konzernzahl nicht als Standortwert · Barmenia Gruppe · annual report band",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 4500,
+        "source": "Barmenia Gruppe · annual report band"
+      }
     },
     {
       "id": "node/13246661936",
@@ -1218,12 +1370,25 @@
       "lat": 52.3884131,
       "lon": 13.4955581,
       "named": true,
-      "employees": 11000,
-      "employeesRange": null,
+      "employees": 5,
+      "employeesRange": "3–16",
       "firms": null,
-      "scope": "group",
-      "source": "BELFOR Europe / BELFOR Group",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · generic Gewerbe/KMU; split across 2 OSM nodes (same facility) · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 11000,
+        "source": "BELFOR Europe / BELFOR Group"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 3,
+        "p50": 7,
+        "p75": 16,
+        "prior": "sector:engineer",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "node/13246661937",
@@ -1232,12 +1397,25 @@
       "lat": 52.3886898,
       "lon": 13.4954817,
       "named": true,
-      "employees": 11000,
-      "employeesRange": null,
+      "employees": 29,
+      "employeesRange": "6–32",
       "firms": null,
-      "scope": "group",
-      "source": "BELFOR Europe / BELFOR Group",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · generic Gewerbe/KMU · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 11000,
+        "source": "BELFOR Europe / BELFOR Group"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 6,
+        "p50": 14,
+        "p75": 32,
+        "prior": "sector:engineer",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/22984244",
@@ -1269,12 +1447,16 @@
       "lat": 52.3669312,
       "lon": 13.5557262,
       "named": true,
-      "employees": 225000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Inter IKEA Group · annual summary",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (225.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 225000,
+        "source": "Inter IKEA Group · annual summary"
+      }
     },
     {
       "id": "way/23492669",
@@ -1431,12 +1613,25 @@
       "lat": 52.321145,
       "lon": 13.5945879,
       "named": true,
-      "employees": 7000,
-      "employeesRange": null,
+      "employees": 6,
+      "employeesRange": "4–24",
       "firms": null,
-      "scope": "group",
-      "source": "Storopack · corporate",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · commercial unit · +8% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 7000,
+        "source": "Storopack · corporate"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 4,
+        "p50": 11,
+        "p75": 24,
+        "prior": "sector:commercial",
+        "corridorUplift": "+8% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/28273460",
@@ -1505,12 +1700,16 @@
       "lat": 52.3580764,
       "lon": 13.4363963,
       "named": true,
-      "employees": 33000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Bauhaus AG · corporate reporting",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (33.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 33000,
+        "source": "Bauhaus AG · corporate reporting"
+      }
     },
     {
       "id": "way/33542954",
@@ -1519,12 +1718,16 @@
       "lat": 52.3585112,
       "lon": 13.433027,
       "named": true,
-      "employees": 150000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "McDonald's Deutschland / global franchise model",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (150.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 150000,
+        "source": "McDonald's Deutschland / global franchise model"
+      }
     },
     {
       "id": "way/35473015",
@@ -1602,12 +1805,25 @@
       "lat": 52.3856173,
       "lon": 13.492419,
       "named": true,
-      "employees": 37500,
-      "employeesRange": null,
+      "employees": 3,
+      "employeesRange": "2–13",
       "firms": null,
-      "scope": "group",
-      "source": "Dachser Group press release 2025 · worldwide",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · commercial unit; split across 2 OSM nodes (same facility) · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 37500,
+        "source": "Dachser Group press release 2025 · worldwide"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 2,
+        "p50": 6,
+        "p75": 13,
+        "prior": "sector:commercial",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/37077971",
@@ -1704,12 +1920,16 @@
       "lat": 52.4056953,
       "lon": 13.5235393,
       "named": true,
-      "employees": 112000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Aldi Nord + Süd published headcount band · Germany/Europe",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (112.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 112000,
+        "source": "Aldi Nord + Süd published headcount band · Germany/Europe"
+      }
     },
     {
       "id": "way/39321586",
@@ -1718,12 +1938,25 @@
       "lat": 52.3226242,
       "lon": 13.4720694,
       "named": true,
-      "employees": 5100,
-      "employeesRange": null,
+      "employees": 147,
+      "employeesRange": "52–207",
       "firms": null,
-      "scope": "group",
-      "source": "MEWA Textil-Service · corporate",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · AG — larger corporate form · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 5100,
+        "source": "MEWA Textil-Service · corporate"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 52,
+        "p50": 109,
+        "p75": 207,
+        "prior": " ag\\b|aktiengesellschaft",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/39321590",
@@ -1884,12 +2117,16 @@
       "lat": 52.3681151,
       "lon": 13.5623859,
       "named": true,
-      "employees": 112000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Aldi Nord + Süd published headcount band · Germany/Europe",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (112.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 112000,
+        "source": "Aldi Nord + Süd published headcount band · Germany/Europe"
+      }
     },
     {
       "id": "way/52728882",
@@ -1898,12 +2135,16 @@
       "lat": 52.3571758,
       "lon": 13.4324086,
       "named": true,
-      "employees": 150000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Schwarz Gruppe / Kaufland · corporate",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (150.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 150000,
+        "source": "Schwarz Gruppe / Kaufland · corporate"
+      }
     },
     {
       "id": "way/58621245",
@@ -1912,12 +2153,16 @@
       "lat": 52.3225475,
       "lon": 13.6155238,
       "named": true,
-      "employees": 376000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Schwarz Gruppe · Lidl corporate",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (376.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 376000,
+        "source": "Schwarz Gruppe · Lidl corporate"
+      }
     },
     {
       "id": "way/69121321",
@@ -1926,12 +2171,25 @@
       "lat": 52.3623744,
       "lon": 13.499118,
       "named": true,
-      "employees": 5800,
-      "employeesRange": null,
+      "employees": 62,
+      "employeesRange": "46–207",
       "firms": null,
-      "scope": "group",
-      "source": "DFS Deutsche Flugsicherung · corporate profile",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · aviation operations facility · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 5800,
+        "source": "DFS Deutsche Flugsicherung · corporate profile"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 46,
+        "p50": 103,
+        "p75": 207,
+        "prior": "flight operation|foc|tower|dfs",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/77391057",
@@ -1954,12 +2212,16 @@
       "lat": 52.4162634,
       "lon": 13.4965888,
       "named": true,
-      "employees": 402000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q701755 · EDEKA Zentrale",
-      "confidence": "wikidata"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (402.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 402000,
+        "source": "Wikidata Q701755 · EDEKA Zentrale"
+      }
     },
     {
       "id": "way/80261784",
@@ -2028,12 +2290,16 @@
       "lat": 52.4189605,
       "lon": 13.4220974,
       "named": true,
-      "employees": 112000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Aldi Nord + Süd published headcount band · Germany/Europe",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (112.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 112000,
+        "source": "Aldi Nord + Süd published headcount band · Germany/Europe"
+      }
     },
     {
       "id": "way/108654684",
@@ -2180,12 +2446,16 @@
       "lat": 52.4180689,
       "lon": 13.5810839,
       "named": true,
-      "employees": 402000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "EDEKA Group (Netto)",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (402.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 402000,
+        "source": "EDEKA Group (Netto)"
+      }
     },
     {
       "id": "way/152177691",
@@ -2208,12 +2478,16 @@
       "lat": 52.4058127,
       "lon": 13.5326619,
       "named": true,
-      "employees": 402000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "EDEKA Group (Netto)",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (402.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 402000,
+        "source": "EDEKA Group (Netto)"
+      }
     },
     {
       "id": "way/152892267",
@@ -2222,12 +2496,16 @@
       "lat": 52.405233,
       "lon": 13.5281452,
       "named": true,
-      "employees": 390000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "REWE Group (Penny)",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (390.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 390000,
+        "source": "REWE Group (Penny)"
+      }
     },
     {
       "id": "way/152892469",
@@ -2236,12 +2514,16 @@
       "lat": 52.4022744,
       "lon": 13.5246229,
       "named": true,
-      "employees": 402000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q701755 · EDEKA Zentrale",
-      "confidence": "wikidata"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (402.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 402000,
+        "source": "Wikidata Q701755 · EDEKA Zentrale"
+      }
     },
     {
       "id": "way/154558319",
@@ -2306,12 +2588,25 @@
       "lat": 52.3659103,
       "lon": 13.5278368,
       "named": true,
-      "employees": 72083,
-      "employeesRange": null,
+      "employees": 9,
+      "employeesRange": "7–49",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q270223 · E.ON SE",
-      "confidence": "wikidata"
+      "scope": "predicted_site",
+      "source": "Predicted · industrial / Gewerbefläche; split across 2 OSM nodes (same facility) · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 72083,
+        "source": "Wikidata Q270223 · E.ON SE"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 7,
+        "p50": 21,
+        "p75": 49,
+        "prior": "sector:industrial",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/157807233",
@@ -2495,12 +2790,25 @@
       "lat": 52.3931534,
       "lon": 13.5426691,
       "named": true,
-      "employees": 1800,
-      "employeesRange": null,
+      "employees": 16,
+      "employeesRange": "5–25",
       "firms": null,
-      "scope": "group",
-      "source": "SEGRO plc · employees (UK-listed)",
-      "confidence": "registry"
+      "scope": "predicted_site",
+      "source": "Predicted · commercial unit · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 1800,
+        "source": "SEGRO plc · employees (UK-listed)"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 5,
+        "p50": 12,
+        "p75": 25,
+        "prior": "sector:commercial",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/198652542",
@@ -2509,12 +2817,16 @@
       "lat": 52.3863044,
       "lon": 13.49667,
       "named": true,
-      "employees": 37500,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Dachser Group press release 2025 · worldwide",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (37.500 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 37500,
+        "source": "Dachser Group press release 2025 · worldwide"
+      }
     },
     {
       "id": "way/215393211",
@@ -2574,12 +2886,16 @@
       "lat": 52.358928,
       "lon": 13.4336122,
       "named": true,
-      "employees": 15000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Fressnapf Holding SE",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (15.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 15000,
+        "source": "Fressnapf Holding SE"
+      }
     },
     {
       "id": "way/224215289",
@@ -2717,12 +3033,16 @@
       "lat": 52.3958143,
       "lon": 13.5173885,
       "named": true,
-      "employees": 166000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "Mercedes-Benz Group AG",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (166.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 166000,
+        "source": "Mercedes-Benz Group AG"
+      }
     },
     {
       "id": "way/258653646",
@@ -2745,12 +3065,16 @@
       "lat": 52.3995257,
       "lon": 13.5407617,
       "named": true,
-      "employees": 402000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "EDEKA Group (Netto)",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (402.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 402000,
+        "source": "EDEKA Group (Netto)"
+      }
     },
     {
       "id": "way/273732561",
@@ -2782,12 +3106,25 @@
       "lat": 52.3656828,
       "lon": 13.527143,
       "named": true,
-      "employees": 72083,
-      "employeesRange": null,
+      "employees": 42,
+      "employeesRange": "7–49",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q270223 · E.ON SE",
-      "confidence": "wikidata"
+      "scope": "predicted_site",
+      "source": "Predicted · industrial / Gewerbefläche; split across 2 OSM nodes (same facility) · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 72083,
+        "source": "Wikidata Q270223 · E.ON SE"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 7,
+        "p50": 21,
+        "p75": 49,
+        "prior": "sector:industrial",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/282557283",
@@ -2847,12 +3184,25 @@
       "lat": 52.384468,
       "lon": 13.4941758,
       "named": true,
-      "employees": 37500,
-      "employeesRange": null,
+      "employees": 10,
+      "employeesRange": "2–13",
       "firms": null,
-      "scope": "group",
-      "source": "Dachser Group press release 2025 · worldwide",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · commercial unit; split across 2 OSM nodes (same facility) · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 37500,
+        "source": "Dachser Group press release 2025 · worldwide"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 2,
+        "p50": 6,
+        "p75": 13,
+        "prior": "sector:commercial",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/295211280",
@@ -2884,12 +3234,16 @@
       "lat": 52.3832594,
       "lon": 13.4915574,
       "named": true,
-      "employees": 1800,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "SEGRO plc · employees (UK-listed)",
-      "confidence": "registry"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (1.800 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 1800,
+        "source": "SEGRO plc · employees (UK-listed)"
+      }
     },
     {
       "id": "way/298739073",
@@ -2967,12 +3321,25 @@
       "lat": 52.3855071,
       "lon": 13.4939849,
       "named": true,
-      "employees": 37500,
-      "employeesRange": null,
+      "employees": 121,
+      "employeesRange": "69–253",
       "firms": null,
-      "scope": "group",
-      "source": "Dachser Group press release 2025 · worldwide",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · postal / logistics hub · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 37500,
+        "source": "Dachser Group press release 2025 · worldwide"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 69,
+        "p50": 138,
+        "p75": 253,
+        "prior": "briefzentrum|logistikzentrum|logistikzentrum",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/335787467",
@@ -3004,12 +3371,25 @@
       "lat": 52.3960228,
       "lon": 13.5356568,
       "named": true,
-      "employees": 100000,
-      "employeesRange": null,
+      "employees": 26,
+      "employeesRange": "9–40",
       "firms": null,
-      "scope": "group",
-      "source": "Lufthansa Group · annual report band",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · training provider · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 100000,
+        "source": "Lufthansa Group · annual report band"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 9,
+        "p50": 21,
+        "p75": 40,
+        "prior": "tfc|kosmoslab|training",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/339830950",
@@ -3216,12 +3596,16 @@
       "lat": 52.4128468,
       "lon": 13.493213,
       "named": true,
-      "employees": 390000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "REWE Group · annual report",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (390.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 390000,
+        "source": "REWE Group · annual report"
+      }
     },
     {
       "id": "way/589071889",
@@ -3230,12 +3614,16 @@
       "lat": 52.4190527,
       "lon": 13.5374614,
       "named": true,
-      "employees": 402000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "EDEKA Group (Netto)",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (402.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 402000,
+        "source": "EDEKA Group (Netto)"
+      }
     },
     {
       "id": "way/599440344",
@@ -3281,12 +3669,25 @@
       "lat": 52.3886306,
       "lon": 13.4962396,
       "named": true,
-      "employees": 11000,
-      "employeesRange": null,
+      "employees": 8,
+      "employeesRange": "2–13",
       "firms": null,
-      "scope": "group",
-      "source": "BELFOR Europe / BELFOR Group",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · commercial unit; split across 2 OSM nodes (same facility) · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 11000,
+        "source": "BELFOR Europe / BELFOR Group"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 2,
+        "p50": 6,
+        "p75": 13,
+        "prior": "sector:commercial",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/677415519",
@@ -3295,12 +3696,25 @@
       "lat": 52.3396964,
       "lon": 13.5582114,
       "named": true,
-      "employees": 1500000,
-      "employeesRange": null,
+      "employees": 174,
+      "employeesRange": "69–253",
       "firms": null,
-      "scope": "group",
-      "source": "Amazon.com Inc · global; Berlin-Brandenburg FC site headcount not disclosed",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · postal / logistics hub · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 1500000,
+        "source": "Amazon.com Inc · global; Berlin-Brandenburg FC site headcount not disclosed"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 69,
+        "p50": 138,
+        "p75": 253,
+        "prior": "briefzentrum|logistikzentrum|logistikzentrum",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/686911954",
@@ -3550,12 +3964,16 @@
       "lat": 52.3947502,
       "lon": 13.4407656,
       "named": true,
-      "employees": 390000,
-      "employeesRange": null,
+      "employees": null,
+      "employeesRange": "6–18",
       "firms": null,
-      "scope": "group",
-      "source": "REWE Group · annual report",
-      "confidence": "press"
+      "scope": "outlet_estimate",
+      "source": "Einzelhandelsfiliale — Konzernzahl (390.000 gesamt) nicht als Standortwert",
+      "confidence": "estimate",
+      "groupCorporate": {
+        "employees": 390000,
+        "source": "REWE Group · annual report"
+      }
     },
     {
       "id": "way/807385134",
@@ -3610,12 +4028,25 @@
       "lat": 52.3912301,
       "lon": 13.5357544,
       "named": true,
-      "employees": 480000,
-      "employeesRange": null,
+      "employees": 69,
+      "employeesRange": "32–150",
       "firms": null,
-      "scope": "group",
-      "source": "Wikidata Q489815 · DHL Group (2024)",
-      "confidence": "wikidata"
+      "scope": "predicted_site",
+      "source": "Predicted · DHL depot / service point — not DHL Group global · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 480000,
+        "source": "Wikidata Q489815 · DHL Group (2024)"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 32,
+        "p50": 71,
+        "p75": 150,
+        "prior": "\\bdhl\\b",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/906399042",
@@ -3721,12 +4152,25 @@
       "lat": 52.320031,
       "lon": 13.5940198,
       "named": true,
-      "employees": 35000,
-      "employeesRange": null,
+      "employees": 5,
+      "employeesRange": "5–24",
       "firms": null,
-      "scope": "group",
-      "source": "MAN Truck & Bus SE",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · automotive service / dealer · +8% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 35000,
+        "source": "MAN Truck & Bus SE"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 5,
+        "p50": 12,
+        "p75": 24,
+        "prior": "kfz|werkstatt|autohaus|automobile|motor|truck|used center",
+        "corridorUplift": "+8% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/991179992",
@@ -3938,12 +4382,25 @@
       "lat": 52.3707052,
       "lon": 13.5560352,
       "named": true,
-      "employees": 20000,
-      "employeesRange": null,
+      "employees": 58,
+      "employeesRange": "17–81",
       "firms": null,
-      "scope": "group",
-      "source": "Coolblue · corporate (NL)",
-      "confidence": "press"
+      "scope": "predicted_site",
+      "source": "Predicted · warehouse operation · +15% airport corridor",
+      "confidence": "predicted",
+      "groupCorporate": {
+        "employees": 20000,
+        "source": "Coolblue · corporate (NL)"
+      },
+      "areaHa": null,
+      "prediction": {
+        "p25": 17,
+        "p50": 40,
+        "p75": 81,
+        "prior": "lager|warehouse|depot",
+        "corridorUplift": "+15% airport corridor",
+        "method": "Sector prior (DE Mittelstand / organizational size distribution) + keyword rules + optional area density + airport-corridor labour-market uplift; point estimate = seeded P25–P75."
+      }
     },
     {
       "id": "way/23964649",

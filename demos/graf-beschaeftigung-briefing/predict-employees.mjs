@@ -52,6 +52,8 @@ const NAME_RULES = [
   { match: /tankstelle|hem /i, p25: 4, p50: 7, p75: 11, note: "fuel retail" },
   { match: /hundeschule|reitverein|verein|dragonboat/i, p25: 1, p50: 2, p75: 5, note: "civic / leisure — mostly micro" },
   { match: /sushi|caf[eé]|hofladen|bistro/i, p25: 4, p50: 8, p75: 14, note: "food service outlet" },
+  { match: /amazon|logistikzentrum airport/i, p25: 80, p50: 180, p75: 420, note: "Amazon / large logistics FC — site band, not global Amazon Inc." },
+  { match: /\bdhl\b/i, p25: 28, p50: 62, p75: 130, note: "DHL depot / service point — not DHL Group global" },
   { match: /lager|warehouse|depot/i, p25: 15, p50: 35, p75: 70, note: "warehouse operation" },
   { match: /hoco|online|internet service|dns:net/i, p25: 20, p50: 45, p75: 90, note: "e-commerce / ISP regional" },
   { match: /gewerbepark/i, p25: 80, p50: 180, p75: 350, note: "Gewerbepark aggregate (multiple tenants)" },

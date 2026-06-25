@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-06-25",
-  "note": "Group/corporate figures unless scope=site|entity. Never sum group figures across rows.",
+  "note": "scope=group in brand DB is corporate reference only — enrich-employees.mjs never copies group employees onto a site row.",
   "brands": [
     {
       "match": "bb business hub|business hub schönefeld|business hub schoenefeld",

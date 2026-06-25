@@ -21,6 +21,7 @@ function confBadge(c: string) {
   if (c === "predicted") return `${base} bg-amber-400/15 text-amber-200`;
   if (c === "registry" || c === "member_cited") return `${base} bg-emerald-400/15 text-emerald-200`;
   if (c === "wikidata" || c === "press") return `${base} bg-sky-400/15 text-sky-200`;
+  if (c === "estimate") return `${base} bg-violet-400/15 text-violet-200`;
   return `${base} bg-white/10 text-white/50`;
 }
 
@@ -148,17 +149,18 @@ export function GrafBriefingContent() {
             {corridor?.summary.totalElements ?? 643} OSM gewerbe features · {named.length} named employers on map
           </div>
           <div className="flex flex-wrap gap-3 text-[10px] text-white/50">
+            <span>Heatmap + sized dots = workforce weight</span>
             <span>
-              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-slate-600" />
-              all OSM
+              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-cyan-500" />
+              low
             </span>
             <span>
               <span className="mr-1 inline-block h-2 w-2 rounded-full bg-amber-400" />
-              predicted †
+              mid
             </span>
             <span>
-              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-emerald-400" />
-              matched count
+              <span className="mr-1 inline-block h-2 w-2 rounded-full bg-red-500" />
+              high
             </span>
             <span>
               <span className="mr-1 inline-block h-2 w-2 rounded-full bg-amber-500" />
@@ -320,21 +322,30 @@ export function GrafBriefingContent() {
                   <td className="px-3 py-2 text-white/90">{r.name}</td>
                   <td className="px-3 py-2 text-white/55">{r.landuse}</td>
                   <td className="px-3 py-2 font-medium text-emerald-200/90">
-                    {r.employees != null ? `~${r.employees.toLocaleString()}${r.confidence === "predicted" ? " †" : ""}` : "—"}
+                    {r.employees != null
+                      ? `~${r.employees.toLocaleString()}${r.confidence === "predicted" ? " †" : ""}`
+                      : r.employeesRange ?? (r.groupCorporate ? "—" : "—")}
                   </td>
                   <td className="px-3 py-2 text-white/55">{r.employeesRange ?? "—"}</td>
                   <td className="px-3 py-2">
                     <span className={confBadge(r.confidence)}>{r.confidence}</span>
                   </td>
-                  <td className="max-w-[200px] truncate px-3 py-2 text-white/45" title={r.source ?? r.prediction?.prior ?? ""}>
-                    {r.confidence === "predicted" ? r.prediction?.prior ?? r.source : r.source ?? "—"}
+                  <td className="max-w-[220px] px-3 py-2 text-white/45" title={r.source ?? ""}>
+                    <div className="truncate text-[11px]">{r.source ?? "—"}</div>
+                    {r.groupCorporate ? (
+                      <div className="mt-0.5 truncate text-[10px] text-white/30">
+                        Konzern ref. ~{r.groupCorporate.employees.toLocaleString()} — not site
+                      </div>
+                    ) : null}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p className="mt-2 text-[10px] text-amber-200/80">† predicted · * corporate group figures not shown in table</p>
+        <p className="mt-2 text-[10px] text-amber-200/80">
+          † predicted · Filialen use outlet bands (6–35), not Konzern totals · Konzern ref. shown separately
+        </p>
       </section>
 
       <section className="panel border border-sky-500/20 bg-sky-950/20 p-4" data-section="pilot">
