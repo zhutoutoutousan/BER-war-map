@@ -1,0 +1,10 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{Zusammenfassung}{2}{Doc-Start}%
+\contentsline {section}{\numberline {1}Ausgangslage und Fragestellung}{3}{section.1}%
+\contentsline {section}{\numberline {2}Einordnung: Beschäftigungstiefe statt Baustellenlogik}{3}{section.2}%
+\contentsline {section}{\numberline {3}Daten und Evidenz auf einer Karte}{3}{section.3}%
+\contentsline {section}{\numberline {4}Korridor-Beschäftigungsmodell}{4}{section.4}%
+\contentsline {section}{\numberline {5}Antwort für Alpine und den BER+-Vorstand}{4}{section.5}%
+\contentsline {section}{\numberline {6}Integration im \textbf {BER+ Board Room}{} und Pilotvorschlag}{5}{section.6}%
+\contentsline {section}{\numberline {7}Quellen und Grenzen}{5}{section.7}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

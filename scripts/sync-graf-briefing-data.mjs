@@ -8,7 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const src = path.join(root, "demos/graf-beschaeftigung-briefing/data");
 const dest = path.join(root, "public/data/graf");
 
-const files = ["employee-crossref.json", "employee-predictions.json", "sources.json"];
+const files = ["employee-crossref.json", "employee-predictions.json", "sources.json", "corridor-snapshot.json"];
 
 fs.mkdirSync(dest, { recursive: true });
 for (const f of files) {

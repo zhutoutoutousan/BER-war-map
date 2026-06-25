@@ -28,6 +28,7 @@
     "submission:pdf": "npm run submission:figures && cd docs/presentation/final-submission && pdflatex -interaction=nonstopmode idi-s26-final-submission.tex && pdflatex -interaction=nonstopmode idi-s26-final-submission.tex",
     "graf:briefing:data": "node scripts/sync-graf-briefing-data.mjs && node demos/graf-beschaeftigung-briefing/enrich-employees.mjs && node demos/graf-beschaeftigung-briefing/predict-employees.mjs && node scripts/sync-graf-briefing-data.mjs",
     "graf:report": "node demos/graf-beschaeftigung-briefing/build-report.mjs",
+    "graf:report:de": "node demos/graf-beschaeftigung-briefing/build-report-de.mjs",
     "video:all": "node scripts/presentation-video/generate-all.mjs"
   },
   "dependencies": {
